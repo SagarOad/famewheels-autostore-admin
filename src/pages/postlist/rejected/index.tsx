@@ -1,328 +1,95 @@
-// import * as React from "react";
-
-// // import SideBar from "@/components/SideBar";
-// import { useQuery } from "react-query";
-// import axios from "axios";
-// import Table from "@mui/material/Table";
-// import TableBody from "@mui/material/TableBody";
-// import TableCell from "@mui/material/TableCell";
-// import TableContainer from "@mui/material/TableContainer";
-// import TableHead from "@mui/material/TableHead";
-// import TableRow from "@mui/material/TableRow";
-// import Paper from "@mui/material/Paper";
-// import VisibilityIcon from '@mui/icons-material/Visibility';
-
-// import { DataGrid, GridColDef, GridValueGetterParams } from "@mui/x-data-grid";
-// import { TablePagination } from "@mui/material";
-// import PrivateRoute from "@/route/PrivateRoute";
-// import { ImpulseSpinner } from "react-spinners-kit";
-// import PostModal from "@/components/modal/modal";
-
-// // const columns = [
-// //   { field: "id", headerName: "ID" },
-// //   { field: "make", headerName: "MAke Name" },
-// //   { field: "cat", headerName: "Category" },
-// //   { field: "city", headerName: "City" },
-// //   { field: "register", headerName: "Register" },
-// //   { field: "price", headerName: "Price" },
-// //   { field: "name", headerName: "Full Name" },
-// //   { field: "phone", headerName: "Phone" },
-// //   { field: "description", headerName: "Description" },
-// // ];
-
-// let posts: any;
-
-// const url = `${process.env.API_URL}`;
-
-// function createData(
-//   id: number,
-//   title: string,
-//   modelName: string,
-//   categoryName: string,
-//   cityName: string,
-//   registeredIn: string,
-//   price: number,
-//   fullName: string,
-//   phone: number,
-//   description: string
-// ) {
-//   return {
-//     id,
-//     title,
-//     modelName,
-//     categoryName,
-//     cityName,
-//     registeredIn,
-//     price,
-//     fullName,
-//     phone,
-//     description,
-//   };
-// }
-
-// const index = () => {
-//   const token = localStorage.getItem("authToken")
-
-//   const [page, setPage] = React.useState<Number>(0);
-//   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-//   const [showModal, setShowModal] = React.useState(false);
-
-//   const handleChangePage = (event: any, newPage: number) => {
-//     setPage(+page + 1);
-//   };
-//   const handleChangeRowsPerPage = (event: any) => {
-//     console.log(event.target.value);
-//     setRowsPerPage(+event.target.value);
-//     // setPage(0);
-//   };
-
-//   const fetchData = async () => {
-//     const res = await axios.get(`${url}/getPostsByStatus`, {
-//       params: {
-//         status: 3,
-//         pageSize: rowsPerPage,
-//         pageNo: page,
-//       },
-//       headers: {
-//         Authorization: `Bearer ${token}`,
-//       },
-//     });
-//     return res;
-//   };
-
-//   const { data, error, isLoading } = useQuery(
-//     `myPosts_${rowsPerPage}_${page}`,
-//     fetchData
-//   );
-
-//   if (error) {
-//     console.log(error);
-//   }
-
-//   posts = data?.data;
-//   console.log(posts);
-
-//   const rows =
-//     posts &&
-//     posts.map((post: any) =>
-//       createData(
-//         post.postId,
-//         post.title,
-//         post.modelName,
-//         post.categoryName,
-//         post.cityName,
-//         post.registeredIn,
-//         post.price,
-//         post.fullName,
-//         post.phone,
-//         post.description
-//       )
-//     );
-//   // createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-//   // createData("Eclair", 262, 16.0, 24, 6.0),
-//   // createData("Cupcake", 305, 3.7, 67, 4.3),
-//   // createData("Gingerbread", 356, 16.0, 49, 3.9),
-
-//   // const rows =
-//   //   posts &&
-//   //   posts.map((post: any) => {
-//   //     console.log(post);
-//   //     return {
-//   //       id: post.postId,
-//   //       make: post.make.makeName,
-//   //       cat: post.categoryName,
-//   //       city: post.cityName,
-//   //       register: post.registeredIn,
-//   //       price: post.price,
-//   //       name: post.user.name,
-//   //       phone: post.user.phone,
-//   //       description: post.description,
-//   //     };
-//   //   });
-
-//   // console.log(rows);
-//   return (
-//     <PrivateRoute requiredRoles={["ROLE_BIDDER", "Admin"]}>
-
-// <section className="flex justify-center items-center w-[80vw] max-lg:w-[100vw]">
-
-// {isLoading ? <div className="flex justify-center items-center h-screen w-full">
-// <ImpulseSpinner color="#ED2024" size={120}/>
-//             </div>  :
-// <section className="flex justify-center items-center">
-
-// <div className="w-full mt-10 xl:mt-8 container">
-// <h1 className="font-bold px-4 text-4xl mt-2 mb-3">Rejected Posts</h1>
-//         <h4 className="px-4">
-//           Dashboard / <span className="text-[#ED2024]">Rejected Posts</span>
-//         </h4>
-
-//     <main className="flex">
-//       {/* <SideBar /> */}
-
-//       <div className="w-full p-4">
-//         {/* {rows && rows?.length > 0 && (
-//           <DataGrid
-//             rows={rows}
-//             columns={columns}
-//             initialState={{
-//               pagination: {
-//                 paginationModel: { page: 0, pageSize: 25 },
-//               },
-//             }}
-//             pageSizeOptions={[5, 10]}
-//             checkboxSelection={false}
-//           />
-//         )} */}
-// <PostModal open={showModal} setOpen={setShowModal}/>
-
-//         {/* // custom pagination table  */}
-
-//         <TableContainer component={Paper}>
-//           <Table sx={{ minWidth: 650 }} aria-label="simple table">
-//             <TableHead>
-//               <TableRow>
-//                 <TableCell>ID</TableCell>
-//                 <TableCell align="left">Title</TableCell>
-//                 <TableCell align="left">Model Name</TableCell>
-//                 <TableCell align="left">Category</TableCell>
-//                 <TableCell align="left">City</TableCell>
-//                 <TableCell align="left">Price</TableCell>
-//                 <TableCell align="left">Phone</TableCell>
-//                 <TableCell align="left">Action</TableCell>
-//               </TableRow>
-//             </TableHead>
-//             <TableBody>
-//               {rows && rows.length > 0 &&
-//                 rows.map((row: any) => (
-//                   <TableRow
-//                     key={row.name}
-//                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-//                   >
-//                     <TableCell component="th" scope="row">
-//                       # {row.id}
-//                     </TableCell>
-//                     <TableCell align="left">{row.title}</TableCell>
-//                     <TableCell align="left">{row.modelName}</TableCell>
-//                     <TableCell align="left">{row.categoryName}</TableCell>
-//                     <TableCell align="left">{row.cityName}</TableCell>
-//                     <TableCell align="left">{row.price}</TableCell>
-//                     <TableCell align="left">{row.phone}</TableCell>
-//                     <button className="py-1 px-2 rounded-md mt-3 bg-blue-500" onClick={()=>setShowModal(true)}>
-
-// <VisibilityIcon sx={{fontSize:"1.5rem",color:"white"}}/>
-
-// </button>
-//                   </TableRow>
-//                 ))}
-//             </TableBody>
-//           </Table>
-//         </TableContainer>
-//         <TablePagination
-//           rowsPerPageOptions={[5, 10, 100]}
-//           component="div"
-//           count={rows && rows.length}
-//           rowsPerPage={rowsPerPage}
-//           page={+page}
-//           onPageChange={handleChangePage}
-//           onRowsPerPageChange={handleChangeRowsPerPage}
-//         />
-//       </div>
-//     </main>
-
-//     </div>
-//     </section>
-
-//     }
-// </section>
-// </PrivateRoute>
-
-//   );
-// };
-
-// export default index;
-
 import * as React from "react";
 import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
 import { useQuery } from "react-query";
 import PrivateRoute from "@/route/PrivateRoute";
 import { ImpulseSpinner } from "react-spinners-kit";
 import axios from "axios";
 import PostModal from "@/components/modal/modal";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TablePagination,
+  TableRow,
+  tableCellClasses,
+} from "@mui/material";
+import { styled } from "@mui/material/styles";
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
-
-let posts: any;
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
 
 const columns = [
-  { id: "id", label: "Id", minWidth: 30 },
   { id: "title", label: "Title", minWidth: 100 },
   {
     id: "category",
     label: "Category",
     minWidth: 170,
-    align: "center",
   },
 
   {
     id: "city",
     label: "City",
     minWidth: 170,
-    align: "center",
   },
   {
     id: "registerdIn",
     label: "Registerd In",
     minWidth: 170,
-    align: "center",
   },
   {
     id: "price",
     label: "Price",
     minWidth: 170,
-    align: "center",
   },
 
   {
     id: "fullName",
     label: "Full Name",
     minWidth: 170,
-    align: "center",
   },
 
   {
     id: "phone",
     label: "Phone",
     minWidth: 170,
-    align: "center",
   },
 
   {
     id: "model",
     label: "Model",
     minWidth: 170,
-    align: "center",
   },
 
-  // {
-  //   id: 'desc',
-  //   label: 'Description',
-  //   minWidth: 170,
-  //   align: 'center',
-  // },
+  {
+    id: "act",
+    label: "Action",
+  },
 ];
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
 
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 const index = () => {
+  const [total, setTotal] = React.useState(0);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(20);
+  const [rowsPerPage, setRowsPerPage] = React.useState(30);
   const [showModal, setShowModal] = React.useState(false);
   const [postId, setPostId] = React.useState(null);
 
@@ -338,46 +105,28 @@ const index = () => {
   const fetchData = async () => {
     const token = localStorage.getItem("authToken");
 
-    const res = await axios.get(`${BASE_URL}/getPostsByStatus`, {
+    const response = await axios.get(`${BASE_URL}/statuswisepostlist`, {
       params: {
-        status: 3,
-        pageSize: rowsPerPage,
-        pageNo: page,
+        status_id: 3,
+        page: page + 1,
       },
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return res;
+    setTotal(response?.data?.data?.total);
+    return response?.data?.data?.data;
   };
 
-  const { data, error, isLoading } = useQuery(
-    `myPosts_${rowsPerPage}_${page}`,
-    fetchData
-  );
-
-  posts = data?.data;
+  const {
+    data: posts,
+    error,
+    isLoading,
+  } = useQuery(`rejectedPosts_${rowsPerPage}_${page}`, fetchData);
 
   if (error) {
     console.log(error);
   }
-
-  const rows =
-    posts &&
-    posts.map((post: any) => ({
-      id: post.postId,
-      title: post.title,
-      model: post.modelName,
-      category: post.categoryName,
-      city: post.cityName,
-      registeredIn: post.registeredIn,
-      price: post.price,
-      fullName: post.user.name,
-      phone: post.user.phone,
-      desc: post.description,
-    }));
-
-  console.log(posts);
 
   return (
     <PrivateRoute requiredRoles={["ROLE_BIDDER", "Admin"]}>
@@ -406,101 +155,71 @@ const index = () => {
                 <TableContainer sx={{ maxHeight: "100%" }}>
                   <Table stickyHeader aria-label="sticky table">
                     <TableHead>
-                      {/* <TableRow>
-              <TableCell align="center" colSpan={2}>
-                Country
-              </TableCell>
-              <TableCell align="center" colSpan={3}>
-                Details
-              </TableCell>
-            </TableRow> */}
                       <TableRow>
                         {columns.map((column) => (
-                          <TableCell
+                          <StyledTableCell
                             key={column.id}
                             align={"center"}
                             style={{ minWidth: column.minWidth }}
                           >
                             {column.label}
-                          </TableCell>
+                          </StyledTableCell>
                         ))}
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {rows &&
-                        rows
-                          .slice(
-                            page * rowsPerPage,
-                            page * rowsPerPage + rowsPerPage
-                          )
-                          .map((row: any) => {
-                            console.log("row ==== ", row);
-                            return (
-                              <TableRow tabIndex={-1} key={row.id}>
-                                <TableCell align="center">{row.id}</TableCell>
+                      {posts &&
+                        posts.map((row: any) => {
+                          return (
+                            <StyledTableRow tabIndex={-1} key={row?.postId}>
+                              <TableCell>{row?.title}</TableCell>
 
-                                <TableCell align="center">
-                                  {row.title}
-                                </TableCell>
+                              <TableCell>{row?.category}</TableCell>
 
-                                <TableCell align="center">
-                                  {row.category}
-                                </TableCell>
+                              <TableCell>{row?.city}</TableCell>
 
-                                <TableCell align="center">{row.city}</TableCell>
+                              <TableCell>{row?.registeredIn}</TableCell>
 
-                                <TableCell align="center">
-                                  {row.registeredIn}
-                                </TableCell>
+                              <TableCell>{row?.price}</TableCell>
 
-                                <TableCell align="center">
-                                  {row.price}
-                                </TableCell>
+                              <TableCell>{row?.fullName}</TableCell>
 
-                                <TableCell align="center">
-                                  {row.fullName}
-                                </TableCell>
+                              <TableCell>{row?.phone}</TableCell>
 
-                                <TableCell align="center">
-                                  {row.phone}
-                                </TableCell>
+                              <TableCell>{row?.model}</TableCell>
 
-                                <TableCell align="center">
-                                  {row.model}
-                                </TableCell>
-
-                                {/* 
+                              {/* 
     
                         <TableCell align='center'>
-                          {row.desc}
+                          {row?.desc}
                         </TableCell> */}
 
-                                <TableCell align="left">
-                                  <button
-                                    className="py-1 px-2 rounded-md my-1 bg-blue-500"
-                                    onClick={() => {
-                                      setPostId(row.id);
-                                      setShowModal(true);
+                              <TableCell align="left">
+                                <button
+                                  // className="py-1 px-2 rounded-md my-1 bg-blue-500"
+                                  onClick={() => {
+                                    setPostId(row?.postId);
+                                    setShowModal(true);
+                                  }}
+                                >
+                                  <VisibilityIcon
+                                    sx={{
+                                      fontSize: "1.5rem",
+                                      color: "darkblue",
                                     }}
-                                  >
-                                    <VisibilityIcon
-                                      sx={{
-                                        fontSize: "1.5rem",
-                                        color: "white",
-                                      }}
-                                    />
-                                  </button>
-                                </TableCell>
-                              </TableRow>
-                            );
-                          })}
+                                  />
+                                </button>
+                              </TableCell>
+                            </StyledTableRow>
+                          );
+                        })}
                     </TableBody>
                   </Table>
                 </TableContainer>
                 <TablePagination
-                  rowsPerPageOptions={[20, 50, 100]}
+                  rowsPerPageOptions={[30]}
                   component="div"
-                  count={rows.length}
+                  count={total}
                   rowsPerPage={rowsPerPage}
                   page={page}
                   onPageChange={handleChangePage}
