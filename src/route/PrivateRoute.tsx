@@ -19,7 +19,7 @@ const PrivateRoute: React.FC<{
       requiredRoles &&
       !requiredRoles.some((role) => authState.user?.role_name === role)
     ) {
-      router.push("/");
+      // router.push("/");
     }
   }, [authState.token, authState.user, requiredRoles, router]);
 
