@@ -20,10 +20,32 @@ import {
   TablePagination,
   TableRow,
   Typography,
+  tableCellClasses,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { getInitials } from "@/utils/get-initials";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
+
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  "&:nth-of-type(odd)": {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  "&:last-child td, &:last-child th": {
+    border: 0,
+  },
+}));
 
 const columns = [
   { id: "name", label: "Name", minWidth: 100 },
@@ -125,13 +147,13 @@ const index = () => {
               <TableHead>
                 <TableRow>
                   {columns?.map((column) => (
-                    <TableCell
+                    <StyledTableCell
                       key={column.id}
 
                       // style={{ minWidth: column.minWidth }}
                     >
                       {column.label}
-                    </TableCell>
+                    </StyledTableCell>
                   ))}
                 </TableRow>
               </TableHead>
@@ -139,7 +161,7 @@ const index = () => {
                 {users &&
                   users?.map((user: any) => {
                     return (
-                      <TableRow hover key={user?.id}>
+                      <StyledTableRow hover key={user?.id}>
                         <TableCell>
                           <Stack
                             alignItems="center"
@@ -176,7 +198,7 @@ const index = () => {
                             />
                           </button>
                         </TableCell>
-                      </TableRow>
+                      </StyledTableRow>
                     );
                   })}
               </TableBody>
