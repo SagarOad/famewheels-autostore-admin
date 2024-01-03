@@ -20,10 +20,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import { Logout } from "@mui/icons-material";
 import { useRouter } from "next/router";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import AvTimerIcon from "@mui/icons-material/AvTimer";
+
 const Sidebar = () => {
   const [showRefund, setShowRefund] = useState(false);
   const [showPost, setShowPost] = useState(false);
   const [showUsers, setShowUsers] = useState(false);
+  const [showPayments, setShowPayments] = useState(false);
 
   const [open, setOpen] = useState(false);
 
@@ -208,16 +212,64 @@ const Sidebar = () => {
                 <span className="ms-2  d-sm-inline">Add Bidding Post</span>
               </Link>
             </li>
-            <li>
-              <Link
-                href="/paymentlist"
-                data-bs-toggle="collapse"
-                className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+
+            <button
+              data-bs-toggle="collapse"
+              className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+            >
+              <PaidIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+              <span
+                className="ms-2  d-sm-inline"
+                onClick={() => setShowPayments(!showPayments)}
               >
-                <PaidIcon sx={{ color: "#ED2024", fontSize: 20 }} />
-                <span className="ms-2  d-sm-inline">Payment List</span>
-              </Link>
-            </li>
+                Payments
+                {showPayments ? (
+                  <ArrowDropUpIcon sx={{ color: "#ED2024" }} />
+                ) : (
+                  <ArrowDropDownIcon sx={{ color: "#ED2024" }} />
+                )}
+              </span>
+            </button>
+            {showPayments && (
+              <div className="ml-5">
+                <li>
+                  <Link
+                    href="/payments/activepayments"
+                    data-bs-toggle="collapse"
+                    className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+                  >
+                    <AvTimerIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+                    <span className="ms-2  d-sm-inline">Active Payments</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/payments/walletpayments"
+                    data-bs-toggle="collapse"
+                    className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+                  >
+                    <AccountBalanceWalletIcon
+                      sx={{ color: "#ED2024", fontSize: 20 }}
+                    />
+
+                    <span className="ms-2  d-sm-inline">Wallet Payments</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/payments/usedpayments"
+                    data-bs-toggle="collapse"
+                    className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+                  >
+                    <ChecklistIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+                    <span className="ms-2  d-sm-inline">Used Payments</span>
+                  </Link>
+                </li>
+              </div>
+            )}
             {/* <hr /> */}
             <button
               data-bs-toggle="collapse"
