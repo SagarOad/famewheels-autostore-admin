@@ -22,6 +22,7 @@ import { Logout } from "@mui/icons-material";
 import { useRouter } from "next/router";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import AvTimerIcon from "@mui/icons-material/AvTimer";
+import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 
 const Sidebar = () => {
   const [showRefund, setShowRefund] = useState(false);
@@ -210,6 +211,17 @@ const Sidebar = () => {
                 <PostAddIcon sx={{ color: "#ED2024", fontSize: 20 }} />
 
                 <span className="ms-2  d-sm-inline">Add Bidding Post</span>
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/newcarpost"
+                data-bs-toggle="collapse"
+                className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+              >
+                <DirectionsCarIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+                <span className="ms-2  d-sm-inline">Add New Vehicle</span>
               </Link>
             </li>
 
