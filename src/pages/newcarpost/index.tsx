@@ -42,6 +42,125 @@ const index = () => {
   const [submitting, setSubmitting] = useState(false);
 
   const [auctionDate, setAuctionDate] = useState("");
+  const [varient, setVarient] = useState("");
+  const [bodyType, setBodytype] = useState("");
+  const [exFactoryPrice, setExfactoryPrice] = useState<number | undefined>();
+  const [overallLength, setOverallLength] = useState<number | undefined>();
+  const [kerbWeight, setKerbWeight] = useState<number | undefined>();
+  const [overallWidth, setOverallWidth] = useState<number | undefined>();
+  const [bootSpaceL, setBootSpaceL] = useState<number | undefined>();
+  const [wheelBase, setWheelBase] = useState<number | undefined>();
+  const [noOfDoors, setNoOfDoors] = useState<number | undefined>();
+  const [groundClearance, setGroundClearance] = useState<number | undefined>();
+  const [seatingCapacity, setSeatingCapacity] = useState<number | undefined>();
+  const [engineType, setEngineType] = useState("");
+  const [turboCharger, setTurboCharger] = useState("");
+  const [displacement, setDisplacement] = useState<number | undefined>();
+  const [noOfCylinders, setNoOfCylinders] = useState<number | undefined>();
+  const [horsePower, setHorsePower] = useState<number | undefined>();
+  const [rpm, setRPM] = useState<number | undefined>();
+  const [valvesPerCylinder, setValvesPerCylinder] = useState<
+    number | undefined
+  >();
+  const [fuelSystem, setFuelSystem] = useState("");
+  const [maxSpeed, setMaxSpeed] = useState<number | undefined>();
+  const [gearBox, setGearBox] = useState<number | undefined>();
+  const [steeringType, setSteeringType] = useState("");
+  const [powerAssisted, setPowerAssisted] = useState("");
+  const [frontSuspension, setFrontSuspension] = useState("");
+  const [frontBrakes, setFrontBrakes] = useState("");
+  const [rearSuspension, setRearSuspension] = useState("");
+  const [rearBrakes, setRearBrakes] = useState("");
+  const [wheelType, setWheelType] = useState("");
+  const [wheelSize, setWheelSize] = useState<number | undefined>();
+  const [spareTyre, setSpareTyre] = useState("");
+  const [spareTyreSize, setSpareTyreSize] = useState<number | undefined>();
+  const [tyreSizeWidth, setTyreSizeWidth] = useState<number | undefined>();
+  const [tyreSizeRatio, setTyreSizeRatio] = useState<number | undefined>();
+  const [tyreSizeDiameter, setTyreSizeDiameter] = useState("");
+
+  // features
+
+  const [speedSensingDoorLock, setSpeedSensingDoorLock] = useState("false");
+  const [antiTheftAlarmSystem, setAntiTheftAlarmSystem] = useState("false");
+  const [driverSeatBeltWarning, setDriverSeatBeltWarning] = useState("false");
+  const [downHillAssistControl, setDownHillAssistControl] = useState("false");
+  const [passengerSeatBeltWarning, setPassengerSeatBeltWarning] =
+    useState("false");
+  const [hillStartAssistControl, setHillStartAssistControl] = useState("false");
+  const [immobilizer, setImmobilizer] = useState("false");
+  const [tractionControl, setTractionControl] = useState("false");
+  const [vehicleStabilityControl, setVehicleStabilityControl] =
+    useState("false");
+  const [blindSpotDetection, setBlindSpotDetection] = useState("false");
+  const [antiLockBrakingSystem, setAntiLockBrakingSystem] = useState("false");
+  const [doorOpeningWarning, setDoorOpeningWarning] = useState("false");
+  const [laneKeepAssistSystem, setLaneKeepAssistSystem] = useState("false");
+  const [electricBrakeForce, setElectricBrakeForce] = useState("false");
+  const [autonomousEmergencyBraking, setAutonomousEmergencyBraking] =
+    useState("false");
+  const [alloyWheels, setAlloyWheels] = useState("false");
+  const [adjustableHeadlights, setAdjustableHeadlights] = useState("false");
+  const [rearSpoiler, setRearSpoiler] = useState("false");
+  const [sideMirrorIndicators, setSideMirrorIndicators] = useState("false");
+  const [panaromic, setPanaromic] = useState("false");
+  const [fogLights, setFogLights] = useState("false");
+  const [DRLs, setDRLs] = useState("false");
+  const [roofRails, setRoofRails] = useState("false");
+  const [sideSteps, setSideSteps] = useState("false");
+  const [dualExhaust, setDualExhaust] = useState("false");
+  const [tachometer, setTachometer] = useState("false");
+  const [multiInfo, setMultiInfo] = useState("false");
+  const [infoCluster, setInfoCluster] = useState("false");
+  const [displaySize, setDisplaySize] = useState("false");
+  const [usbAuxilaryCable, setUSBAuxilaryCable] = useState("false");
+  const [noOfSpeakers, setNoOfSpeakers] = useState("false");
+  const [voiceControl, setVoiceControl] = useState("false");
+  const [androidAuto, setAndroidAuto] = useState("false");
+  const [appleCarPlay, setAppleCarPlay] = useState("false");
+  const [seatMaterialType, setSeatMaterialType] = useState("false");
+  const [keyType, setKeyType] = useState("false");
+  const [cruiseControl, setCruiseControl] = useState("false");
+  const [rainSensingWiper, setRainSensingWiper] = useState("false");
+  const [drivingModes, setDrivingModes] = useState("false");
+  const [paddleShifter, setPaddleShifter] = useState("false");
+  const [heater, setHeater] = useState("false");
+  const [pushStart, setPushStart] = useState("false");
+  const [coolBox, setCoolBox] = useState("false");
+  const [remoteEngineStart, setRemoteEngineStart] = useState("false");
+  const [navigation, setNavigation] = useState("false");
+  const [centralLocking, setCentralLocking] = useState("false");
+  const [powerDoorLocks, setPowerDoorLocks] = useState("false");
+  const [autoRetractableSideMirror, setAutoRetractableSideMirror] =
+    useState("false");
+  const [frontParkingSensors, setFrontParkingSensors] = useState("false");
+  const [rearParkingSensors, setRearParkingSensors] = useState("false");
+  const [armRest, setArmRest] = useState("false");
+  const [rearFoldingSeat, setRearFoldingSeat] = useState("false");
+  const [handBrake, setHandBrake] = useState("false");
+  const [rearHeadRest, setRearHeadRest] = useState("false");
+  const [autoBrakeHold, setAutoBrakeHold] = useState("false");
+  const [rearWiper, setRearWiper] = useState("false");
+  const [autoParkingSystem, setAutoParkingSystem] = useState("false");
+  const [driverSeatElectricAdjustment, setDriverSeatElectricAdjustment] =
+    useState("false");
+  const [driverSeatLumbarSupport, setDriverSeatLumbarSupport] =
+    useState("false");
+  const [driverSeatMemoryFunction, setDriverSeatMemoryFunction] =
+    useState("false");
+  const [frontPowerOutlet, setFrontPowerOutlet] = useState("false");
+  const [reartPowerOutlet, setRearPowerOutlet] = useState("false");
+  const [steeringAdjustment, setSteeringAdjustment] = useState("false");
+  const [wirelessCharger, setWirelessCharger] = useState("false");
+  const [headlightReminder, setHeadlightReminder] = useState("false");
+  const [bossSeatSwitch, setBossSeatSwitch] = useState("false");
+  const [automaticHeadLamps, setAutomaticHeadLamps] = useState("false");
+  const [typrePressureMonitoringSystem, setTyprePressureMonitoringSystem] =
+    useState("false");
+  const [passengerSeatElectricAdjustment, setPassengerSeatElectricAdjustment] =
+    useState("false");
+
+  const [color, setColor] = useState("");
   const [makeId, setMakeId] = useState("");
   const [modelName, setModelName] = useState("");
   const [yearName, setYearName] = useState("");
@@ -65,38 +184,39 @@ const index = () => {
   const [prevImg, setPrevImg] = useState<File[]>([]);
 
   const [imageErrorMessage, setImageErrorMessage] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState("false");
 
   const [userData, setUserData] = useState({});
 
   // features
 
-  const [abs, setABS] = useState(false);
-  const [airbags, setAirBags] = useState(false);
-  const [airconditioning, setAirConditioning] = useState(false);
-  const [fm, setFM] = useState(false);
-  const [cassettePlayer, setCassettePlayer] = useState(false);
-  const [cdPlayer, setCDPlayer] = useState(false);
-  const [dvdPlayer, setDVDPlayer] = useState(false);
-  const [climateControl, setClimateControl] = useState(false);
-  const [frontCamera, setFrontCamera] = useState(false);
-  const [frontSpeakers, setFrontSpeakers] = useState(false);
-  const [heatedSeats, setHeatedSeats] = useState(false);
-  const [immobilizerKey, setImmobilizerKey] = useState(false);
-  const [keylessEntry, setKeylessEntry] = useState(false);
-  const [navigationSystem, setNavigationSystem] = useState(false);
-  const [powerLocks, setPowerLocks] = useState(false);
-  const [powerMirrors, setPowerMirrors] = useState(false);
-  const [powerSteering, setPowerSteering] = useState(false);
-  const [powerWindows, setPowerWindows] = useState(false);
-  const [rearACVents, setRearACVents] = useState(false);
-  const [rearCamera, setRearCamera] = useState(false);
-  const [rearSeatEntertainment, setRearSeatEntertainment] = useState(false);
-  const [rearSpeakers, setRearSpeakers] = useState(false);
-  const [steeringSwitches, setSteeringSwitches] = useState(false);
-  const [sunRoof, setSunRoof] = useState(false);
-  const [usb, setUSB] = useState(false);
-  const [alloyRims, setAlloyRims] = useState(false);
+  const [abs, setABS] = useState("false");
+  const [airbags, setAirBags] = useState("false");
+  const [airconditioning, setAirConditioning] = useState("false");
+  const [fm, setFM] = useState("false");
+  const [cassettePlayer, setCassettePlayer] = useState("false");
+  const [cdPlayer, setCDPlayer] = useState("false");
+  const [dvdPlayer, setDVDPlayer] = useState("false");
+  const [climateControl, setClimateControl] = useState("false");
+  const [frontCamera, setFrontCamera] = useState("false");
+  const [Camera360, setCamera360] = useState("false");
+  const [frontSpeakers, setFrontSpeakers] = useState("false");
+  const [heatedSeats, setHeatedSeats] = useState("false");
+  const [immobilizerKey, setImmobilizerKey] = useState("false");
+  const [keylessEntry, setKeylessEntry] = useState("false");
+  const [navigationSystem, setNavigationSystem] = useState("false");
+  const [powerLocks, setPowerLocks] = useState("false");
+  const [powerMirrors, setPowerMirrors] = useState("false");
+  const [powerSteering, setPowerSteering] = useState("false");
+  const [powerWindows, setPowerWindows] = useState("false");
+  const [rearACVents, setRearACVents] = useState("false");
+  const [rearCamera, setRearCamera] = useState("false");
+  const [rearSeatEntertainment, setRearSeatEntertainment] = useState("false");
+  const [rearSpeakers, setRearSpeakers] = useState("false");
+  const [steeringSwitches, setSteeringSwitches] = useState("false");
+  const [sunRoof, setSunRoof] = useState("false");
+  const [usb, setUSB] = useState("false");
+  const [alloyRims, setAlloyRims] = useState("false");
   const [assembly, setAssembly] = useState("Local");
 
   const postData = {
@@ -467,11 +587,11 @@ const index = () => {
 
   const featureSelection = [
     {
-      title: "True",
+      title: "true",
       value: "true",
     },
     {
-      title: "False",
+      title: "false",
       value: "false",
     },
   ];
@@ -619,6 +739,8 @@ const index = () => {
                         type="text"
                         name=""
                         id=""
+                        value={varient}
+                        onChange={(e) => setVarient(e.target.value)}
                         placeholder="Varient"
                         required
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
@@ -633,8 +755,8 @@ const index = () => {
                         id="vehicleTransmission"
                         aria-label="Default select example"
                         required
-                        value={transmission}
-                        onChange={(e) => setTransmission(e.target.value)}
+                        value={bodyType}
+                        onChange={(e) => setBodytype(e.target.value)}
                       >
                         <option selected value="">
                           Select Body Type
@@ -650,7 +772,8 @@ const index = () => {
                         type="text"
                         placeholder="Vehicle Color"
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        onChange={(e) => setVehicleColour(e.target.value)}
+                        value={color}
+                        onChange={(e) => setColor(e.target.value)}
                         required
                       />
                     </div>
@@ -661,6 +784,7 @@ const index = () => {
                         type="number"
                         placeholder="Mileage"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        value={mileage}
                         onChange={(e) => setMileage(e.target.value)}
                         required
                       />
@@ -671,8 +795,10 @@ const index = () => {
                         type="number"
                         placeholder="EX-Factory Price"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={price}
-                        onChange={(e) => setPrice(parseFloat(e.target.value))}
+                        value={exFactoryPrice}
+                        onChange={(e) =>
+                          setExfactoryPrice(parseFloat(e.target.value))
+                        }
                         required
                       />
                       <span
@@ -686,7 +812,7 @@ const index = () => {
                         className="form-text"
                         style={{ height: 25, textTransform: "capitalize" }}
                       >
-                        {formatPrice(price)}
+                        {formatPrice(parseInt(exFactoryPrice))}
                       </div>
                     </div>
                   </section>
@@ -695,6 +821,7 @@ const index = () => {
                       <div className="col-span-12 m-2">
                         <label htmlFor="Description">Description</label>
                         <textarea
+                          value={description}
                           onChange={(e) => setDescription(e.target.value)}
                           className="w-full border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                           rows={5}
@@ -714,8 +841,10 @@ const index = () => {
                         type="number"
                         placeholder="Length (MM)"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={price}
-                        onChange={(e) => console.log(e)}
+                        value={overallLength}
+                        onChange={(e) =>
+                          setOverallLength(parseInt(e.target.value))
+                        }
                         required
                       />
                     </div>
@@ -725,8 +854,10 @@ const index = () => {
                         type="number"
                         placeholder="Weight (KG)"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={price}
-                        onChange={(e) => console.log(e)}
+                        value={kerbWeight}
+                        onChange={(e) =>
+                          setKerbWeight(parseInt(e.target.value))
+                        }
                         required
                       />
                     </div>
@@ -736,8 +867,10 @@ const index = () => {
                         type="number"
                         placeholder="Width (MM)"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={price}
-                        onChange={(e) => console.log(e)}
+                        value={overallWidth}
+                        onChange={(e) =>
+                          setOverallWidth(parseInt(e.target.value))
+                        }
                         required
                       />
                     </div>
@@ -747,8 +880,10 @@ const index = () => {
                         type="number"
                         placeholder="Space (L)"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={price}
-                        onChange={(e) => console.log(e)}
+                        value={bootSpaceL}
+                        onChange={(e) =>
+                          setBootSpaceL(parseInt(e.target.value))
+                        }
                         required
                       />
                     </div>
@@ -758,8 +893,8 @@ const index = () => {
                         type="number"
                         placeholder="Base (MM)"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={price}
-                        onChange={(e) => console.log(e)}
+                        value={wheelBase}
+                        onChange={(e) => setWheelBase(parseInt(e.target.value))}
                         required
                       />
                     </div>
@@ -769,8 +904,8 @@ const index = () => {
                         type="number"
                         placeholder="Doors"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={price}
-                        onChange={(e) => console.log(e)}
+                        value={noOfDoors}
+                        onChange={(e) => setNoOfDoors(parseInt(e.target.value))}
                         required
                       />
                     </div>
@@ -782,8 +917,10 @@ const index = () => {
                         type="number"
                         placeholder="Clearence (MM)"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={price}
-                        onChange={(e) => console.log(e)}
+                        value={groundClearance}
+                        onChange={(e) =>
+                          setGroundClearance(parseInt(e.target.value))
+                        }
                         required
                       />
                     </div>
@@ -794,11 +931,13 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={abs}
-                        onChange={(e) => console.log(e)}
+                        value={seatingCapacity}
+                        onChange={(e) =>
+                          setSeatingCapacity(parseInt(e.target.value))
+                        }
                       >
                         {seats?.map((item, index) => (
-                          <option selected value={item?.value}>
+                          <option selected value={parseInt(item?.value)}>
                             {item?.title}
                           </option>
                         ))}
@@ -816,8 +955,8 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={abs}
-                        onChange={(e) => console.log(e)}
+                        value={engineType}
+                        onChange={(e) => setEngineType(e.target.value)}
                       >
                         <option selected value="Petrol">
                           Petrol
@@ -843,8 +982,8 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={abs}
-                        onChange={(e) => console.log(e)}
+                        value={turboCharger}
+                        onChange={(e) => setTurboCharger(e.target.value)}
                       >
                         <option selected value="yes">
                           Yes
@@ -863,8 +1002,10 @@ const index = () => {
                         placeholder="Engine Size (cc)"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={displacement}
+                        onChange={(e) =>
+                          setDisplacement(parseInt(e.target.value))
+                        }
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -876,8 +1017,10 @@ const index = () => {
                         placeholder="Cylinders"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        value={noOfCylinders}
+                        onChange={(e) =>
+                          setNoOfCylinders(parseInt(e.target.value))
+                        }
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -889,8 +1032,10 @@ const index = () => {
                         placeholder="HP@"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        value={horsePower}
+                        onChange={(e) =>
+                          setHorsePower(parseInt(e.target.value))
+                        }
                       />
                       <input
                         type="number"
@@ -899,8 +1044,8 @@ const index = () => {
                         placeholder="RPM"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        value={rpm}
+                        onChange={(e) => setRPM(parseInt(e.target.value))}
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -914,8 +1059,10 @@ const index = () => {
                         placeholder="Valves"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        value={valvesPerCylinder}
+                        onChange={(e) =>
+                          setValvesPerCylinder(parseInt(e.target.value))
+                        }
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -927,8 +1074,8 @@ const index = () => {
                         placeholder="Fuel System"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        value={fuelSystem}
+                        onChange={(e) => setFuelSystem(e.target.value)}
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -940,8 +1087,8 @@ const index = () => {
                         placeholder="(KM/H)"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        value={maxSpeed}
+                        onChange={(e) => console.log(parseInt(e.target.value))}
                       />
                     </div>
                   </section>
@@ -978,8 +1125,8 @@ const index = () => {
                         placeholder="Gearbox (speed)"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={gearBox}
+                        onChange={(e) => setGearBox(parseInt(e.target.value))}
                       />
                     </div>
                   </section>
@@ -998,8 +1145,8 @@ const index = () => {
                         placeholder="Steering Type"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={steeringType}
+                        onChange={(e) => setSteeringType(e.target.value)}
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -1011,8 +1158,8 @@ const index = () => {
                         placeholder="Power Assisted"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={powerAssisted}
+                        onChange={(e) => setPowerAssisted(e.target.value)}
                       />
                     </div>
                   </section>
@@ -1031,8 +1178,8 @@ const index = () => {
                         placeholder="Front Suspension"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={frontSuspension}
+                        onChange={(e) => setFrontSuspension(e.target.value)}
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -1044,8 +1191,8 @@ const index = () => {
                         placeholder="Front Brakes"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={frontBrakes}
+                        onChange={(e) => setFrontBrakes(e.target.value)}
                       />
                     </div>
 
@@ -1059,8 +1206,8 @@ const index = () => {
                         placeholder="Rear Suspension"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={rearSuspension}
+                        onChange={(e) => setRearSuspension(e.target.value)}
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -1072,8 +1219,8 @@ const index = () => {
                         placeholder="Rear Brakes"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={rearBrakes}
+                        onChange={(e) => setRearBrakes(e.target.value)}
                       />
                     </div>
                   </section>
@@ -1092,8 +1239,8 @@ const index = () => {
                         placeholder="Wheel Type"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={wheelType}
+                        onChange={(e) => setWheelType(e.target.value)}
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -1106,8 +1253,8 @@ const index = () => {
                         placeholder="Wheel Size (inch)"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={wheelSize}
+                        onChange={(e) => setWheelSize(parseInt(e.target.value))}
                       />
                     </div>
 
@@ -1119,8 +1266,8 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={abs}
-                        onChange={(e) => console.log(e)}
+                        value={spareTyre}
+                        onChange={(e) => setSpareTyre(e.target.value)}
                       >
                         <option selected>Spare Tyre</option>
                         <option value="yes">Yes</option>
@@ -1139,8 +1286,10 @@ const index = () => {
                         placeholder="Spare Tyre Size (inch)"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={spareTyreSize}
+                        onChange={(e) =>
+                          setSpareTyreSize(parseInt(e.target.value))
+                        }
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -1153,8 +1302,10 @@ const index = () => {
                         placeholder="Tyre Size (Width)"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={tyreSizeWidth}
+                        onChange={(e) =>
+                          setTyreSizeWidth(parseInt(e.target.value))
+                        }
                       />
                       <input
                         type="number"
@@ -1163,8 +1314,10 @@ const index = () => {
                         placeholder="Tyre Size (Ratio)"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={tyreSizeRatio}
+                        onChange={(e) =>
+                          setTyreSizeRatio(parseInt(e.target.value))
+                        }
                       />
                       <input
                         type="text"
@@ -1173,8 +1326,8 @@ const index = () => {
                         placeholder="Tyre Size (Diameter)"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
+                        value={tyreSizeDiameter}
+                        onChange={(e) => setTyreSizeDiameter(e.target.value)}
                       />
                     </div>
                   </section>
@@ -1198,12 +1351,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setSpeedSensingDoorLock(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1217,12 +1374,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setAntiTheftAlarmSystem(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1236,12 +1397,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setDriverSeatBeltWarning(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1255,12 +1420,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setDownHillAssistControl(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1274,12 +1443,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setPassengerSeatBeltWarning(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1293,12 +1466,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setHillStartAssistControl(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1312,12 +1489,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setHillStartAssistControl(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1329,12 +1510,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setImmobilizer(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1346,12 +1529,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setTractionControl(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1365,12 +1550,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setVehicleStabilityControl(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1385,12 +1574,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setBlindSpotDetection(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1404,12 +1595,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setAntiLockBrakingSystem(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1423,12 +1618,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setDoorOpeningWarning(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1442,12 +1639,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setLaneKeepAssistSystem(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1461,12 +1662,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setElectricBrakeForce(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1481,12 +1684,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setAutonomousEmergencyBraking(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1504,12 +1711,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setAlloyWheels(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1523,12 +1732,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setAdjustableHeadlights(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1540,12 +1753,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRearSpoiler(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1559,12 +1774,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setSideMirrorIndicators(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1576,12 +1795,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setSunRoof(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1593,12 +1814,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setPanaromic(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1610,12 +1833,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setFogLights(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1627,12 +1852,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setDRLs(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1644,12 +1871,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRoofRails(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1661,12 +1890,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setSideSteps(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1678,12 +1909,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setDualExhaust(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1701,12 +1934,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setTachometer(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1718,12 +1953,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setMultiInfo(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1739,7 +1976,7 @@ const index = () => {
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         // value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setInfoCluster(e.target.value)}
                       />
                     </div>
 
@@ -1759,7 +1996,7 @@ const index = () => {
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         // value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setDisplaySize(e.target.value)}
                       />
                     </div>
 
@@ -1773,12 +2010,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setUSBAuxilaryCable(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1790,12 +2029,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setCDPlayer(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1807,12 +2048,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setDVDPlayer(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1824,12 +2067,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setNoOfSpeakers(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1841,12 +2086,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setFrontSpeakers(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1858,12 +2105,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRearSpeakers(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1877,12 +2126,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setRearSeatEntertainment(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1894,12 +2147,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setVoiceControl(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1911,12 +2166,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setAndroidAuto(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1928,12 +2185,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setAppleCarPlay(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1968,7 +2227,7 @@ const index = () => {
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         // value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setKeyType(e.target.value)}
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
@@ -1979,12 +2238,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setAirConditioning(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -1998,12 +2259,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRainSensingWiper(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2015,12 +2278,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setClimateControl(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2032,12 +2297,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setCruiseControl(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2049,12 +2316,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRearACVents(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2066,12 +2335,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setDrivingModes(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2083,12 +2354,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setPaddleShifter(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2100,12 +2373,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setHeater(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2117,12 +2392,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setHeatedSeats(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2134,12 +2411,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setKeylessEntry(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2151,12 +2430,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setPushStart(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2168,12 +2449,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setCoolBox(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2187,12 +2470,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRemoteEngineStart(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2204,12 +2489,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRemoteEngineStart(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2221,12 +2508,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setCentralLocking(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2238,12 +2527,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setPowerDoorLocks(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2255,12 +2546,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setFrontCamera(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2272,12 +2565,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRearCamera(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2289,12 +2584,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setCamera360(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2306,12 +2603,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setPowerWindows(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2323,12 +2622,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setPowerMirrors(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2342,12 +2643,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setAutoRetractableSideMirror(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2361,12 +2666,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setFrontParkingSensors(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2380,12 +2687,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRearParkingSensors(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2397,12 +2706,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setArmRest(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2414,12 +2725,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRearFoldingSeat(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2431,12 +2744,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setHandBrake(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2448,12 +2763,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRearHeadRest(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2465,12 +2782,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setAutoBrakeHold(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2482,12 +2801,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRearWiper(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2501,12 +2822,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setAutoParkingSystem(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2520,12 +2843,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setDriverSeatElectricAdjustment(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2539,12 +2866,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setDriverSeatLumbarSupport(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2558,12 +2889,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setDriverSeatMemoryFunction(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2577,12 +2912,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setFrontPowerOutlet(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2595,12 +2932,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setRearPowerOutlet(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2614,12 +2953,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setSteeringAdjustment(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2634,12 +2975,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setSteeringSwitches(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2651,12 +2994,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setWirelessCharger(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2670,12 +3015,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setHeadlightReminder(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2687,12 +3034,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setBossSeatSwitch(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2706,12 +3055,14 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) => setAutomaticHeadLamps(e.target.value)}
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2725,12 +3076,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setTyprePressureMonitoringSystem(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
@@ -2744,12 +3099,16 @@ const index = () => {
                         aria-label="Default select example"
                         required
                         // value={abs}
-                        onChange={(e) => console.log(e)}
+                        onChange={(e) =>
+                          setPassengerSeatElectricAdjustment(e.target.value)
+                        }
                       >
                         <option selected>True / False</option>
 
                         {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
                         ))}
                       </select>
                     </div>
