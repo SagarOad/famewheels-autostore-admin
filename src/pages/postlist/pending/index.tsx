@@ -9,6 +9,7 @@ import PostModal from "@/components/modal/modal";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import PriceCheckIcon from "@mui/icons-material/PriceCheck";
 import CloseIcon from "@mui/icons-material/Close";
+import toast from "react-hot-toast";
 import DoneIcon from "@mui/icons-material/Done";
 import {
   Table,
@@ -96,6 +97,7 @@ const index = () => {
   const [rowsPerPage, setRowsPerPage] = React.useState(30);
   const [showModal, setShowModal] = React.useState(false);
   const [postId, setPostId] = React.useState(null);
+  const [getUpdate, setGetUpdate] = React.useState(false);
 
   const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
@@ -126,42 +128,44 @@ const index = () => {
     data: posts,
     error,
     isLoading,
-  } = useQuery(`pendingPosts_${rowsPerPage}_${page}`, fetchData);
+  } = useQuery(`pendingPosts_${rowsPerPage}_${page}${getUpdate}`, fetchData);
 
   if (error) {
     console.log(error);
   }
 
-  const handleReject = async (order: any) => {
-    console.log(order);
+  const handleReject = async (post: any) => {
     try {
-      const response = await axios.get(`${BASE_URL}/ApproveOrDeclinePost`, {
+      const response = await axios.get(`${BASE_URL}/approvedeclinepost`, {
         params: {
-          postId: order?.id,
-          statusId: 3,
+          post_id: post?.postId,
+          status_id: 3,
         },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-
+      toast.success(response?.data?.message || "Rejected Succeffully");
+      setGetUpdate(true);
       console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const handleApprove = async (order: any) => {
+  const handleApprove = async (post: any) => {
     try {
-      const response = await axios.get(`${BASE_URL}/ApproveOrDeclinePost`, {
+      const response = await axios.get(`${BASE_URL}/approvedeclinepost`, {
         params: {
-          postId: order?.id,
-          statusId: 1,
+          post_id: post?.postId,
+          status_id: 1,
         },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
+      toast.success(response?.data?.message || "Approved Succeffully");
+      setGetUpdate(true);
     } catch (error) {
       console.log(error);
     }

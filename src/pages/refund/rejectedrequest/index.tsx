@@ -6,70 +6,28 @@ import PrivateRoute from "@/route/PrivateRoute";
 import { ImpulseSpinner } from "react-spinners-kit";
 import axios from "axios";
 import PostModal from "@/components/modal/modal";
-import toast from "react-hot-toast";
-import DoneIcon from "@mui/icons-material/Done";
 import VisibilityIcon from "@mui/icons-material/Visibility";
+import PriceCheckIcon from "@mui/icons-material/PriceCheck";
+import CloseIcon from "@mui/icons-material/Close";
+import DoneIcon from "@mui/icons-material/Done";
 import {
+  Avatar,
+  Box,
+  Card,
+  Checkbox,
+  Stack,
   Table,
   TableBody,
   TableCell,
   TableHead,
   TablePagination,
   TableRow,
+  Typography,
   tableCellClasses,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import toast from "react-hot-toast";
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
-
-const columns = [
-  { id: "title", label: "Title", minWidth: 100 },
-  {
-    id: "category",
-    label: "Category",
-    minWidth: 170,
-  },
-
-  {
-    id: "city",
-    label: "City",
-    minWidth: 170,
-  },
-  {
-    id: "registerdIn",
-    label: "Registerd In",
-    minWidth: 170,
-  },
-  {
-    id: "price",
-    label: "Price",
-    minWidth: 170,
-  },
-
-  {
-    id: "fullName",
-    label: "Full Name",
-    minWidth: 170,
-  },
-
-  {
-    id: "phone",
-    label: "Phone",
-    minWidth: 170,
-  },
-
-  {
-    id: "model",
-    label: "Model",
-    minWidth: 170,
-  },
-
-  {
-    id: "act",
-    label: "Action",
-    minWidth: 170,
-  },
-];
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -89,16 +47,37 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
     border: 0,
   },
 }));
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
+
+const columns = [
+  { id: "refundDate", label: "Refund Date", minWidth: 100 },
+  { id: "name", label: "Full Name", minWidth: 100 },
+  { id: "orderId", label: "Order Id", minWidth: 100 },
+  {
+    id: "paymentMethod",
+    label: "Payment Method",
+    minWidth: 170,
+  },
+
+  {
+    id: "securityDeposit",
+    label: "Security Deposit",
+    minWidth: 170,
+  },
+
+  {
+    id: "action",
+    label: "Actions",
+    minWidth: 170,
+  },
+];
 
 const index = () => {
   const [total, setTotal] = React.useState(0);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(30);
+  const [rowsPerPage, setRowsPerPage] = React.useState(20);
   const [showModal, setShowModal] = React.useState(false);
-  const [postId, setPostId] = React.useState(null);
   const [getUpdate, setGetUpdate] = React.useState(false);
-
-  const token = localStorage.getItem("authToken");
 
   const handleChangePage = (event: any, newPage: any) => {
     setPage(newPage);
@@ -109,49 +88,65 @@ const index = () => {
     setPage(0);
   };
 
-  const fetchData = async () => {
-    const token = localStorage.getItem("authToken");
+  const token = localStorage.getItem("authToken");
 
-    const response = await axios.get(`${BASE_URL}/statuswisepostlist`, {
-      params: {
-        status_id: 3,
-        page: page + 1,
-      },
+  const fetchData = async () => {
+    const response = await axios.get(`${BASE_URL}/statuswiserefundlist`, {
+      params: { refundstatus_id: 2 },
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
     setTotal(response?.data?.data?.total);
-    return response?.data?.data?.data;
+    return response?.data.data?.data;
   };
 
   const {
     data: posts,
     error,
     isLoading,
-  } = useQuery(`rejectedPosts_${rowsPerPage}_${page}${getUpdate}`, fetchData);
+  } = useQuery(`rejectedRefund_${rowsPerPage}_${page}${getUpdate}`, fetchData);
 
-  const handleApprove = async (post: any) => {
+  if (error) {
+    console.log(error);
+  }
+
+  const handleApprove = async (refund: any) => {
     try {
-      const response = await axios.get(`${BASE_URL}/approvedeclinepost`, {
+      const response = await axios.get(`${BASE_URL}/approvedeclinerefund`, {
         params: {
-          post_id: post?.postId,
-          status_id: 1,
+          refund_id: refund?.refund_id,
+          refundstatus_id: 3,
         },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      toast.success(response?.data?.message || "Approved Succeffully");
+      toast.success(response?.data?.message || "Approved Succefully");
       setGetUpdate(true);
     } catch (error) {
       console.log(error);
     }
   };
 
-  if (error) {
-    console.log(error);
-  }
+  const handleReject = async (refund: any) => {
+    console.log(refund);
+    try {
+      const response = await axios.get(`${BASE_URL}/ApproveRefundPayment`, {
+        params: {
+          orderId: refund?.orderId,
+          status: "Declined",
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log("approve response =======", response?.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <PrivateRoute requiredRoles={["ROLE_BIDDER", "Admin"]}>
@@ -162,17 +157,13 @@ const index = () => {
           </div>
         ) : (
           <>
-            <PostModal
-              open={showModal}
-              setOpen={setShowModal}
-              postId={postId}
-            />
-
             <div className="mt-10 xl:mt-8 container col-span-12">
-              <h1 className="font-bold px-4 text-4xl mt-2 mb-3">Posts List</h1>
+              <h1 className="font-bold px-4 text-4xl mt-2 mb-3">
+                Refund Request List
+              </h1>
               <h4 className="px-4">
                 Dashboard /{" "}
-                <span className="text-[#ED2024]">Posts Rejected</span>
+                <span className="text-[#ED2024]">Refund Request Rejected</span>
               </h4>
             </div>
             <div className="flex justify-center items-center">
@@ -196,46 +187,24 @@ const index = () => {
                       {posts &&
                         posts.map((row: any) => {
                           return (
-                            <StyledTableRow tabIndex={-1} key={row?.postId}>
-                              <TableCell>{row?.title}</TableCell>
+                            <StyledTableRow tabIndex={-1} key={row.id}>
+                              <TableCell>{row.refund_date}</TableCell>
+                              <TableCell>{row.name}</TableCell>
+                              <TableCell>{row.order_id}</TableCell>
 
-                              <TableCell>{row?.category}</TableCell>
+                              <TableCell>{row.payment_method}</TableCell>
 
-                              <TableCell>{row?.city}</TableCell>
+                              <TableCell>{row.security_deposit}</TableCell>
 
-                              <TableCell>{row?.registeredIn}</TableCell>
-
-                              <TableCell>{row?.price}</TableCell>
-
-                              <TableCell>{row?.fullName}</TableCell>
-
-                              <TableCell>{row?.phone}</TableCell>
-
-                              <TableCell>{row?.model}</TableCell>
-
-                              <TableCell align="left">
+                              <TableCell align="center">
                                 <button
-                                  // className="p-2 rounded-md mx-1 bg-green-500"
+                                  className="p-2 rounded-md mx-1 bg-green-500"
                                   onClick={() => handleApprove(row)}
                                 >
                                   <DoneIcon
                                     sx={{
                                       fontSize: "1.5rem",
-                                      color: "green",
-                                    }}
-                                  />
-                                </button>
-                                <button
-                                  // className="py-1 px-2 rounded-md my-1 bg-blue-500"
-                                  onClick={() => {
-                                    setPostId(row?.postId);
-                                    setShowModal(true);
-                                  }}
-                                >
-                                  <VisibilityIcon
-                                    sx={{
-                                      fontSize: "1.5rem",
-                                      color: "darkblue",
+                                      color: "white",
                                     }}
                                   />
                                 </button>
