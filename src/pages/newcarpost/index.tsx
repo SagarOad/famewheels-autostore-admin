@@ -69,9 +69,6 @@ const index = () => {
 
   const [userData, setUserData] = useState({});
 
-  const name = userData?.name;
-  const email = userData?.email;
-
   // features
 
   const [abs, setABS] = useState(false);
@@ -103,8 +100,8 @@ const index = () => {
   const [assembly, setAssembly] = useState("Local");
 
   const postData = {
-    name: name,
-    email: email,
+    name: userData?.name,
+    email: userData?.email,
     title,
     cityName,
     vehicleColour,
@@ -669,10 +666,10 @@ const index = () => {
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
-                      <label htmlFor="Price">Price</label>
+                      <label htmlFor="Price">EX-Factory Price</label>
                       <input
                         type="number"
-                        placeholder="Price"
+                        placeholder="EX-Factory Price"
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         value={price}
                         onChange={(e) => setPrice(parseFloat(e.target.value))}
@@ -1377,25 +1374,7 @@ const index = () => {
                         ))}
                       </select>
                     </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="AutonomousEmergencyBraking">
-                        Autonomous Emergency Braking (AEB)
-                      </label>
-                      <select
-                        id="AutonomousEmergencyBraking"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        // value={abs}
-                        onChange={(e) => console.log(e)}
-                      >
-                        <option selected>True / False</option>
 
-                        {featureSelection?.map((item, index) => (
-                          <option value={item?.value}>{item?.title}</option>
-                        ))}
-                      </select>
-                    </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
                       <label htmlFor="BlindSpotDetection">
                         BlindSpot Detection (BSD)
@@ -1435,11 +1414,11 @@ const index = () => {
                       </select>
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="ElectronicBrakeForceDistribution">
-                        Electronic Brake-Force Distribution (EBD)
+                      <label htmlFor="DoorOpeningWarning">
+                        Door Opening Warning
                       </label>
                       <select
-                        id="ElectronicBrakeForceDistribution"
+                        id="DoorOpeningWarning"
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
@@ -1472,549 +1451,1306 @@ const index = () => {
                         ))}
                       </select>
                     </div>
-                    <br />
-                    <hr />
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">ABS</label>
+                      <label htmlFor="ElectronicBrakeForceDistribution">
+                        Electronic Brake-Force Distribution (EBD)
+                      </label>
                       <select
-                        id="featurecheck"
+                        id="ElectronicBrakeForceDistribution"
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={abs}
-                        onChange={(e) => setABS(e.target.value)}
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
                       >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
                       </select>
                     </div>
 
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">Air bags</label>
+                      <label htmlFor="AutonomousEmergencyBraking">
+                        Autonomous Emergency Braking (AEB)
+                      </label>
                       <select
-                        id="featurecheck"
+                        id="AutonomousEmergencyBraking"
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={airbags}
-                        onChange={(e) => setAirBags(e.target.value)}
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
                       >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
                       </select>
                     </div>
 
+                    <div className="xl:col-span-12 max-xl:col-span-12 max-md:col-span-12 m-2">
+                      <h3 className="font-bold text-center">
+                        <u>Exterior</u>
+                      </h3>
+                    </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">AC</label>
+                      <label htmlFor="AlloyWheels">Alloy Wheels</label>
                       <select
-                        id="featurecheck"
+                        id="AlloyWheels"
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={airconditioning}
-                        onChange={(e) => setAirConditioning(e.target.value)}
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
                       >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="AdjustableHeadlights">
+                        Adjustable Headlights
+                      </label>
+                      <select
+                        id="AdjustableHeadlights"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearSpoiler">Rear Spoiler</label>
+                      <select
+                        id="RearSpoiler"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="SideMirrorswithIndicators">
+                        Side Mirrors with Indicators
+                      </label>
+                      <select
+                        id="SideMirrorswithIndicators"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="SunRoof">Sun Roof</label>
+                      <select
+                        id="SunRoof"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="Panaromic">Panaromic</label>
+                      <select
+                        id="Panaromic"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="FogLights">Fog Lights</label>
+                      <select
+                        id="FogLights"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="DRLs">DRLs</label>
+                      <select
+                        id="DRLs"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RoofRails">Roof Rails</label>
+                      <select
+                        id="RoofRails"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="SideSteps">Side Steps</label>
+                      <select
+                        id="SideSteps"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="DualExhaust">Dual Exhaust</label>
+                      <select
+                        id="DualExhaust"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
                       </select>
                     </div>
 
+                    <div className="xl:col-span-12 max-xl:col-span-12 max-md:col-span-12 m-2">
+                      <h3 className="font-bold text-center">
+                        <u>Instrumentation</u>
+                      </h3>
+                    </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">FM RADIO</label>
+                      <label htmlFor="Tachometer">Tachometer</label>
                       <select
-                        id="featurecheck"
+                        id="Tachometer"
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={fm}
-                        onChange={(e) => setFM(e.target.value)}
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
                       >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
                       </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="MultiInfo">Multi Info</label>
+                      <select
+                        id="MultiInfo"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="InformationCluster">
+                        Information Cluster
+                      </label>
+                      <input
+                        type="text"
+                        name=""
+                        id="InformationCluster"
+                        placeholder="Information Cluster"
+                        required
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        // value={categoryName}
+                        onChange={(e) => console.log(e)}
+                      />
+                    </div>
+
+                    <div className="xl:col-span-12 max-xl:col-span-12 max-md:col-span-12 m-2">
+                      <h3 className="font-bold text-center">
+                        <u>Infotainment</u>
+                      </h3>
                     </div>
 
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">Cassete player</label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
+                      <label htmlFor="DisplaySize">Display Size (inch)</label>
+                      <input
+                        type="number"
+                        name=""
+                        id="DisplaySize"
+                        placeholder="Display Size (inch)"
                         required
-                        value={cassettePlayer}
-                        onChange={(e) => setCassettePlayer(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        // value={categoryName}
+                        onChange={(e) => console.log(e)}
+                      />
                     </div>
 
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">CD player</label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={cdPlayer}
-                        onChange={(e) => setCDPlayer(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">DVD player</label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={dvdPlayer}
-                        onChange={(e) => setDVDPlayer(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">Climate control</label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={climateControl}
-                        onChange={(e) => setClimateControl(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">front camera</label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={frontCamera}
-                        onChange={(e) => setFrontCamera(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">front speaker</label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={frontSpeakers}
-                        onChange={(e) => setFrontSpeakers(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">Heated seats</label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={heatedSeats}
-                        onChange={(e) => setHeatedSeats(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label htmlFor="featurecheck">Immobilizer</label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={immobilizerKey}
-                        onChange={(e) => setImmobilizerKey(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Immobilizer Key
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={immobilizerKey}
-                        onChange={(e) => setImmobilizerKey(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Keyless Entry
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={keylessEntry}
-                        onChange={(e) => setKeylessEntry(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Navigation System
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={navigationSystem}
-                        onChange={(e) => setNavigationSystem(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Power Locks
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={powerLocks}
-                        onChange={(e) => setPowerLocks(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Power Mirrors
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={powerMirrors}
-                        onChange={(e) => setPowerMirrors(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 mx-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Power Steering
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={powerSteering}
-                        onChange={(e) => setPowerSteering(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Power Windows
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={powerWindows}
-                        onChange={(e) => setPowerWindows(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Rear AC Vents
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={rearACVents}
-                        onChange={(e) => setRearACVents(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Rear Camera
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={rearCamera}
-                        onChange={(e) => setRearCamera(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Rear Seat Entertainment
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={rearSeatEntertainment}
-                        onChange={(e) =>
-                          setRearSeatEntertainment(e.target.value)
-                        }
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Rear Speakers
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={rearSpeakers}
-                        onChange={(e) => setRearSpeakers(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Steering Switches
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={steeringSwitches}
-                        onChange={(e) => setSteeringSwitches(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Sun Roof
-                      </label>
-                      <select
-                        id="featurecheck"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
-                        value={sunRoof}
-                        onChange={(e) => setSunRoof(e.target.value)}
-                      >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
-                      </select>
-                    </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
+                      <label htmlFor="USBandAuxillaryCable">
                         USB and Auxillary Cable
                       </label>
                       <select
-                        id="featurecheck"
+                        id="USBandAuxillaryCable"
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={usb}
-                        onChange={(e) => setUSB(e.target.value)}
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
                       >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
                       </select>
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Alloy Rims
-                      </label>
+                      <label htmlFor="CDPlayer">CD Player</label>
                       <select
-                        id="featurecheck"
+                        id="CDPlayer"
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={alloyRims}
-                        onChange={(e) => setAlloyRims(e.target.value)}
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
                       >
-                        <option selected value="true">
-                          Yes
-                        </option>
-                        <option value="false">No</option>
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
                       </select>
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
-                      <label
-                        htmlFor="featurecheck"
-                        className="form-label customCheck_label"
-                      >
-                        Assembly
-                      </label>
+                      <label htmlFor="DVDPlayer">DVD Player</label>
                       <select
-                        id="featurecheck"
+                        id="DVDPlayer"
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={assembly}
-                        onChange={(e) => setAssembly(e.target.value)}
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
                       >
-                        <option selected value="Local">
-                          Local
-                        </option>
-                        <option value="Imported">Imported</option>
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="NoofSpeakers">No. of Speakers</label>
+                      <select
+                        id="NoofSpeakers"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="FrontSpeakers">Front Speakers</label>
+                      <select
+                        id="FrontSpeakers"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearSpeakers">Rear Speakers</label>
+                      <select
+                        id="RearSpeakers"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearSeatEntertainment">
+                        Rear Seat Entertainment
+                      </label>
+                      <select
+                        id="RearSeatEntertainment"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="VoiceControl">Voice Control</label>
+                      <select
+                        id="VoiceControl"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="AndroidAuto">Android Auto</label>
+                      <select
+                        id="AndroidAuto"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="AppleCarPlay">Apple Car Play</label>
+                      <select
+                        id="AppleCarPlay"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="xl:col-span-12 max-xl:col-span-12 max-md:col-span-12 m-2">
+                      <h3 className="font-bold text-center">
+                        <u>Comfort and Convenience</u>
+                      </h3>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="SeatMaterialType">
+                        Seat Material Type
+                      </label>
+                      <input
+                        type="text"
+                        name=""
+                        id="SeatMaterialType"
+                        placeholder="Seat Material Type"
+                        required
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        // value={categoryName}
+                        onChange={(e) => console.log(e)}
+                      />
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="KeyType">Key Type</label>
+                      <input
+                        type="text"
+                        name=""
+                        id="KeyType"
+                        placeholder="Key Type"
+                        required
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        // value={categoryName}
+                        onChange={(e) => console.log(e)}
+                      />
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="AirConditioner">Air Conditioner</label>
+                      <select
+                        id="AirConditioner"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RainSensingWipers">
+                        Rain Sensing Wipers
+                      </label>
+                      <select
+                        id="RainSensingWipers"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="ClimateControl">Climate Control</label>
+                      <select
+                        id="ClimateControl"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="CruiseControl">Cruise Control</label>
+                      <select
+                        id="CruiseControl"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearACVents">Rear AC Vents</label>
+                      <select
+                        id="RearACVents"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="DrivingModes">Driving Modes</label>
+                      <select
+                        id="DrivingModes"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="PaddleShifter">Paddle Shifter</label>
+                      <select
+                        id="PaddleShifter"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="Heater">Heater</label>
+                      <select
+                        id="Heater"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="Heated Seats">Heated Seats</label>
+                      <select
+                        id="Heated Seats"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="KeylessEntry">Keyless Entry</label>
+                      <select
+                        id="KeylessEntry"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="PushStart">Push Start</label>
+                      <select
+                        id="PushStart"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="CoolBox">CoolBox</label>
+                      <select
+                        id="CoolBox"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RemoteEngineStart">
+                        Remote Engine Start
+                      </label>
+                      <select
+                        id="RemoteEngineStart"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="Navigation">Navigation</label>
+                      <select
+                        id="Navigation"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="CentralLocking">Central Locking</label>
+                      <select
+                        id="CentralLocking"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="PowerDoorLocks">Power Door Locks</label>
+                      <select
+                        id="PowerDoorLocks"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="FrontCamera">Front Camera</label>
+                      <select
+                        id="FrontCamera"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearCamera">Rear Camera</label>
+                      <select
+                        id="RearCamera"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="360Camera">360 Camera</label>
+                      <select
+                        id="360Camera"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="PowerWindows">Power Windows</label>
+                      <select
+                        id="PowerWindows"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="PowerMirrors">Power Mirrors</label>
+                      <select
+                        id="PowerMirrors"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="AutoRetractableSideMirrors">
+                        Auto Retractable Side Mirrors
+                      </label>
+                      <select
+                        id="AutoRetractableSideMirrors"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="FrontParkingSensors">
+                        Front Parking Sensors
+                      </label>
+                      <select
+                        id="FrontParkingSensors"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearParkingSensors">
+                        Rear Parking Sensors
+                      </label>
+                      <select
+                        id="RearParkingSensors"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="ArmRest">Arm Rest</label>
+                      <select
+                        id="ArmRest"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearFoldingSeat">Rear Folding Seat</label>
+                      <select
+                        id="RearFoldingSeat"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="Handbrake">Handbrake</label>
+                      <select
+                        id="Handbrake"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearHeadrest">Rear Headrest</label>
+                      <select
+                        id="RearHeadrest"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="AutoBrakeHold">Auto Brake Hold</label>
+                      <select
+                        id="AutoBrakeHold"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearWiper">Rear Wiper</label>
+                      <select
+                        id="RearWiper"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="AutoParkingSystem">
+                        Auto Parking System
+                      </label>
+                      <select
+                        id="AutoParkingSystem"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="DriverSeatElectricAdjustment">
+                        Driver Seat Electric Adjustment
+                      </label>
+                      <select
+                        id="SeatElectricAdjustment"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="DriverSeatLumbarSupport">
+                        Driver Seat Lumbar Support
+                      </label>
+                      <select
+                        id="DriverSeatLumbarSupport"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="DriverSeatMemoryFunction">
+                        Driver Seat Memory Function
+                      </label>
+                      <select
+                        id="DriverSeatMemoryFunction"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="FrontPowerOutlet">
+                        Front Power Outlet
+                      </label>
+                      <select
+                        id="FrontPowerOutlet"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="RearPowerOutlet">Rear Power Outlet</label>
+                      <select
+                        id="RearPowerOutlet"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="SteeringAdjustment">
+                        Steering Adjustment
+                      </label>
+                      <select
+                        id="SteeringAdjustment"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="SteeringSwitches">
+                        Steering Switches
+                      </label>
+                      <select
+                        id="SteeringSwitches"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="WirelessCharger">Wireless Charger</label>
+                      <select
+                        id="WirelessCharger"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="HeadlightOnReminder">
+                        Headlight On Reminder
+                      </label>
+                      <select
+                        id="HeadlightOnReminder"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="BossSeatSwitch">Boss Seat Switch</label>
+                      <select
+                        id="BossSeatSwitch"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="AutomaticHeadLamps">
+                        Automatic Head Lamps
+                      </label>
+                      <select
+                        id="AutomaticHeadLamps"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="TyrePressureMonitoringSystem">
+                        Tyre Pressure Monitoring System (TPMS)
+                      </label>
+                      <select
+                        id="TyrePressureMonitoringSystem"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="PassengerSeatElectricAdjustment">
+                        Passenger Seat Electric Adjustment
+                      </label>
+                      <select
+                        id="PassengerSeatElectricAdjustment"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        // value={abs}
+                        onChange={(e) => console.log(e)}
+                      >
+                        <option selected>True / False</option>
+
+                        {featureSelection?.map((item, index) => (
+                          <option value={item?.value}>{item?.title}</option>
+                        ))}
                       </select>
                     </div>
                   </section>
