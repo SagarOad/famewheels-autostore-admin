@@ -306,7 +306,7 @@ const Sidebar = () => {
               <div className="mx-3">
                 <li>
                   <Link
-                    href="/refundrequestlist"
+                    href="/refund/pendingrequest"
                     data-bs-toggle="collapse"
                     className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
                   >
@@ -319,7 +319,7 @@ const Sidebar = () => {
                 </li>
                 <li>
                   <Link
-                    href="/refundrequestlist/approved"
+                    href="/refund/approvedrequest"
                     data-bs-toggle="collapse"
                     className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
                   >
@@ -332,7 +332,7 @@ const Sidebar = () => {
                 </li>
                 <li>
                   <Link
-                    href="/refundrequestlist/rejected"
+                    href="/refund/rejectedrequest"
                     data-bs-toggle="collapse"
                     className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
                   >
