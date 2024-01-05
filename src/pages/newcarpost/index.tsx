@@ -11,6 +11,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import PrivateRoute from "@/route/PrivateRoute";
 import { ImpulseSpinner } from "react-spinners-kit";
 import toast from "react-hot-toast";
+import { v4 as uuidv4 } from "uuid";
 
 interface IBidding {
   returnValue: string;
@@ -33,6 +34,8 @@ interface IBidding {
   phone: string | number;
 }
 
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
+
 const index = () => {
   // api url
   const url = `${process.env.API_URL}`;
@@ -40,6 +43,19 @@ const index = () => {
   const token = localStorage.getItem("authToken");
 
   const [submitting, setSubmitting] = useState(false);
+
+  const [postToken, setPostToken] = useState("");
+
+  useEffect(() => {
+    // Function to generate a 12-digit token
+    const generateToken = () => {
+      const newToken = uuidv4().replace(/-/g, "").slice(0, 12);
+      setPostToken(newToken);
+    };
+
+    // Call the function when the component mounts
+    generateToken();
+  }, []);
 
   const [auctionDate, setAuctionDate] = useState("");
   const [varient, setVarient] = useState("");
@@ -106,7 +122,7 @@ const index = () => {
   const [panaromic, setPanaromic] = useState("false");
   const [fogLights, setFogLights] = useState("false");
   const [DRLs, setDRLs] = useState("false");
-  const [roofRails, setRoofRails] = useState("false");
+  const [roofRails, setRoofRails] = useState("");
   const [sideSteps, setSideSteps] = useState("false");
   const [dualExhaust, setDualExhaust] = useState("false");
   const [tachometer, setTachometer] = useState("false");
@@ -155,7 +171,7 @@ const index = () => {
   const [headlightReminder, setHeadlightReminder] = useState("false");
   const [bossSeatSwitch, setBossSeatSwitch] = useState("false");
   const [automaticHeadLamps, setAutomaticHeadLamps] = useState("false");
-  const [typrePressureMonitoringSystem, setTyprePressureMonitoringSystem] =
+  const [tyrePressureMonitoringSystem, setTyrePressureMonitoringSystem] =
     useState("false");
   const [passengerSeatElectricAdjustment, setPassengerSeatElectricAdjustment] =
     useState("false");
@@ -182,9 +198,10 @@ const index = () => {
   const [vehicleColour, setVehicleColour] = useState("");
   const [startingAmount, setStartingAmount] = useState("");
   const [prevImg, setPrevImg] = useState<File[]>([]);
-
+  const [imageApi, setImageApi] = useState(true);
+  const postDisabled = imageApi === false;
   const [imageErrorMessage, setImageErrorMessage] = useState("");
-  const [open, setOpen] = React.useState("false");
+  const [open, setOpen] = React.useState(false);
 
   const [userData, setUserData] = useState({});
 
@@ -218,6 +235,8 @@ const index = () => {
   const [usb, setUSB] = useState("false");
   const [alloyRims, setAlloyRims] = useState("false");
   const [assembly, setAssembly] = useState("Local");
+
+  const [uploadedImages, setUploadedImages] = useState([]);
 
   const postData = {
     name: userData?.name,
@@ -325,9 +344,6 @@ const index = () => {
 
   const fetchModelYear = async () => {
     const res = await axios.get(`${url}/getModelYear`, {
-      params: {
-        makeId,
-      },
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -388,6 +404,32 @@ const index = () => {
         setOpen(true);
       }
     });
+    try {
+      const formData = new FormData();
+      formData.append("imagesList", null);
+      formData.append(`post_token`, postToken);
+
+      files.forEach((image) => {
+        formData.append(`file[]`, image);
+      });
+
+      if (prevImg?.length > 0) {
+        prevImg.forEach((image) => {
+          formData.append(`file[]`, image);
+        });
+      }
+
+      const response = await axios.post(`${BASE_URL}/savepostimage`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setUploadedImages(response?.data);
+      setImageApi(true);
+    } catch (error) {
+      console.error("image upload Error:", error);
+    }
   };
 
   const handleImageDelete = (
@@ -398,6 +440,8 @@ const index = () => {
     const newImages = [...images];
     newImages.splice(index, 1);
     setImages(newImages);
+    uploadedImages.splice(index + 1, 1);
+    setUploadedImages(uploadedImages);
     // if (newImages.length === 0) {
     //   setImageErrorMessage("");
     // }
@@ -423,11 +467,14 @@ const index = () => {
       formData.append("auctionEndTime", selectedEndTime);
       formData.append("startingAmount", startingAmount);
       formData.append("auctionDate", auctionDate);
-
+      formData.append(`newcarpost_token`, postToken);
+      uploadedImages.forEach((image) => {
+        formData.append(`imageFiles[]`, image);
+      });
       setSubmitting(true);
       try {
         const response = await axios.post(
-          `${url}/createAuctionPost`,
+          `${BASE_URL}/savenewcarpost`,
           formData,
           {
             headers: {
@@ -1350,13 +1397,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={speedSensingDoorLock}
                         onChange={(e) =>
                           setSpeedSensingDoorLock(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1373,13 +1418,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={antiTheftAlarmSystem}
                         onChange={(e) =>
                           setAntiTheftAlarmSystem(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1396,13 +1439,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={driverSeatBeltWarning}
                         onChange={(e) =>
                           setDriverSeatBeltWarning(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1419,13 +1460,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={downHillAssistControl}
                         onChange={(e) =>
                           setDownHillAssistControl(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1442,13 +1481,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={passengerSeatBeltWarning}
                         onChange={(e) =>
                           setPassengerSeatBeltWarning(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1465,13 +1502,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={hillStartAssistControl}
                         onChange={(e) =>
                           setHillStartAssistControl(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1488,13 +1523,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={hillStartAssistControl}
                         onChange={(e) =>
                           setHillStartAssistControl(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1509,11 +1542,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={immobilizer}
                         onChange={(e) => setImmobilizer(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1528,11 +1559,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={tractionControl}
                         onChange={(e) => setTractionControl(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1549,13 +1578,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={vehicleStabilityControl}
                         onChange={(e) =>
                           setVehicleStabilityControl(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1573,11 +1600,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={blindSpotDetection}
                         onChange={(e) => setBlindSpotDetection(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1594,13 +1619,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={antiLockBrakingSystem}
                         onChange={(e) =>
                           setAntiLockBrakingSystem(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1617,11 +1640,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={doorOpeningWarning}
                         onChange={(e) => setDoorOpeningWarning(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1638,13 +1659,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={laneKeepAssistSystem}
                         onChange={(e) =>
                           setLaneKeepAssistSystem(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1661,11 +1680,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={electricBrakeForce}
                         onChange={(e) => setElectricBrakeForce(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1683,13 +1700,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={autonomousEmergencyBraking}
                         onChange={(e) =>
                           setAutonomousEmergencyBraking(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1710,11 +1725,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={alloyWheels}
                         onChange={(e) => setAlloyWheels(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1731,13 +1744,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={adjustableHeadlights}
                         onChange={(e) =>
                           setAdjustableHeadlights(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1752,11 +1763,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rearSpoiler}
                         onChange={(e) => setRearSpoiler(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1773,13 +1782,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={sideMirrorIndicators}
                         onChange={(e) =>
                           setSideMirrorIndicators(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1794,11 +1801,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={sunRoof}
                         onChange={(e) => setSunRoof(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1813,11 +1818,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={panaromic}
                         onChange={(e) => setPanaromic(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1832,11 +1835,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={fogLights}
                         onChange={(e) => setFogLights(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1851,11 +1852,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={DRLs}
                         onChange={(e) => setDRLs(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1870,11 +1869,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={roofRails}
                         onChange={(e) => setRoofRails(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1889,11 +1886,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={sideSteps}
                         onChange={(e) => setSideSteps(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1908,11 +1903,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={dualExhaust}
                         onChange={(e) => setDualExhaust(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1933,11 +1926,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={tachometer}
                         onChange={(e) => setTachometer(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1952,11 +1943,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={multiInfo}
                         onChange={(e) => setMultiInfo(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -1976,6 +1965,7 @@ const index = () => {
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         // value={categoryName}
+                        value={infoCluster}
                         onChange={(e) => setInfoCluster(e.target.value)}
                       />
                     </div>
@@ -1996,6 +1986,7 @@ const index = () => {
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         // value={categoryName}
+                        value={displaySize}
                         onChange={(e) => setDisplaySize(e.target.value)}
                       />
                     </div>
@@ -2009,11 +2000,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={usbAuxilaryCable}
                         onChange={(e) => setUSBAuxilaryCable(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2028,11 +2017,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={cdPlayer}
                         onChange={(e) => setCDPlayer(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2047,11 +2034,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={dvdPlayer}
                         onChange={(e) => setDVDPlayer(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2066,11 +2051,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={noOfSpeakers}
                         onChange={(e) => setNoOfSpeakers(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2085,11 +2068,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={frontSpeakers}
                         onChange={(e) => setFrontSpeakers(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2104,11 +2085,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rearSpeakers}
                         onChange={(e) => setRearSpeakers(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2125,13 +2104,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rearSeatEntertainment}
                         onChange={(e) =>
                           setRearSeatEntertainment(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2146,11 +2123,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={voiceControl}
                         onChange={(e) => setVoiceControl(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2165,11 +2140,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={androidAuto}
                         onChange={(e) => setAndroidAuto(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2184,11 +2157,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={appleCarPlay}
                         onChange={(e) => setAppleCarPlay(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2214,7 +2185,8 @@ const index = () => {
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         // value={categoryName}
-                        onChange={(e) => console.log(e)}
+                        value={seatMaterialType}
+                        onChange={(e) => setSeatMaterialType(e.target.value)}
                       />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
@@ -2227,6 +2199,7 @@ const index = () => {
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         // value={categoryName}
+                        value={keyType}
                         onChange={(e) => setKeyType(e.target.value)}
                       />
                     </div>
@@ -2237,11 +2210,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={airconditioning}
                         onChange={(e) => setAirConditioning(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2258,11 +2229,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rainSensingWiper}
                         onChange={(e) => setRainSensingWiper(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2277,11 +2246,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={climateControl}
                         onChange={(e) => setClimateControl(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2296,11 +2263,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={cruiseControl}
                         onChange={(e) => setCruiseControl(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2315,11 +2280,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rearACVents}
                         onChange={(e) => setRearACVents(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2334,11 +2297,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={drivingModes}
                         onChange={(e) => setDrivingModes(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2353,11 +2314,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={paddleShifter}
                         onChange={(e) => setPaddleShifter(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2372,11 +2331,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={heater}
                         onChange={(e) => setHeater(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2391,11 +2348,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={heatedSeats}
                         onChange={(e) => setHeatedSeats(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2410,11 +2365,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={keylessEntry}
                         onChange={(e) => setKeylessEntry(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2429,11 +2382,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={pushStart}
                         onChange={(e) => setPushStart(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2448,11 +2399,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={coolBox}
                         onChange={(e) => setCoolBox(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2469,11 +2418,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={remoteEngineStart}
                         onChange={(e) => setRemoteEngineStart(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2488,11 +2435,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={remoteEngineStart}
                         onChange={(e) => setRemoteEngineStart(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2507,11 +2452,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={centralLocking}
                         onChange={(e) => setCentralLocking(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2526,11 +2469,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={powerDoorLocks}
                         onChange={(e) => setPowerDoorLocks(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2545,11 +2486,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={frontCamera}
                         onChange={(e) => setFrontCamera(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2564,11 +2503,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rearCamera}
                         onChange={(e) => setRearCamera(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2583,11 +2520,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={Camera360}
                         onChange={(e) => setCamera360(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2602,11 +2537,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={powerWindows}
                         onChange={(e) => setPowerWindows(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2621,11 +2554,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={powerMirrors}
                         onChange={(e) => setPowerMirrors(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2642,13 +2573,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={autoRetractableSideMirror}
                         onChange={(e) =>
                           setAutoRetractableSideMirror(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2665,11 +2594,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={frontParkingSensors}
                         onChange={(e) => setFrontParkingSensors(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2686,11 +2613,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rearParkingSensors}
                         onChange={(e) => setRearParkingSensors(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2705,11 +2630,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={armRest}
                         onChange={(e) => setArmRest(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2724,11 +2647,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rearFoldingSeat}
                         onChange={(e) => setRearFoldingSeat(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2743,11 +2664,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={handBrake}
                         onChange={(e) => setHandBrake(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2762,11 +2681,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rearHeadRest}
                         onChange={(e) => setRearHeadRest(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2781,11 +2698,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={autoBrakeHold}
                         onChange={(e) => setAutoBrakeHold(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2800,11 +2715,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={rearWiper}
                         onChange={(e) => setRearWiper(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2821,11 +2734,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={autoParkingSystem}
                         onChange={(e) => setAutoParkingSystem(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2842,13 +2753,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={driverSeatElectricAdjustment}
                         onChange={(e) =>
                           setDriverSeatElectricAdjustment(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2865,13 +2774,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={driverSeatLumbarSupport}
                         onChange={(e) =>
                           setDriverSeatLumbarSupport(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2888,13 +2795,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={driverSeatMemoryFunction}
                         onChange={(e) =>
                           setDriverSeatMemoryFunction(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2911,11 +2816,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={frontPowerOutlet}
                         onChange={(e) => setFrontPowerOutlet(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2931,11 +2834,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={reartPowerOutlet}
                         onChange={(e) => setRearPowerOutlet(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2952,11 +2853,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={steeringAdjustment}
                         onChange={(e) => setSteeringAdjustment(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2974,11 +2873,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={steeringSwitches}
                         onChange={(e) => setSteeringSwitches(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -2993,11 +2890,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={wirelessCharger}
                         onChange={(e) => setWirelessCharger(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -3014,11 +2909,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={headlightReminder}
                         onChange={(e) => setHeadlightReminder(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -3033,11 +2926,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={bossSeatSwitch}
                         onChange={(e) => setBossSeatSwitch(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -3054,11 +2945,9 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={automaticHeadLamps}
                         onChange={(e) => setAutomaticHeadLamps(e.target.value)}
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -3075,13 +2964,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={tyrePressureMonitoringSystem}
                         onChange={(e) =>
-                          setTyprePressureMonitoringSystem(e.target.value)
+                          setTyrePressureMonitoringSystem(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -3098,13 +2985,11 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        // value={abs}
+                        value={passengerSeatElectricAdjustment}
                         onChange={(e) =>
                           setPassengerSeatElectricAdjustment(e.target.value)
                         }
                       >
-                        <option selected>True / False</option>
-
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
                             {item?.title}
@@ -3127,7 +3012,7 @@ const index = () => {
                         type="submit"
                         className="bg-red-500 px-4 py-2 rounded text-white mt-2 text-sm"
                       >
-                        Submit
+                        {postDisabled ? "Complete to continue" : "Submit"}
                       </button>
                     )}{" "}
                   </section>
