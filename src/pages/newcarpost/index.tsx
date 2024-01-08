@@ -37,9 +37,6 @@ interface IBidding {
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
 
 const index = () => {
-  // api url
-  const url = `${process.env.API_URL}`;
-
   const token = localStorage.getItem("authToken");
 
   const [submitting, setSubmitting] = useState(false);
@@ -60,7 +57,7 @@ const index = () => {
   const [auctionDate, setAuctionDate] = useState("");
   const [varient, setVarient] = useState("");
   const [bodyType, setBodytype] = useState("");
-  const [exFactoryPrice, setExfactoryPrice] = useState<number | undefined>();
+  const [exFactoryPrice, setExfactoryPrice] = useState<number>();
   const [overallLength, setOverallLength] = useState<number | undefined>();
   const [kerbWeight, setKerbWeight] = useState<number | undefined>();
   const [overallWidth, setOverallWidth] = useState<number | undefined>();
@@ -79,6 +76,9 @@ const index = () => {
     number | undefined
   >();
   const [fuelSystem, setFuelSystem] = useState("");
+  const [fuelTankCapacity, setFuelTankCapacity] = useState("");
+  const [mileageCity, setMileageCity] = useState("");
+  const [mileageHighway, setMileageHighway] = useState("");
   const [maxSpeed, setMaxSpeed] = useState<number | undefined>();
   const [gearBox, setGearBox] = useState<number | undefined>();
   const [steeringType, setSteeringType] = useState("");
@@ -194,6 +194,7 @@ const index = () => {
   const [selectedEndTime, setSelectedEndTime] = useState<string>("");
   const [randomString, setRandomString] = useState("");
   const [description, setDescription] = useState("");
+  const [launchDate, setLaunchDate] = useState("");
   const [makeName, setMakeName] = useState("");
   const [vehicleColour, setVehicleColour] = useState("");
   const [startingAmount, setStartingAmount] = useState("");
@@ -202,8 +203,6 @@ const index = () => {
   const postDisabled = imageApi === false;
   const [imageErrorMessage, setImageErrorMessage] = useState("");
   const [open, setOpen] = React.useState(false);
-
-  const [userData, setUserData] = useState({});
 
   // features
 
@@ -238,60 +237,167 @@ const index = () => {
 
   const [uploadedImages, setUploadedImages] = useState([]);
 
-  const postData = {
-    name: userData?.name,
-    email: userData?.email,
-    title,
-    cityName,
-    vehicleColour,
-    milage: mileage,
-    price,
-    phone: userData?.phone,
-    description,
-    makeName,
-    modelName,
-    yearName,
-    registeredIn,
-    transmission,
-    vehicleCondition,
-    vehicleFuel,
-    categoryName,
-    typeName: "Auction Ads",
-
-    carFeatures: JSON.stringify({
-      abs: abs,
-      air_bags: airbags,
-      air_conditioning: airconditioning,
-      am_fm_radio: fm,
-      cassette_player: cassettePlayer,
-      cd_player: cdPlayer,
-      climate_control: climateControl,
-      front_camera: frontCamera,
-      front_speakers: frontSpeakers,
-      heated_seats: heatedSeats,
-      immobilizer_key: immobilizerKey,
-      keyless_entry: keylessEntry,
-      navigation_system: navigationSystem,
-      power_locks: powerLocks,
-      power_mirrors: powerMirrors,
-      power_steering: powerSteering,
-      power_windows: powerWindows,
-      rear_ac_vents: rearACVents,
-      rear_camera: rearCamera,
-      rear_seat_entertainment: rearSeatEntertainment,
-      rear_speakers: rearSpeakers,
-      steering_switches: steeringSwitches,
-      sun_roof: sunRoof,
-      usb_and_auxillary_cable: usb,
-      alloy_rims: alloyRims,
-    }),
+  const dimensions = {
+    overallLength,
+    kerbWeight,
+    overallWidth,
+    bootSpaceL,
+    wheelBase,
+    noOfDoors,
+    groundClearance,
+    seatingCapacity,
   };
+  const dimensionsJSON = JSON.stringify(dimensions);
 
-  const jsonEncodedUserData = JSON.stringify(userData);
-  const jsonEncodedPostData = JSON.stringify(postData);
+  const EngineMotor = {
+    engineType,
+    turboCharger,
+    displacement,
+    noOfCylinders,
+    horsePower,
+    rpm,
+    valvesPerCylinder,
+    fuelSystem,
+    maxSpeed,
+  };
+  const EngineMotorJSON = JSON.stringify(EngineMotor);
+
+  const Transmission = { transmission, gearBox };
+  const TransmissionJSON = JSON.stringify(Transmission);
+
+  const Steering = { steeringType, powerAssisted };
+  const SteeringJSON = JSON.stringify(Steering);
+
+  const suspensionBrakes = {
+    frontSuspension,
+    frontBrakes,
+    rearSuspension,
+    rearBrakes,
+  };
+  const suspensionBrakesJSON = JSON.stringify(suspensionBrakes);
+
+  const WheelsandTyres = {
+    wheelType,
+    wheelSize,
+    spareTyre,
+    spareTyreSize,
+    tyreSizeWidth,
+    tyreSizeRatio,
+    tyreSizeDiameter,
+  };
+  const WheelsandTyresJSON = JSON.stringify(WheelsandTyres);
+
+  const FuelEconomy = { fuelTankCapacity, mileageCity, mileageHighway };
+  const FuelEconomyJSON = JSON.stringify(FuelEconomy);
+
+  const Safety = {
+    speedSensingDoorLock,
+    antiTheftAlarmSystem,
+    driverSeatBeltWarning,
+    downHillAssistControl,
+    passengerSeatBeltWarning,
+    hillStartAssistControl,
+    immobilizer,
+    tractionControl,
+    vehicleStabilityControl,
+    blindSpotDetection,
+    antiLockBrakingSystem,
+    doorOpeningWarning,
+    laneKeepAssistSystem,
+    electricBrakeForce,
+    autonomousEmergencyBraking,
+  };
+  const SafetyJSON = JSON.stringify(Safety);
+
+  const Exterior = {
+    alloyWheels,
+    adjustableHeadlights,
+    rearSpoiler,
+    sideMirrorIndicators,
+    sunRoof,
+    panaromic,
+    fogLights,
+    DRLs,
+    roofRails,
+    sideSteps,
+    dualExhaust,
+  };
+  const ExteriorJSON = JSON.stringify(Exterior);
+
+  const Instrumentation = {
+    tachometer,
+    multiInfo,
+    infoCluster,
+  };
+  const InstrumentationJSON = JSON.stringify(Instrumentation);
+
+  const Infotainment = {
+    displaySize,
+    usbAuxilaryCable,
+    cdPlayer,
+    dvdPlayer,
+    noOfSpeakers,
+    frontSpeakers,
+    rearSpeakers,
+    rearSeatEntertainment,
+    voiceControl,
+    androidAuto,
+    appleCarPlay,
+  };
+  const InfotainmentJSON = JSON.stringify(Infotainment);
+
+  const ComfortandConvenience = {
+    seatMaterialType,
+    keyType,
+    airconditioning,
+    rainSensingWiper,
+    climateControl,
+    cruiseControl,
+    rearACVents,
+    drivingModes,
+    paddleShifter,
+    heater,
+    heatedSeats,
+    keylessEntry,
+    pushStart,
+    coolBox,
+    remoteEngineStart,
+    navigation,
+    centralLocking,
+    powerDoorLocks,
+    frontCamera,
+    rearCamera,
+    Camera360,
+    powerWindows,
+    powerMirrors,
+    autoRetractableSideMirror,
+    frontParkingSensors,
+    rearParkingSensors,
+    armRest,
+    rearFoldingSeat,
+    handBrake,
+    rearHeadRest,
+    autoBrakeHold,
+    rearWiper,
+    autoParkingSystem,
+    driverSeatElectricAdjustment,
+    driverSeatLumbarSupport,
+    driverSeatMemoryFunction,
+    frontPowerOutlet,
+    reartPowerOutlet,
+    steeringAdjustment,
+    steeringSwitches,
+    wirelessCharger,
+    headlightReminder,
+    bossSeatSwitch,
+    automaticHeadLamps,
+    tyrePressureMonitoringSystem,
+    passengerSeatElectricAdjustment,
+  };
+  const ComfortandConvenienceJSON = JSON.stringify(ComfortandConvenience);
 
   const fetchCities = async () => {
-    const res = await axios.get(`${url}/cities`, {
+    const res = await axios.get(`${BASE_URL}/cities`, {
       params: {},
       headers: {
         Authorization: `Bearer ${token}`,
@@ -307,7 +413,7 @@ const index = () => {
   } = useQuery("myCity", fetchCities);
 
   const fetchMake = async () => {
-    const res = await axios.get(`${url}/getMake`, {
+    const res = await axios.get(`${BASE_URL}/byMake`, {
       params: {},
       headers: {
         Authorization: `Bearer ${token}`,
@@ -323,9 +429,9 @@ const index = () => {
   } = useQuery("myMake", fetchMake);
 
   const fetchMakeById = async () => {
-    const res = await axios.get(`${url}/getByMakeId`, {
+    const res = await axios.get(`${BASE_URL}/model-by-make`, {
       params: {
-        makeId: makeId,
+        make_id: makeId,
       },
       headers: {
         Authorization: `Bearer ${token}`,
@@ -338,12 +444,12 @@ const index = () => {
     data: makeOne,
     error: makeOneError,
     isLoading: makeOneLoading,
-  } = useQuery(`myMakeById`, fetchMakeById, {
+  } = useQuery(`myModelsById_${makeId}`, fetchMakeById, {
     enabled: !!makeId, // Set enabled to false initially
   });
 
   const fetchModelYear = async () => {
-    const res = await axios.get(`${url}/getModelYear`, {
+    const res = await axios.get(`${BASE_URL}/getModelYear`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -356,6 +462,21 @@ const index = () => {
     error: makeYearError,
     isLoading: makeYearLoading,
   } = useQuery(`myMakeById_${modelName}`, fetchModelYear);
+
+  const fetchBodyType = async () => {
+    const res = await axios.get(`${BASE_URL}/bodytypelist`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
+  };
+
+  const {
+    data: bodyTypes,
+    error,
+    isLoading,
+  } = useQuery(`newCarBodyType`, fetchBodyType);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files: File[] = Array.from(e.target.files as FileList);
@@ -451,23 +572,40 @@ const index = () => {
     e.preventDefault();
     const formData = new FormData();
 
-    // const jsonEncodedUserData = JSON.stringify(userData);
-    // const jsonEncodedPostData = JSON.stringify(postData);
-
     if (prevImg.length === 0) {
-      toast.error("Images are required");
+      toast.error("Images Required");
     } else {
-      prevImg.forEach((file) => {
-        formData.append("imageFiles", file);
-      });
+      // prevImg.forEach((file) => {
+      //   formData.append("imageFiles", file);
+      // });
 
-      formData.append("userData", `${jsonEncodedUserData}`);
-      formData.append("postData", `${jsonEncodedPostData}`);
-      formData.append("auctionStartTime", selectedStartTime);
-      formData.append("auctionEndTime", selectedEndTime);
-      formData.append("startingAmount", startingAmount);
-      formData.append("auctionDate", auctionDate);
+      formData.append("newcarpost_dimensions", `${dimensionsJSON}`);
+      formData.append("newcarpost_enginemotor", `${EngineMotorJSON}`);
+      formData.append("newcarpost_transmission", TransmissionJSON);
+      formData.append("newcarpost_steering", SteeringJSON);
+      formData.append("newcarpost_suspensionbrakes", suspensionBrakesJSON);
+      formData.append("newcarpost_wheeltyres", WheelsandTyresJSON);
+      formData.append("newcarpost_fueleconomy", FuelEconomyJSON);
+      formData.append("newcarpost_safety", SafetyJSON);
+      formData.append("newcarpost_exterior", ExteriorJSON);
+      formData.append("newcarpost_instrumentation", InstrumentationJSON);
+      formData.append("newcarpost_Infotainment", InfotainmentJSON);
+      formData.append(
+        "newcarpost_comfortconvenience",
+        ComfortandConvenienceJSON
+      );
       formData.append(`newcarpost_token`, postToken);
+      formData.append(`newcarpost_launchdate`, launchDate);
+      formData.append(`make_id`, makeId);
+      formData.append(`model_id`, modelName);
+      formData.append(`year_id`, yearName);
+      formData.append(`newcarpost_price`, `${exFactoryPrice}`);
+      formData.append(`newcarpost_color`, `${color}`);
+      formData.append(`newcarpost_bodytype`, `${bodyType}`);
+      formData.append(`newcarpost_variants`, `${varient}`);
+      formData.append(`newcarpost_overview`, `${description}`);
+      formData.append(`bodytype_id`, `${bodyType}`);
+
       uploadedImages.forEach((image) => {
         formData.append(`imageFiles[]`, image);
       });
@@ -484,7 +622,7 @@ const index = () => {
           }
         );
 
-        toast.success(response?.data);
+        // toast.success(response?.data);
       } catch (error) {
         console.log(error);
       } finally {
@@ -506,16 +644,6 @@ const index = () => {
     setMakeName(e.target.value);
   };
 
-  const handleChange = (event: any) => {
-    const { name, value } = event.target;
-    setUserData((prevFormData) => ({
-      ...prevFormData,
-      roleName: "ROLE_AUCTIONEER",
-      password: "randomString",
-      [name]: value,
-    }));
-  };
-
   useEffect(() => {
     const generateRandomString = () => {
       const length = 8;
@@ -535,37 +663,40 @@ const index = () => {
   }, []);
 
   const formatPrice = (price: number) => {
-    if (price >= 100000000000) {
-      return (
-        (price / 100000000000).toLocaleString("en-US", {
-          maximumFractionDigits: 2,
-        }) + " Kharab"
-      );
-    } else if (price >= 1000000000) {
-      return (
-        (price / 1000000000).toLocaleString("en-US", {
-          maximumFractionDigits: 2,
-        }) + " Arab"
-      );
-    } else if (price >= 10000000) {
-      return (
-        (price / 10000000).toLocaleString("en-US", {
-          maximumFractionDigits: 2,
-        }) + " Crore"
-      );
-    } else if (price >= 100000) {
-      return (
-        (price / 100000).toLocaleString("en-US", { maximumFractionDigits: 2 }) +
-        " lacs"
-      );
-    } else if (price >= 1000) {
-      return (
-        (price / 1000).toLocaleString("en-US", { maximumFractionDigits: 2 }) +
-        " Thousand"
-      );
-    } else {
-      // return price.toLocaleString("en-US", { maximumFractionDigits: 2 });
-      return price;
+    if (price > 0) {
+      if (price >= 100000000000) {
+        return (
+          (price / 100000000000).toLocaleString("en-US", {
+            maximumFractionDigits: 2,
+          }) + " Kharab"
+        );
+      } else if (price >= 1000000000) {
+        return (
+          (price / 1000000000).toLocaleString("en-US", {
+            maximumFractionDigits: 2,
+          }) + " Arab"
+        );
+      } else if (price >= 10000000) {
+        return (
+          (price / 10000000).toLocaleString("en-US", {
+            maximumFractionDigits: 2,
+          }) + " Crore"
+        );
+      } else if (price >= 100000) {
+        return (
+          (price / 100000).toLocaleString("en-US", {
+            maximumFractionDigits: 2,
+          }) + " lacs"
+        );
+      } else if (price >= 1000) {
+        return (
+          (price / 1000).toLocaleString("en-US", { maximumFractionDigits: 2 }) +
+          " Thousand"
+        );
+      } else {
+        // return price.toLocaleString("en-US", { maximumFractionDigits: 2 });
+        return price;
+      }
     }
   };
 
@@ -686,7 +817,6 @@ const index = () => {
                         multiple={true}
                         name="img"
                         accept=".jpg,.jpeg,.png"
-                        required
                         onChange={handleFileChange}
                       />
 
@@ -752,7 +882,7 @@ const index = () => {
 
                         {makeOne &&
                           makeOne.map((t: any) => (
-                            <option key={t.mmodelId} value={t.modelName}>
+                            <option key={t.mmodelId} value={t.mmodelId}>
                               {t.modelName}
                             </option>
                           ))}
@@ -773,7 +903,7 @@ const index = () => {
 
                         {makeYear &&
                           makeYear.map((t: any) => (
-                            <option key={t.yearId} value={t.year}>
+                            <option key={t.yearId} value={t.yearId}>
                               {t.year}
                             </option>
                           ))}
@@ -808,8 +938,12 @@ const index = () => {
                         <option selected value="">
                           Select Body Type
                         </option>
-                        <option value="Automatic">Automatic</option>
-                        <option value="Manual">Manual</option>
+                        {bodyTypes &&
+                          bodyTypes.map((t: any) => (
+                            <option key={t.bodytype_id} value={t.bodytype_id}>
+                              {t.bodytype_name}
+                            </option>
+                          ))}
                       </select>
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
@@ -844,7 +978,7 @@ const index = () => {
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         value={exFactoryPrice}
                         onChange={(e) =>
-                          setExfactoryPrice(parseFloat(e.target.value))
+                          setExfactoryPrice(parseInt(e.target.value))
                         }
                         required
                       />
@@ -854,13 +988,26 @@ const index = () => {
                       >
                         PKR
                       </span>
-                      <div
-                        id="vehiclePrice"
-                        className="form-text"
-                        style={{ height: 25, textTransform: "capitalize" }}
-                      >
-                        {formatPrice(parseInt(exFactoryPrice))}
-                      </div>
+                      {exFactoryPrice && exFactoryPrice > 0 ? (
+                        <div
+                          id="vehiclePrice"
+                          className="form-text"
+                          style={{ height: 25, textTransform: "capitalize" }}
+                        >
+                          {formatPrice(exFactoryPrice)}
+                        </div>
+                      ) : null}
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
+                      <label htmlFor="LaunchDate">Launch Date</label>
+                      <input
+                        type="date"
+                        placeholder="Launch Date"
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        value={launchDate}
+                        onChange={(e) => setLaunchDate(e.target.value)}
+                        required
+                      />
                     </div>
                   </section>
                   <section>
@@ -1135,7 +1282,7 @@ const index = () => {
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         value={maxSpeed}
-                        onChange={(e) => console.log(parseInt(e.target.value))}
+                        onChange={(e) => setMaxSpeed(parseInt(e.target.value))}
                       />
                     </div>
                   </section>
@@ -1375,6 +1522,57 @@ const index = () => {
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         value={tyreSizeDiameter}
                         onChange={(e) => setTyreSizeDiameter(e.target.value)}
+                      />
+                    </div>
+                  </section>
+                  <h1 className="text-2xl font-bold text-center m-3">
+                    Fuel Economy
+                  </h1>
+                  <section className="grid grid-cols-12 col-span-12">
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
+                      <label htmlFor="FuelTankCapacity">
+                        Fuel Tank Capacity (L)
+                      </label>
+
+                      <input
+                        type="text"
+                        name=""
+                        id="FuelTankCapacity"
+                        placeholder="Fuel Tank Capacity (L)"
+                        required
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        value={fuelTankCapacity}
+                        onChange={(e) => setFuelTankCapacity(e.target.value)}
+                      />
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
+                      <label htmlFor="MileageCity">Mileage City (KM/L)</label>
+
+                      <input
+                        type="text"
+                        name=""
+                        id="MileageCity"
+                        placeholder="Mileage City (KM/L)"
+                        required
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        value={mileageCity}
+                        onChange={(e) => setMileageCity(e.target.value)}
+                      />
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
+                      <label htmlFor="MileageHighway">
+                        Mileage Highway (KM/L)
+                      </label>
+
+                      <input
+                        type="text"
+                        name=""
+                        id="MileageHighway"
+                        placeholder="Mileage Highway (KM/L)"
+                        required
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        value={mileageHighway}
+                        onChange={(e) => setMileageHighway(e.target.value)}
                       />
                     </div>
                   </section>
