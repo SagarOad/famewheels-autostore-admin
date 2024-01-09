@@ -23,6 +23,9 @@ import { useRouter } from "next/router";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import AvTimerIcon from "@mui/icons-material/AvTimer";
 import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
+import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
+import NoCrashIcon from "@mui/icons-material/NoCrash";
+import CarRentalIcon from "@mui/icons-material/CarRental";
 
 const Sidebar = () => {
   const [showRefund, setShowRefund] = useState(false);
@@ -190,6 +193,38 @@ const Sidebar = () => {
               >
                 <FindReplaceIcon sx={{ color: "#ED2024", fontSize: 20 }} />
                 <span className="ms-2  d-sm-inline">Inspection List</span>{" "}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/cartransfer"
+                data-bs-toggle="collapse"
+                className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+              >
+                <TransferWithinAStationIcon
+                  sx={{ color: "#ED2024", fontSize: 20 }}
+                />
+                <span className="ms-2  d-sm-inline">Car Transfer</span>{" "}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/carimport"
+                data-bs-toggle="collapse"
+                className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+              >
+                <CarRentalIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+                <span className="ms-2  d-sm-inline">Car Import</span>{" "}
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/carregistration"
+                data-bs-toggle="collapse"
+                className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+              >
+                <NoCrashIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+                <span className="ms-2  d-sm-inline">Car Registration</span>{" "}
               </Link>
             </li>
             <li>
