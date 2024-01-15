@@ -17,7 +17,7 @@ const PrivateRoute: React.FC<{
       router.push("/login");
     } else if (
       requiredRoles &&
-      !requiredRoles.some((role) => authState.user?.role_name === role)
+      !requiredRoles.some((role) => authState.user?.role === role)
     ) {
       // router.push("/");
     }
@@ -25,7 +25,7 @@ const PrivateRoute: React.FC<{
 
   return authState.token &&
     (!requiredRoles ||
-      requiredRoles.some((role) => authState.user?.role_name === role)) ? (
+      requiredRoles.some((role) => authState.user?.role === role)) ? (
     <>{children}</>
   ) : null;
 };

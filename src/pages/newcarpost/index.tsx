@@ -34,7 +34,7 @@ interface IBidding {
   phone: string | number;
 }
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const index = () => {
   const token = localStorage.getItem("authToken");
@@ -130,7 +130,7 @@ const index = () => {
   const [infoCluster, setInfoCluster] = useState("false");
   const [displaySize, setDisplaySize] = useState("false");
   const [usbAuxilaryCable, setUSBAuxilaryCable] = useState("false");
-  const [noOfSpeakers, setNoOfSpeakers] = useState("false");
+  const [noOfSpeakers, setNoOfSpeakers] = useState("");
   const [voiceControl, setVoiceControl] = useState("false");
   const [androidAuto, setAndroidAuto] = useState("false");
   const [appleCarPlay, setAppleCarPlay] = useState("false");
@@ -153,7 +153,7 @@ const index = () => {
   const [rearParkingSensors, setRearParkingSensors] = useState("false");
   const [armRest, setArmRest] = useState("false");
   const [rearFoldingSeat, setRearFoldingSeat] = useState("false");
-  const [handBrake, setHandBrake] = useState("false");
+  const [handBrake, setHandBrake] = useState("");
   const [rearHeadRest, setRearHeadRest] = useState("false");
   const [autoBrakeHold, setAutoBrakeHold] = useState("false");
   const [rearWiper, setRearWiper] = useState("false");
@@ -176,19 +176,16 @@ const index = () => {
   const [passengerSeatElectricAdjustment, setPassengerSeatElectricAdjustment] =
     useState("false");
 
+  const [coverImage, setCoverImage] = useState("");
   const [color, setColor] = useState("");
   const [makeId, setMakeId] = useState("");
   const [modelName, setModelName] = useState("");
   const [yearName, setYearName] = useState("");
-  const [registeredIn, setRegisteredIn] = useState("");
   const [transmission, setTransmission] = useState("");
   const [vehicleCondition, setVehicleCondition] = useState("");
   const [vehicleFuel, setVehicleFuel] = useState("");
   const [images, setImages] = useState<string[]>([]);
-  const [categoryName, setCategoryName] = useState("");
-  const [title, setTitle] = useState("");
-  const [cityName, setCityName] = useState("");
-  const [mileage, setMileage] = useState("");
+
   const [price, setPrice] = useState<number | undefined>();
   const [selectedStartTime, setSelectedStartTime] = useState<string>("");
   const [selectedEndTime, setSelectedEndTime] = useState<string>("");
@@ -207,7 +204,8 @@ const index = () => {
   // features
 
   const [abs, setABS] = useState("false");
-  const [airbags, setAirBags] = useState("false");
+  const [airbags, setAirBags] = useState("");
+  const [seatbelts, setSeatbelts] = useState("");
   const [airconditioning, setAirConditioning] = useState("false");
   const [fm, setFM] = useState("false");
   const [cassettePlayer, setCassettePlayer] = useState("false");
@@ -306,6 +304,8 @@ const index = () => {
     laneKeepAssistSystem,
     electricBrakeForce,
     autonomousEmergencyBraking,
+    airbags,
+    seatbelts,
   };
   const SafetyJSON = JSON.stringify(Safety);
 
@@ -568,6 +568,10 @@ const index = () => {
     // }
   };
 
+  const coverChange = (e: any) => {
+    const file = e.target.files[0];
+    setCoverImage(file);
+  };
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
@@ -579,6 +583,7 @@ const index = () => {
       //   formData.append("imageFiles", file);
       // });
 
+      formData.append("newcarpost_cover", coverImage);
       formData.append("newcarpost_dimensions", `${dimensionsJSON}`);
       formData.append("newcarpost_enginemotor", `${EngineMotorJSON}`);
       formData.append("newcarpost_transmission", TransmissionJSON);
@@ -775,7 +780,7 @@ const index = () => {
   ];
 
   return (
-    <PrivateRoute requiredRoles={["ROLE_BIDDER", "Admin"]}>
+    <PrivateRoute requiredRoles={["ROLE_BIDDER", "ROLE_ADMIN"]}>
       <section className="flex justify-center items-center w-[80vw] max-lg:w-[100vw]">
         <section className="flex justify-center items-center">
           <div className="w-full mt-10 xl:mt-8 container">
@@ -849,6 +854,15 @@ const index = () => {
                     Basic Information
                   </h1>
                   <section className="grid grid-cols-12 col-span-12">
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
+                      <label htmlFor="make">Cover Image</label>
+                      <input
+                        type="file"
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
+                        onChange={coverChange}
+                        required
+                      />
+                    </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
                       <label htmlFor="make">Make</label>
 
@@ -958,18 +972,7 @@ const index = () => {
                         required
                       />
                     </div>
-                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
-                      <label htmlFor="Mileage">Mileage</label>
 
-                      <input
-                        type="number"
-                        placeholder="Mileage"
-                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        value={mileage}
-                        onChange={(e) => setMileage(e.target.value)}
-                        required
-                      />
-                    </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2 rounded">
                       <label htmlFor="Price">EX-Factory Price</label>
                       <input
@@ -1006,7 +1009,6 @@ const index = () => {
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         value={launchDate}
                         onChange={(e) => setLaunchDate(e.target.value)}
-                        required
                       />
                     </div>
                   </section>
@@ -1585,6 +1587,40 @@ const index = () => {
                       <h3 className="font-bold text-center">
                         <u>Safety</u>
                       </h3>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="Airbags">No. of Airbags</label>
+                      <select
+                        id="Airbags"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        value={airbags}
+                        onChange={(e) => setAirBags(e.target.value)}
+                      >
+                        {seats?.map((item, index) => (
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                    <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
+                      <label htmlFor="Seatbelts">No. of Seatbelts</label>
+                      <select
+                        id="Seatbelts"
+                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
+                        aria-label="Default select example"
+                        required
+                        value={seatbelts}
+                        onChange={(e) => setSeatbelts(e.target.value)}
+                      >
+                        {seats?.map((item, index) => (
+                          <option key={index} value={item?.value}>
+                            {item?.title}
+                          </option>
+                        ))}
+                      </select>
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
                       <label htmlFor="featurecheck">
@@ -2244,20 +2280,15 @@ const index = () => {
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
                       <label htmlFor="NoofSpeakers">No. of Speakers</label>
-                      <select
+
+                      <input
                         id="NoofSpeakers"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
+                        type="number"
+                        placeholder="No. of Speakers"
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         value={noOfSpeakers}
                         onChange={(e) => setNoOfSpeakers(e.target.value)}
-                      >
-                        {featureSelection?.map((item, index) => (
-                          <option key={index} value={item?.value}>
-                            {item?.title}
-                          </option>
-                        ))}
-                      </select>
+                      />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
                       <label htmlFor="FrontSpeakers">Front Speakers</label>
@@ -2857,20 +2888,15 @@ const index = () => {
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
                       <label htmlFor="Handbrake">Handbrake</label>
-                      <select
+
+                      <input
                         id="Handbrake"
-                        className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
-                        aria-label="Default select example"
-                        required
+                        type="text"
+                        placeholder="Handbrake"
+                        className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
                         value={handBrake}
                         onChange={(e) => setHandBrake(e.target.value)}
-                      >
-                        {featureSelection?.map((item, index) => (
-                          <option key={index} value={item?.value}>
-                            {item?.title}
-                          </option>
-                        ))}
-                      </select>
+                      />
                     </div>
                     <div className="xl:col-span-3 max-xl:col-span-4 max-md:col-span-6 m-2">
                       <label htmlFor="RearHeadrest">Rear Headrest</label>

@@ -142,7 +142,7 @@
 
 //   // console.log(rows);
 //   return (
-//     <PrivateRoute requiredRoles={["ROLE_BIDDER", "Admin"]}>
+//     <PrivateRoute requiredRoles={["ROLE_BIDDER", "ROLE_ADMIN"]}>
 // <section className="flex justify-center items-center w-[80vw] max-lg:w-[100vw]">
 
 //    {isLoading ? <div className="flex justify-center items-center h-screen w-full">
@@ -383,7 +383,7 @@ const index = () => {
   console.log(posts);
 
   return (
-    <PrivateRoute requiredRoles={["ROLE_BIDDER", "Admin"]}>
+    <PrivateRoute requiredRoles={["ROLE_BIDDER", "ROLE_ADMIN"]}>
       <div className="w-[80vw] px-10 max-lg:w-screen max-xl:w-[75vw]">
         {isLoading ? (
           <div className="flex justify-center items-center h-screen">

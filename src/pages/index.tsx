@@ -9,7 +9,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <PrivateRoute requiredRoles={["Bidder", "Admin"]}>
+    <PrivateRoute requiredRoles={["Bidder", "ROLE_ADMIN"]}>
       <main className="mt-12 xl:mt-10">
         <h1 className="font-bold px-4 text-4xl mt-2 mb-3 w-full">Dashboard</h1>
         <h4 className="px-4 w-full">

@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useAuth } from "../context/authContext";
 import Image from "next/image";
 import toast from "react-hot-toast";
-const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const Login = () => {
   const { authState } = useAuth();

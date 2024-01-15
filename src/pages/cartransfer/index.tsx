@@ -45,7 +45,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const columns = [
   { id: "id", label: "S.No.", minWidth: 30 },
@@ -118,7 +118,7 @@ const index = () => {
   }
 
   return (
-    <PrivateRoute requiredRoles={["ROLE_BIDDER", "Admin"]}>
+    <PrivateRoute requiredRoles={["ROLE_BIDDER", "ROLE_ADMIN"]}>
       <div className="w-[80vw] px-10 max-lg:w-screen max-xl:w-[75vw]">
         {isLoading ? (
           <div className="flex justify-center items-center h-screen">

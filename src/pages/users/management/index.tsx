@@ -25,7 +25,7 @@ import {
 } from "@mui/material";
 import { getInitials } from "@/utils/get-initials";
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -130,9 +130,9 @@ const index = () => {
   }
 
   return (
-    <PrivateRoute requiredRoles={["Bidder", "Admin"]}>
+    <PrivateRoute requiredRoles={["Bidder", "ROLE_ADMIN"]}>
       <div className="m-5" style={{ height: "94%", width: "97%" }}>
-        <h1 className="font-bold px-4 text-4xl mt-2 mb-3">Admin</h1>
+        <h1 className="font-bold px-4 text-4xl mt-2 mb-3">ROLE_ADMIN</h1>
         <h4 className="px-4">
           Dashboard / <span className="text-[#ED2024]">Managements List</span>
         </h4>

@@ -20,7 +20,7 @@ import {
   tableCellClasses,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -127,7 +127,7 @@ const index = () => {
   };
 
   return (
-    <PrivateRoute requiredRoles={["ROLE_BIDDER", "Admin"]}>
+    <PrivateRoute requiredRoles={["ROLE_BIDDER", "ROLE_ADMIN"]}>
       <div className="w-[80vw] px-10 max-lg:w-screen max-xl:w-[75vw]">
         {isLoading ? (
           <div className="flex justify-center items-center h-screen">

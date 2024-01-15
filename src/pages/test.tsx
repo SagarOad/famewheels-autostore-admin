@@ -6,6 +6,8 @@ const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   return (
-    <PrivateRoute requiredRoles={["ROLE_BIDDER", "Admin"]}>test</PrivateRoute>
+    <PrivateRoute requiredRoles={["ROLE_BIDDER", "ROLE_ADMIN"]}>
+      test
+    </PrivateRoute>
   );
 }
