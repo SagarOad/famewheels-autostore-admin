@@ -18,11 +18,7 @@ interface AuthState {
     name: string;
     email: string;
     phone: string;
-    role_name: string;
-    role: {
-      id: number;
-      roleName: string;
-    };
+    role: string;
   } | null;
   token: string | null;
 }
@@ -43,7 +39,7 @@ export const AuthProvider: React.FC<AuthContextProps> = ({ children }) => {
   });
   const router = useRouter();
 
-  const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
+  const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
   const login = async (token: string) => {
     try {
