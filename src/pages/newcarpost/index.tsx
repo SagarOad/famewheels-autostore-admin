@@ -1,15 +1,8 @@
 import React, { FormEvent, useEffect, useState } from "react";
-import PostInfo from "../../../public/assets/post-info.png";
-import PostPhotos from "../../../public/assets/post-photos.png";
-import PostPrice from "../../../public/assets/post-price.png";
-import Redtick from "../../../public/assets/Red_tick.png";
-import Image from "next/image";
-// import SideBar from "@/components/SideBar";
 import { useQuery } from "react-query";
 import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
 import PrivateRoute from "@/route/PrivateRoute";
-import { ImpulseSpinner } from "react-spinners-kit";
 import toast from "react-hot-toast";
 import { v4 as uuidv4 } from "uuid";
 
@@ -627,7 +620,7 @@ const index = () => {
           }
         );
 
-        // toast.success(response?.data);
+        toast.success(response?.data?.message);
       } catch (error) {
         console.log(error);
       } finally {
@@ -2198,7 +2191,6 @@ const index = () => {
                         placeholder="Information Cluster"
                         required
                         className="border-2 border-gray-200 outline-red-500 w-full p-1 rounded text-sm"
-                        // value={categoryName}
                         value={infoCluster}
                         onChange={(e) => setInfoCluster(e.target.value)}
                       />
