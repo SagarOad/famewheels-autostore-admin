@@ -26,12 +26,14 @@ import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
 import TransferWithinAStationIcon from "@mui/icons-material/TransferWithinAStation";
 import NoCrashIcon from "@mui/icons-material/NoCrash";
 import CarRentalIcon from "@mui/icons-material/CarRental";
+import GavelIcon from "@mui/icons-material/Gavel";
 
 const Sidebar = () => {
   const [showRefund, setShowRefund] = useState(false);
   const [showPost, setShowPost] = useState(false);
   const [showUsers, setShowUsers] = useState(false);
   const [showPayments, setShowPayments] = useState(false);
+  const [showBidding, setShowBidding] = useState(false);
 
   const [open, setOpen] = useState(false);
 
@@ -259,6 +261,85 @@ const Sidebar = () => {
                 <span className="ms-2  d-sm-inline">Add New Vehicle</span>
               </Link>
             </li>
+
+            <button
+              data-bs-toggle="collapse"
+              className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+            >
+              <GavelIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+              <span
+                className="ms-2  d-sm-inline"
+                onClick={() => setShowBidding(!showBidding)}
+              >
+                Bidding
+                {showBidding ? (
+                  <ArrowDropUpIcon sx={{ color: "#ED2024" }} />
+                ) : (
+                  <ArrowDropDownIcon sx={{ color: "#ED2024" }} />
+                )}
+              </span>
+            </button>
+
+            {showBidding && (
+              <div className="ml-5">
+                <li>
+                  <Link
+                    href="/bidding/pendingrequests"
+                    data-bs-toggle="collapse"
+                    className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+                  >
+                    <AvTimerIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+                    <span className="ms-2  d-sm-inline">Pending Request</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/bidding/rejectedrequests"
+                    data-bs-toggle="collapse"
+                    className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+                  >
+                    <AvTimerIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+                    <span className="ms-2  d-sm-inline">Rejected Request</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/bidding/forwardedrequests"
+                    data-bs-toggle="collapse"
+                    className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+                  >
+                    <AvTimerIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+                    <span className="ms-2  d-sm-inline">Forwarded Request</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/bidding/inprocessrequests"
+                    data-bs-toggle="collapse"
+                    className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+                  >
+                    <AvTimerIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+                    <span className="ms-2  d-sm-inline">Inprocess Request</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/bidding/inspectedrequests"
+                    data-bs-toggle="collapse"
+                    className="flex gap-2 text-base font-semibold text-gray-700 hover:bg-[#ed202311] rounded-md w-full justify-left p-2"
+                  >
+                    <AvTimerIcon sx={{ color: "#ED2024", fontSize: 20 }} />
+
+                    <span className="ms-2  d-sm-inline">Inspected Request</span>
+                  </Link>
+                </li>
+              </div>
+            )}
 
             <button
               data-bs-toggle="collapse"
