@@ -27,7 +27,7 @@ interface IBidding {
   phone: string | number;
 }
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL_TESTING}`;
 
 const index = () => {
   const token = localStorage.getItem("authToken");
@@ -621,6 +621,7 @@ const index = () => {
         );
 
         toast.success(response?.data?.message);
+        window.location.reload();
       } catch (error) {
         console.log(error);
       } finally {
@@ -889,7 +890,7 @@ const index = () => {
 
                         {makeOne &&
                           makeOne.map((t: any) => (
-                            <option key={t.mmodelId} value={t.mmodelId}>
+                            <option key={t.modelId} value={t.modelId}>
                               {t.modelName}
                             </option>
                           ))}
@@ -2656,8 +2657,8 @@ const index = () => {
                         className="w-full col-span-3 border-2 border-gray-200 outline-red-500 p-1 rounded text-sm"
                         aria-label="Default select example"
                         required
-                        value={remoteEngineStart}
-                        onChange={(e) => setRemoteEngineStart(e.target.value)}
+                        value={navigation}
+                        onChange={(e) => setNavigation(e.target.value)}
                       >
                         {featureSelection?.map((item, index) => (
                           <option key={index} value={item?.value}>
