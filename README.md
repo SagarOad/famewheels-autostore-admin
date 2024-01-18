@@ -1,40 +1,82 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+![MasterHead](https://github.com/FameTechDevelopers/famewheelsfrontend/blob/main/src/images/fame-wheels-logo.png)
 
-## Getting Started
+Welcome to the official Git repository for **Fame Wheels**. This web application is designed for car enthusiasts who want to buy and sell cars through an online auction platform. The website also features live bidding functionality, allowing users to participate in real-time bidding wars for their favorite vehicles.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **Car Listing and Search**: Users can browse through a wide variety of cars listed for sale. Advanced search options enable users to find their desired vehicles quickly.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Live Bidding**: The website supports live bidding, allowing users to participate in real-time auctions, enhancing the excitement and competitiveness of the buying and selling process.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+- **Responsive Design**: The user interface is fully responsive, ensuring a seamless experience across various devices, including desktops, tablets, and mobile phones.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+## Technologies Used
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- **Frontend**: The frontend of the website is built using Next.JS, leveraging the latest version (14) to take advantage of its performance improvements and features.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- **Styling**: The website utilizes Emotion.js for styling, providing a powerful and efficient CSS-in-JS solution.
 
-## Learn More
+- **Material-UI**: Material-UI (MUI) is used to enhance the overall user experience with beautiful and functional components.
 
-To learn more about Next.js, take a look at the following resources:
+- **Date and Time Management**: For date and time-related tasks, the website uses date-fns and moment libraries to handle various date formats and calculations.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **User Interaction**: The website incorporates various libraries, such as react-router-dom and react-responsive-carousel, to facilitate smooth navigation and interactive car image carousels.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+- **Data Fetching**: Axios library is employed to perform HTTP requests, enabling smooth communication with the backend and third-party APIs.
 
-## Deploy on Vercel
+## Installation
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+To run this project locally, follow these steps:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone this repository to your local machine.
+2. Make sure you have Node.js and npm (Node Package Manager) installed.
+3. Open a terminal or command prompt, navigate to the project directory, and run the following command to install the dependencies:
+
+
+4. After the installation is complete, you can start the development server with the following command:
+
+
+5. The website will now be accessible on your local machine at [http://localhost:3000](http://localhost:3000).
+
+## Available Scripts
+
+In the project directory, you can run the following scripts:
+
+- `npm start`: Runs the development server and launches the website in your default web browser.
+- `npm build`: Builds the production-ready optimized version of the website for deployment.
+- `npm test`: Launches the test runner to execute unit tests.
+- `npm eject`: Ejects the project from the create-react-app setup, allowing further customization (Note: This is a one-way operation and cannot be undone).
+
+## Supported Browsers
+
+The website is designed to be compatible with a wide range of modern browsers. The supported browsers include:
+
+- **Production**:
+  - Any browser with a usage share greater than 0.2%.
+  - Browsers not marked as "dead."
+  - Excludes all versions of Opera Mini.
+
+- **Development**:
+  - The last version of Google Chrome.
+  - The last version of Mozilla Firefox.
+  - The last version of Apple Safari.
+
+## Contributing
+
+We welcome contributions to enhance the website's features, fix bugs, and improve user experience. If you would like to contribute, please follow these steps:
+
+1. Fork the repository on GitHub.
+2. Create a new branch from the `main` branch for your work.
+3. Make your changes and commit them to your branch.
+4. Push your branch to your forked repository.
+5. Create a pull request to merge your changes into the main repository.
+
+Please ensure that your code follows the project's coding standards and that you include appropriate tests for any new functionality.
+
+## License
+
+This project is licensed under the [Fameitech](FameWheels.com).
+
+---
+
+Thank you for showing interest in **Fame Wheels**. We hope this platform brings joy to car enthusiasts and simplifies the process of buying and selling cars online. If you have any questions or suggestions, feel free to contact us or open an issue on GitHub. Happy car shopping!
