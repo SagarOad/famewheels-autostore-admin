@@ -1,5 +1,14 @@
 "use client";
-import { Button, Card, CardBody, Col, Input, Label } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardBody,
+  Col,
+  Input,
+  Label,
+  Form,
+  FormGroup,
+} from "reactstrap";
 import DataTable, { TableColumn } from "react-data-table-component";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -10,7 +19,6 @@ import {
   HtmlColumn,
   HtmlData,
   DealerColumn,
-
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
 import { useMemo, useState } from "react";
 import PaginationDynamic from "@/utils/Paginations";
@@ -30,31 +38,52 @@ import { toast } from "react-toastify";
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const HtmlSourcedData = () => {
+  const [show, setShow] = useState(false);
+  const [address, setAddress] = useState("test123@gmail.com");
+  const [inspectionSlot, setInspectionSlot] = useState("Test@123");
+
+  const token = localStorage.getItem("authToken");
+
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(30);
   const [total, setTotal] = useState(0);
   const [postId, setPostId] = useState<any>(null);
-  const [centred, setCentered] = useState(false);
+  const [detailModal, setDetailModal] = useState(false);
+  const [forwardModal, setForwardModal] = useState(false);
   const [getUpdate, setGetUpdate] = useState(false);
 
-  const centeredToggle = (id:number) => {
-    setPostId(id)
-   return setCentered(!centred);
-  }
+  const detailsToggle = (id: number) => {
+    setPostId(id);
+    return setDetailModal(!detailModal);
+  };
 
+  const closeDetailModal = () => {
+    detailsToggle(postId); // Call forwardToggle with the necessary argument (postId)
+  };
+
+  const closeForwardModal = () => {
+    forwardToggle(postId); // Call forwardToggle with the necessary argument (postId)
+  };
+  const forwardToggle = (id: number) => {
+    setPostId(id);
+    return setForwardModal(!forwardModal);
+  };
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.get(`http://146.71.76.22/famewheelsbackend/statuswiseauctionpostlist`, {
-        params: {
-          auctionpoststatus_id: 1,
-          page: page,
-        },
-        headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
-        },
-      });
+      const response = await axios.get(
+        `${BASE_URL}/statuswiseauctionpostlist`,
+        {
+          params: {
+            auctionpoststatus_id: 1,
+            page: page,
+          },
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       setTotal(response?.data?.data?.last_page);
       console.log(response?.data);
       return response?.data?.data?.data;
@@ -97,71 +126,92 @@ const HtmlSourcedData = () => {
       selector: (row) => row.postId,
       sortable: true,
     },
-  
+
     {
       name: "Make",
       selector: (row) => row.makeName,
       sortable: true,
     },
-  
+
     {
       name: "Model",
       selector: (row) => row.modelName,
       sortable: true,
-    }, 
-  
+    },
+
     {
       name: "Year",
       selector: (row) => row.yearName,
       sortable: true,
     },
-  
+
     {
-        name: "City Name",
-        selector: (row) => row.cityName,
-        sortable: true,
+      name: "City Name",
+      selector: (row) => row.cityName,
+      sortable: true,
     },
-    
+
     {
       name: "Action",
       // cell: (row) => <ActionDataSourcePosts id={row.postId} />,
       cell: (row) => {
         return (
-          <ul className="action simple-list d-flex flex-row gap-2" key={row?.postId}>
-          <li className="edit">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>handleApprove(row?.postId)}>
-            <i className="fa fa-mail-forward"></i>
-            </button>
-          </li>
-          <li className="delete">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>handleReject(row?.postId)}>
-              <i className="icon-trash" />
-            </button>
-          </li>
+          <ul
+            className="action simple-list d-flex flex-row gap-2"
+            key={row?.postId}
+          >
+            <li className="edit">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => {
+                  forwardToggle(row?.postId);
+                }}
+              >
+                <i className="fa fa-mail-forward"></i>
+              </button>
+            </li>
+            <li className="delete">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => handleReject(row?.postId)}
+              >
+                <i className="icon-trash" />
+              </button>
+            </li>
 
-          <li className="delete">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>handleNormal(row?.postId)}>
-              <i className="icon-trash" />
-              normal
-            </button>
-          </li>
+            <li className="delete">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => handleNormal(row?.postId)}
+              >
+                <i className="icon-trash" />
+                normal
+              </button>
+            </li>
 
-          <li className="delete">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>handleThrough(row?.postId)}>
-              <i className="icon-trash" />
-              through
-            </button>
-          </li>
+            <li className="delete">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => handleThrough(row?.postId)}
+              >
+                <i className="icon-trash" />
+                through
+              </button>
+            </li>
 
-          <li className="view">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>{centeredToggle(row?.postId)
-            }}>
-              <i className="icon-eye link-primary" />
-            </button>
-          </li>
-        </ul>
+            <li className="view">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => {
+                  detailsToggle(row?.postId);
+                }}
+              >
+                <i className="icon-eye link-primary" />
+              </button>
+            </li>
+          </ul>
         );
-      } ,
+      },
       sortable: true,
     },
   ];
@@ -170,11 +220,11 @@ const HtmlSourcedData = () => {
     try {
       const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
         params: {
-          post_id:id,
+          post_id: id,
           auctionpoststatus_id: 4,
         },
         headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
@@ -193,7 +243,7 @@ const HtmlSourcedData = () => {
           auctionpoststatus_id: 5,
         },
         headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
@@ -212,7 +262,7 @@ const HtmlSourcedData = () => {
           auctionpoststatus_id: 6,
         },
         headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
@@ -231,7 +281,7 @@ const HtmlSourcedData = () => {
           auctionpoststatus_id: 2,
         },
         headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Approved Succeffully");
@@ -240,7 +290,29 @@ const HtmlSourcedData = () => {
       console.log(error);
     }
   };
-  
+
+  const formSubmitHandle = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
+        params: {
+          post_id: postId,
+          auctionpoststatus_id: 2,
+          address: address,
+          inspection_slot: inspectionSlot,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(response?.data?.message || "Approved Succeffully");
+      setGetUpdate(true);
+      closeForwardModal();
+    } catch (error: any) {
+      toast.error(error?.data?.message || "Confirmation Failed");
+      console.error("Login failed", error);
+    }
+  };
+
   return (
     <Col sm="12">
       <Card className="basic-data-table">
@@ -268,35 +340,82 @@ const HtmlSourcedData = () => {
         )}
       </Card>
 
-      <CommonModal centered isOpen={centred} toggle={centeredToggle} size="xl">
+      <CommonModal
+        centered
+        isOpen={detailModal}
+        toggle={closeDetailModal}
+        size="xl"
+      >
         <div className="modal-toggle-wrapper">
-          {/* <ul className="modal-img">
-            <li className="text-center">
-              <img src={`${ImagePath}/gif/danger.gif`} alt="error" />
-            </li>
-          </ul>
-          <h4 className="text-center pb-2">{SomethingWentWrong}</h4>
-          <p className="text-center">
-            Attackers on malicious activity may trick you into doing something
-            dangerous like installing software or revealing your personal
-            informations.
-          </p> */}
-
-<SinglePost id={postId}/>
+          <SinglePost id={postId} />
 
           <Button
             color="secondary"
             className="d-flex m-auto"
-            onClick={centeredToggle}
-            >
+            onClick={detailsToggle}
+          >
             {Close}
           </Button>
-            </div>
+        </div>
+      </CommonModal>
+
+      <CommonModal
+        centered
+        isOpen={forwardModal}
+        toggle={closeForwardModal}
+        size="md"
+      >
+        <div className="modal-toggle-wrapper">
+          <Form className="theme-form">
+            <h4>Confirmation</h4>
+            <p>Confirm Address & Inspection Slot to proceed to inspection</p>
+            <FormGroup>
+              <Label className="col-form-label">Address</Label>
+              <Input
+                type="address"
+                defaultValue={address}
+                onChange={(event: any) => setAddress(event.target.value)}
+                placeholder="test123@gmail.com"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label className="col-form-label">Inspection Slot</Label>
+              <div className="position-relative">
+                <Input
+                  className="digits"
+                  type="datetime-local"
+                  defaultValue="2023-05-03T18:45:00"
+                  onChange={(event: any) =>
+                    setInspectionSlot(event.target.value)
+                  }
+                />
+              </div>
+            </FormGroup>
+            <FormGroup className="mb-0">
+              <div className="text-center mt-3">
+                <Button
+                  color="primary"
+                  // block
+                  // className="w-100"
+                  className=" m-1"
+                  onClick={formSubmitHandle}
+                >
+                  Confirm
+                </Button>
+                <Button
+                  color="secondary"
+                  className=" m-1"
+                  onClick={forwardToggle}
+                >
+                  {Close}
+                </Button>
+              </div>
+            </FormGroup>
+          </Form>
+        </div>
       </CommonModal>
     </Col>
   );
 };
 
 export default HtmlSourcedData;
-
-
