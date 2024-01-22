@@ -69,7 +69,7 @@ const HtmlSourcedData = () => {
     data: users,
     error,
     isLoading,
-  } = useQuery(`all_post_${page}_${getUpdate}`, fetchData);
+  } = useQuery(`pending_posts_${page}_${getUpdate}`, fetchData);
 
   const filteredItems = HtmlColumnData.filter(
     (item: any) =>

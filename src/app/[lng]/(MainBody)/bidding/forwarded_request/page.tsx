@@ -67,7 +67,7 @@ const HtmlSourcedData = () => {
     data: users,
     error,
     isLoading,
-  } = useQuery(`all_post_${page}${getUpdate}`, fetchData);
+  } = useQuery(`forwarded_bidding_${page}${getUpdate}`, fetchData);
 
   const filteredItems = HtmlColumnData.filter(
     (item: any) =>
