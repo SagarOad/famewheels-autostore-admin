@@ -98,7 +98,6 @@ const HtmlSourcedData = () => {
     isLoading,
   } = useQuery(`pending_bidding_${page}${getUpdate}`, fetchData);
 
-  
   const filteredItems = HtmlColumnData.filter(
     (item: any) =>
       item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
@@ -353,7 +352,7 @@ const HtmlSourcedData = () => {
           <Button
             color="secondary"
             className="d-flex m-auto"
-            onClick={detailsToggle}
+            onClick={closeDetailModal}
           >
             {Close}
           </Button>
@@ -373,7 +372,7 @@ const HtmlSourcedData = () => {
             <FormGroup>
               <Label className="col-form-label">Address</Label>
               <Input
-                type="address"
+                type="text"
                 defaultValue={address}
                 onChange={(event: any) => setAddress(event.target.value)}
                 placeholder="test123@gmail.com"
@@ -406,7 +405,7 @@ const HtmlSourcedData = () => {
                 <Button
                   color="secondary"
                   className=" m-1"
-                  onClick={forwardToggle}
+                  onClick={closeForwardModal}
                 >
                   {Close}
                 </Button>

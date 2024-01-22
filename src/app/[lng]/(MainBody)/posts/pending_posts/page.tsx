@@ -10,7 +10,6 @@ import {
   HtmlColumn,
   HtmlData,
   DealerColumn,
-
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
 import { useMemo, useState } from "react";
 import PaginationDynamic from "@/utils/Paginations";
@@ -29,7 +28,6 @@ import { toast } from "react-toastify";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
-
 const HtmlSourcedData = () => {
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(1);
@@ -39,10 +37,10 @@ const HtmlSourcedData = () => {
   const [centred, setCentered] = useState(false);
   const [getUpdate, setGetUpdate] = useState(false);
 
-  const centeredToggle = (id:number) => {
-    setPostId(id)
-   return setCentered(!centred);
-  }
+  const centeredToggle = (id: number) => {
+    setPostId(id);
+    return setCentered(!centred);
+  };
 
   const fetchData = async () => {
     try {
@@ -53,7 +51,7 @@ const HtmlSourcedData = () => {
           page: page,
         },
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       // setPage(response?.data?.data?.current_page);
@@ -93,8 +91,6 @@ const HtmlSourcedData = () => {
     );
   }, [filterText]);
 
-
-
   const PostsColumn: TableColumn<Posts>[] = [
     {
       name: "S.no",
@@ -106,7 +102,7 @@ const HtmlSourcedData = () => {
       selector: (row) => row.title,
       sortable: true,
     },
-  
+
     {
       name: "Vehicle Condition",
       selector: (row) => row.vehicleCondition,
@@ -122,66 +118,66 @@ const HtmlSourcedData = () => {
       selector: (row) => row.cityName,
       sortable: true,
     },
-  
-  
-  
+
     {
       name: "Make",
       selector: (row) => row.makeName,
       sortable: true,
     },
-  
-  
-  
-  
+
     {
       name: "Model",
       selector: (row) => row.modelName,
       sortable: true,
     },
-  
-  
-  
+
     {
       name: "Year",
       selector: (row) => row.yearName,
       sortable: true,
     },
-  
-  
-  
-  
+
     {
       name: "Action",
       // cell: (row) => <ActionDataSourcePosts id={row.postId} />,
       cell: (row) => {
         return (
-          <ul className="action simple-list d-flex flex-row gap-2" key={row?.postId}>
-          <li className="edit">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>handleApprove(row?.postId)}>
-            <i className="icofont icofont-check"></i>
-            </button>
-          </li>
-          <li className="delete">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>handleReject(row?.postId)}>
-              <i className="icon-trash" />
-            </button>
-          </li>
-          <li className="view">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>{centeredToggle(row?.postId)
-            
-            }}>
-              <i className="icon-eye link-primary" />
-            </button>
-          </li>
-        </ul>
+          <ul
+            className="action simple-list d-flex flex-row gap-2"
+            key={row?.postId}
+          >
+            <li className="edit">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => handleApprove(row?.postId)}
+              >
+                <i className="icofont icofont-check"></i>
+              </button>
+            </li>
+            <li className="delete">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => handleReject(row?.postId)}
+              >
+                <i className="icon-trash" />
+              </button>
+            </li>
+            <li className="view">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => {
+                  centeredToggle(row?.postId);
+                }}
+              >
+                <i className="icon-eye link-primary" />
+              </button>
+            </li>
+          </ul>
         );
-      } ,
+      },
       sortable: true,
     },
   ];
-
-
 
   const handleReject = async (id: number) => {
     try {
@@ -191,7 +187,7 @@ const HtmlSourcedData = () => {
           status_id: 3,
         },
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
@@ -202,9 +198,7 @@ const HtmlSourcedData = () => {
     }
   };
 
-
-
-  const handleApprove = async (id:number)=>{
+  const handleApprove = async (id: number) => {
     try {
       const response = await axios.get(`${BASE_URL}/approvedeclinepost`, {
         params: {
@@ -212,7 +206,7 @@ const HtmlSourcedData = () => {
           status_id: 1,
         },
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Approved Succeffully");
@@ -220,8 +214,8 @@ const HtmlSourcedData = () => {
     } catch (error) {
       console.log(error);
     }
-}
-  
+  };
+
   return (
     <Col sm="12">
       <Card className="basic-data-table">
@@ -251,22 +245,19 @@ const HtmlSourcedData = () => {
 
       <CommonModal centered isOpen={centred} toggle={centeredToggle} size="xl">
         <div className="modal-toggle-wrapper">
-         
-<SinglePost id={postId}/>
+          <SinglePost id={postId} />
 
           <Button
             color="secondary"
             className="d-flex m-auto"
             onClick={centeredToggle}
-            >
+          >
             {Close}
           </Button>
-            </div>
+        </div>
       </CommonModal>
     </Col>
   );
 };
 
 export default HtmlSourcedData;
-
-

@@ -34,26 +34,30 @@ const HtmlSourcedData = () => {
   const [rowsPerPage, setRowsPerPage] = useState(30);
   const [total, setTotal] = useState(0);
   const [postId, setPostId] = useState<any>(null);
-  const [centred, setCentered] = useState(false);
+  const [detailModal, setDetailModal] = useState(false);
   const [getUpdate, setGetUpdate] = useState(false);
 
-  const centeredToggle = (id: number) => {
+  const detailsToggle = (id: number) => {
     setPostId(id);
-    return setCentered(!centred);
+    return setDetailModal(!detailModal);
+  };
+
+  const closeDetailModal = () => {
+    detailsToggle(postId); // Call forwardToggle with the necessary argument (postId)
   };
 
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("authToken");
       const response = await axios.get(
-        `http://146.71.76.22/famewheelsbackend/statuswiseauctionpostlist`,
+        `${BASE_URL}/statuswiseauctionpostlist`,
         {
           params: {
             auctionpoststatus_id: 7,
             page: page,
           },
           headers: {
-            Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
@@ -174,7 +178,7 @@ const HtmlSourcedData = () => {
               <button
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
-                  centeredToggle(row?.postId);
+                  detailsToggle(row?.postId);
                 }}
               >
                 <i className="icon-eye link-primary" />
@@ -189,13 +193,14 @@ const HtmlSourcedData = () => {
 
   const handleReject = async (post: any) => {
     try {
+      const token = localStorage.getItem("authToken");
       const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
         params: {
           post_id: post?.postId,
           auctionpoststatus_id: 4,
         },
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
@@ -207,13 +212,14 @@ const HtmlSourcedData = () => {
   };
   const handleNormal = async (post: any) => {
     try {
+      const token = localStorage.getItem("authToken");
       const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
         params: {
           post_id: post?.postId,
           auctionpoststatus_id: 5,
         },
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
@@ -225,13 +231,14 @@ const HtmlSourcedData = () => {
   };
   const handleThrough = async (post: any) => {
     try {
+      const token = localStorage.getItem("authToken");
       const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
         params: {
           post_id: post?.postId,
           auctionpoststatus_id: 6,
         },
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
@@ -244,13 +251,14 @@ const HtmlSourcedData = () => {
 
   const handleApprove = async (post: any) => {
     try {
+      const token = localStorage.getItem("authToken");
       const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
         params: {
           post_id: post?.postId,
           auctionpoststatus_id: 2,
         },
         headers: {
-          Authorization: `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczpcL1wvb25saW5lcGF5bWVudC5mYW1ld2hlZWxzLmNvbVwvYWRtaW5sb2dpbiIsImlhdCI6MTcwNTQ4MjAxNywiZXhwIjoxNzM3MDE4MDE3LCJuYmYiOjE3MDU0ODIwMTcsImp0aSI6IkVzS0tCeWZBU2p2NmJROWciLCJzdWIiOjIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.GhJbkN0daNzXoCrulaB55kI82fN9XnxT_Yl2ccaw4Cg`,
+          Authorization: `Bearer ${token}`,
         },
       });
       toast.success(response?.data?.message || "Approved Succeffully");
@@ -287,14 +295,19 @@ const HtmlSourcedData = () => {
         )}
       </Card>
 
-      <CommonModal centered isOpen={centred} toggle={centeredToggle} size="xl">
+      <CommonModal
+        centered
+        isOpen={detailModal}
+        toggle={closeDetailModal}
+        size="xl"
+      >
         <div className="modal-toggle-wrapper">
           <SinglePost id={postId} />
 
           <Button
             color="secondary"
             className="d-flex m-auto"
-            onClick={centeredToggle}
+            onClick={closeDetailModal}
           >
             {Close}
           </Button>
