@@ -1,7 +1,10 @@
 import SVG from "@/CommonComponent/SVG";
 import { ImagePath } from "@/Constant";
 import { useAppDispatch, useAppSelector } from "@/Redux/Hooks";
-import { handleResponsiveToggle, setToggleSidebar } from "@/Redux/Reducers/LayoutSlice";
+import {
+  handleResponsiveToggle,
+  setToggleSidebar,
+} from "@/Redux/Reducers/LayoutSlice";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -15,18 +18,37 @@ export const LogoWrapper = () => {
     <>
       <div className="logo-wrapper">
         <Link href={`/${i18LangStatus}/sample_page`}>
-          <img className="img-fluid" src={`${ImagePath}/logo/logo_light.png`} alt="" />
+          <img
+            className="img-fluid"
+            src={`${ImagePath}/logo/logo-white.png`}
+            alt=""
+            width={140}
+          />
         </Link>
-        <div className="back-btn" onClick={() => dispatch(handleResponsiveToggle())}>
+        <div
+          className="back-btn"
+          onClick={() => dispatch(handleResponsiveToggle())}
+        >
           <i className="fa fa-angle-left"></i>
         </div>
-        <div className="toggle-sidebar" onClick={()=>dispatch(setToggleSidebar(!toggleSidebar))} defaultChecked>
-          <SVG className={`${sidebarIconType}-icon sidebar-toggle status_toggle middle`} iconId={`${sidebarIconType === "fill" ? "fill-" : "" }toggle-icon`} />
+        <div
+          className="toggle-sidebar"
+          onClick={() => dispatch(setToggleSidebar(!toggleSidebar))}
+          defaultChecked
+        >
+          <SVG
+            className={`${sidebarIconType}-icon sidebar-toggle status_toggle middle`}
+            iconId={`${sidebarIconType === "fill" ? "fill-" : ""}toggle-icon`}
+          />
         </div>
       </div>
       <div className="logo-icon-wrapper">
         <Link href={`/${i18LangStatus}/sample_page`}>
-          <img className="img-fluid" src={`${ImagePath}/logo/logo-icon.png`} alt="" />
+          <img
+            className="img-fluid"
+            src={`${ImagePath}/logo/fame-wheels-icon.png`}
+            alt=""
+          />
         </Link>
       </div>
     </>
