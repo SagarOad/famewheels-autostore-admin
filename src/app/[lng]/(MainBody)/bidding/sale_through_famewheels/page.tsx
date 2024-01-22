@@ -67,7 +67,7 @@ const HtmlSourcedData = () => {
     data: users,
     error,
     isLoading,
-  } = useQuery(`all_post_${page}${getUpdate}`, fetchData);
+  } = useQuery(`sale_through_famewheels_${page}${getUpdate}`, fetchData);
 
   const filteredItems = HtmlColumnData.filter(
     (item: any) =>
