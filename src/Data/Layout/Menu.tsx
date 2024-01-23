@@ -12,10 +12,8 @@ export const MenuList: MenuItem[] | undefined = [
         icon: "home",
         type: "sub",
         lanClass: "lan-3",
-        path: "/dashboard/default_dashboard", 
-      
+        path: "/dashboard/default_dashboard",
       },
-      
     ],
   },
 
@@ -32,7 +30,7 @@ export const MenuList: MenuItem[] | undefined = [
         lanClass: "lan-2",
         active: false,
         children: [
-          { path: "/users/management", title: "User management", type: "link" },
+          { path: "/users/management", title: "Management", type: "link" },
           { path: "/users/members", title: "Members", type: "link" },
           { path: "/users/subscribers", title: "Subscribers", type: "link" },
           { path: "/users/dealers", title: "Dealers", type: "link" },
@@ -42,15 +40,12 @@ export const MenuList: MenuItem[] | undefined = [
       },
     ],
   },
-   
 
   {
     title: "Inspection",
     lanClass: "lan-3",
     menucontent: "Dashboards,Widgets",
     Items: [
-   
-
       {
         title: "Inspection List",
         id: 3,
@@ -58,19 +53,16 @@ export const MenuList: MenuItem[] | undefined = [
         type: "sub",
         lanClass: "lan-6",
         active: false,
-        path:"/inspection/inspectionlist"
+        path: "/inspection/inspectionlist",
       },
     ],
   },
- 
 
   {
     title: "Car",
     lanClass: "lan-1",
     menucontent: "Dashboards,Widgets",
     Items: [
-   
-
       {
         title: "Car Management",
         id: 4,
@@ -79,25 +71,31 @@ export const MenuList: MenuItem[] | undefined = [
         lanClass: "lan-6",
         active: false,
         children: [
-
-          { path: "/cartransfer/car_transferlist", title: "Car Transfer", type: "link" },
-          { path: "/cartransfer/car_import", title: "Car Import", type: "link" },
-          { path: "/cartransfer/car_registration", title: "Car Registration", type: "link" },
-          
-        ]
+          {
+            path: "/cartransfer/car_transferlist",
+            title: "Car Transfer",
+            type: "link",
+          },
+          {
+            path: "/cartransfer/car_import",
+            title: "Car Import",
+            type: "link",
+          },
+          {
+            path: "/cartransfer/car_registration",
+            title: "Car Registration",
+            type: "link",
+          },
+        ],
       },
     ],
   },
- 
-
 
   {
     title: "Posts",
     lanClass: "lan-1",
     menucontent: "Dashboards,Widgets",
     Items: [
-   
-
       {
         title: "Website Posts",
         id: 5,
@@ -106,25 +104,32 @@ export const MenuList: MenuItem[] | undefined = [
         lanClass: "lan-6",
         active: false,
         children: [
-
           { path: "/posts/all_posts", title: "All Posts", type: "link" },
-          { path: "/posts/pending_posts", title: "Pending Posts", type: "link" },
-          { path: "/posts/rejected_posts", title: "Rejected Posts", type: "link" },
-          { path: "/posts/approved_posts", title: "Approved Posts", type: "link" },
-          
-        ]
+          {
+            path: "/posts/pending_posts",
+            title: "Pending Posts",
+            type: "link",
+          },
+          {
+            path: "/posts/rejected_posts",
+            title: "Rejected Posts",
+            type: "link",
+          },
+          {
+            path: "/posts/approved_posts",
+            title: "Approved Posts",
+            type: "link",
+          },
+        ],
       },
     ],
   },
- 
 
   {
     title: "Refund",
     lanClass: "lan-6",
     menucontent: "Dashboards,Widgets",
     Items: [
-   
-
       {
         title: "Refund Requests",
         id: 6,
@@ -133,24 +138,31 @@ export const MenuList: MenuItem[] | undefined = [
         lanClass: "lan-6",
         active: false,
         children: [
-
-          { path: "/refund/pending_refund", title: "Pending Refund", type: "link" },
-          { path: "/refund/rejected_refund", title: "Rejected Refund", type: "link" },
-          { path: "/refund/approved_refund", title: "Approved Refund", type: "link" },
-          
-        ]
+          {
+            path: "/refund/pending_refund",
+            title: "Pending Refund",
+            type: "link",
+          },
+          {
+            path: "/refund/rejected_refund",
+            title: "Rejected Refund",
+            type: "link",
+          },
+          {
+            path: "/refund/approved_refund",
+            title: "Approved Refund",
+            type: "link",
+          },
+        ],
       },
     ],
   },
-
 
   {
     title: "Payments",
     lanClass: "lan-7",
     menucontent: "Dashboards,Widgets",
     Items: [
-   
-
       {
         title: "Payment Requests",
         id: 7,
@@ -159,12 +171,22 @@ export const MenuList: MenuItem[] | undefined = [
         lanClass: "lan-6",
         active: false,
         children: [
-
-          { path: "/payments/active_payments", title: "Active Payments", type: "link" },
-          { path: "/payments/wallet_payments", title: "Wallet Payments", type: "link" },
-          { path: "/payments/used_payments", title: "Used Payments", type: "link" },
-          
-        ]
+          {
+            path: "/payments/active_payments",
+            title: "Active Payments",
+            type: "link",
+          },
+          {
+            path: "/payments/wallet_payments",
+            title: "Wallet Payments",
+            type: "link",
+          },
+          {
+            path: "/payments/used_payments",
+            title: "Used Payments",
+            type: "link",
+          },
+        ],
       },
     ],
   },
@@ -174,8 +196,6 @@ export const MenuList: MenuItem[] | undefined = [
     lanClass: "lan-7",
     menucontent: "Dashboards,Widgets",
     Items: [
-   
-
       {
         title: "Bidding Requests",
         id: 7,
@@ -184,20 +204,48 @@ export const MenuList: MenuItem[] | undefined = [
         lanClass: "lan-6",
         active: false,
         children: [
-
-          { path: "/bidding/pending_request", title: "Pending Request", type: "link" },
-          { path: "/bidding/rejected_request", title: "Rejected Request", type: "link" },
-          { path: "/bidding/forwarded_request", title: "Forwarded Request", type: "link" },
-          { path: "/bidding/inprocess_request", title: "Inprocess Request", type: "link" },
-          { path: "/bidding/inspected_request", title: "Inspected Request", type: "link" },
-          { path: "/bidding/sale_through_famewheels", title: "Sale Through Request", type: "link" },
-          { path: "/bidding/eligible", title: "Eligible Request", type: "link" },
-          { path: "/bidding/not_eligible", title: "Not Eligible Request", type: "link" },
-          
-        ]
+          {
+            path: "/bidding/pending_request",
+            title: "Pending Request",
+            type: "link",
+          },
+          {
+            path: "/bidding/rejected_request",
+            title: "Rejected Request",
+            type: "link",
+          },
+          {
+            path: "/bidding/forwarded_request",
+            title: "Forwarded Request",
+            type: "link",
+          },
+          {
+            path: "/bidding/inprocess_request",
+            title: "Inprocess Request",
+            type: "link",
+          },
+          {
+            path: "/bidding/inspected_request",
+            title: "Inspected Request",
+            type: "link",
+          },
+          {
+            path: "/bidding/sale_through_famewheels",
+            title: "Sale Through Request",
+            type: "link",
+          },
+          {
+            path: "/bidding/eligible",
+            title: "Eligible Request",
+            type: "link",
+          },
+          {
+            path: "/bidding/not_eligible",
+            title: "Not Eligible Request",
+            type: "link",
+          },
+        ],
       },
     ],
   },
-
-
 ];
