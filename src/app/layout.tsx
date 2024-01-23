@@ -12,12 +12,12 @@ export default function RootLayout({
       <head>
         <link
           rel="icon"
-          href="/assets/images/favicon.png"
+          href="/assets/images/favicon.ico"
           type="image/x-icon"
         />
         <link
           rel="shortcut icon"
-          href="/assets/images/favicon.png"
+          href="/assets/images/favicon.ico"
           type="image/x-icon"
         />
         <title>CRM - Fame Wheels</title>
