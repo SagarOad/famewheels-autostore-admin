@@ -16,8 +16,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Button, Form, FormGroup, Input, Label } from "reactstrap";
-import imageOne from "../../../../public/assets/images/logo/logo.png";
-import imageTwo from "../../../../public/assets/images/logo/logo_dark.png";
+import imageOne from "../../../../public/assets/images/logo/fame-wheels-logo.png";
+import imageTwo from "../../../../public/assets/images/logo/logo-white.png";
 import { UserSocialApp } from "./UserSocialApp";
 import axios from "axios";
 
@@ -63,11 +63,13 @@ export const UserForm = () => {
             className="img-fluid for-light"
             src={imageOne.src}
             alt="login page"
+            width={200}
           />
           <img
             className="img-fluid for-dark"
             src={imageTwo.src}
             alt="login page"
+            width={200}
           />
         </Link>
       </div>
