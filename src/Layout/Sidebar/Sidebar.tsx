@@ -16,29 +16,61 @@ export const SideBar = () => {
   const dispatch = useAppDispatch();
 
   return (
-    <div className={`sidebar-wrapper ${toggleSidebar ? "close_icon" : ""}`} id="sidebar-wrapper">
+    <div
+      className={`sidebar-wrapper ${toggleSidebar ? "close_icon" : ""}`}
+      id="sidebar-wrapper"
+    >
       <LogoWrapper />
       <nav className="sidebar-main">
-      <div className={`left-arrow ${margin === 0 ? "disabled" : ""}`} onClick={()=>dispatch(scrollToLeft())}><ArrowLeft /></div>
-        <div id="sidebar-menu" style={{ position: "inherit", marginLeft: `${wrapper === "horizontal-wrapper" ? margin + "px" : "0px"}` }}>
+        <div
+          className={`left-arrow ${margin === 0 ? "disabled" : ""}`}
+          onClick={() => dispatch(scrollToLeft())}
+        >
+          <ArrowLeft />
+        </div>
+        <div
+          id="sidebar-menu"
+          style={{
+            position: "inherit",
+            marginLeft: `${
+              wrapper === "horizontal-wrapper" ? margin + "px" : "0px"
+            }`,
+          }}
+        >
           <ul className="sidebar-links custom-scrollbar" id="simple-bar">
             <SimpleBar style={{ width: "80px", height: "350px" }}>
               <li className="back-btn">
                 <Link href={`/${i18LangStatus}/sample_page`}>
-                  <img className="img-fluid" src={`${ImagePath}/logo/logo-icon.png`} alt="" />
+                  <img
+                    className="img-fluid"
+                    src={`${ImagePath}/logo/logo-icon.png`}
+                    alt=""
+                  />
                 </Link>
                 <div className="mobile-back text-end ">
-                  <span>Back </span><i className="fa fa-angle-right ps-2" aria-hidden="true"></i>
+                  <span>Back </span>
+                  <i className="fa fa-angle-right ps-2" aria-hidden="true"></i>
                 </div>
               </li>
-              <li className={`pin-title sidebar-main-title ${pinedMenu.length > 1 ? "show" : ""} `}>
-                <div><h6>{Pinned}</h6></div>
+              <li
+                className={`pin-title sidebar-main-title ${
+                  pinedMenu.length > 1 ? "show" : ""
+                } `}
+              >
+                <div>
+                  <h6>{Pinned}</h6>
+                </div>
               </li>
               <SidebarMenuList />
             </SimpleBar>
           </ul>
         </div>
-        <div className={`right-arrow ${margin === -3500 ? "disabled" : ""}`} onClick={()=>dispatch(scrollToRight())}><ArrowRight /></div>
+        <div
+          className={`right-arrow ${margin === -3500 ? "disabled" : ""}`}
+          onClick={() => dispatch(scrollToRight())}
+        >
+          <ArrowRight />
+        </div>
       </nav>
     </div>
   );
