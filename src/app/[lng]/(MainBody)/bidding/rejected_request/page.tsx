@@ -28,7 +28,7 @@ import { toast } from "react-toastify";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
-const HtmlSourcedData = () => {
+const RejectedRequests = () => {
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(30);
@@ -273,4 +273,4 @@ const HtmlSourcedData = () => {
   );
 };
 
-export default HtmlSourcedData;
+export default RejectedRequests;

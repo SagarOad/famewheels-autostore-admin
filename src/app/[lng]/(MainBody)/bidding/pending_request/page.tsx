@@ -37,7 +37,7 @@ import { toast } from "react-toastify";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
-const HtmlSourcedData = () => {
+const PendingRequests = () => {
   const [show, setShow] = useState(false);
   const [address, setAddress] = useState("test123@gmail.com");
   const [inspectionSlot, setInspectionSlot] = useState("Test@123");
@@ -418,4 +418,4 @@ const HtmlSourcedData = () => {
   );
 };
 
-export default HtmlSourcedData;
+export default PendingRequests;
