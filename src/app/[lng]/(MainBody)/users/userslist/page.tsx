@@ -52,10 +52,19 @@ const HtmlSourcedData = () => {
     isLoading,
   } = useQuery(`usersList_${page}`, fetchData);
 
-  const filteredItems = HtmlColumnData.filter(
-    (item: any) =>
-      item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
-  );
+  const filteredItems = users?.filter((item: any) => {
+    const lowerCaseFilterText = filterText.toLowerCase();
+
+    return (
+      (item?.name && item?.name.toLowerCase().includes(lowerCaseFilterText)) ||
+      (item?.email &&
+        item?.email.toLowerCase().includes(lowerCaseFilterText)) ||
+      (item?.phone &&
+        item?.phone.toLowerCase().includes(lowerCaseFilterText)) ||
+      (item?.cnic && item?.cnic.toLowerCase().includes(lowerCaseFilterText))
+    );
+  });
+
   const subHeaderComponentMemo = useMemo(() => {
     return (
       <div
@@ -84,7 +93,7 @@ const HtmlSourcedData = () => {
             <div className="table-responsive">
               <DataTable
                 className="theme-scrollbar"
-                data={users}
+                data={filteredItems}
                 columns={DealerColumn}
                 striped
                 highlightOnHover
