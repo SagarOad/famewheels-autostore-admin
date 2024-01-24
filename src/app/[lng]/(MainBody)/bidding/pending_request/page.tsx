@@ -65,8 +65,9 @@ const PendingRequests = () => {
   const closeForwardModal = () => {
     forwardToggle(postId); // Call forwardToggle with the necessary argument (postId)
   };
-  const forwardToggle = (id: number) => {
-    setPostId(id);
+  const forwardToggle = (row: any) => {
+    setPostId(row?.postId);
+    setAddress(row?.address);
     return setForwardModal(!forwardModal);
   };
   const fetchData = async () => {
@@ -98,10 +99,6 @@ const PendingRequests = () => {
     isLoading,
   } = useQuery(`pending_bidding_${page}${getUpdate}`, fetchData);
 
-  const filteredItems = HtmlColumnData.filter(
-    (item: any) =>
-      item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
-  );
   const subHeaderComponentMemo = useMemo(() => {
     return (
       <div
@@ -124,31 +121,26 @@ const PendingRequests = () => {
     {
       name: "S.no",
       selector: (row) => row.postId,
-      sortable: true,
     },
 
     {
       name: "Make",
       selector: (row) => row.makeName,
-      sortable: true,
     },
 
     {
       name: "Model",
       selector: (row) => row.modelName,
-      sortable: true,
     },
 
     {
       name: "Year",
       selector: (row) => row.yearName,
-      sortable: true,
     },
 
     {
       name: "City Name",
       selector: (row) => row.cityName,
-      sortable: true,
     },
 
     {
@@ -162,9 +154,10 @@ const PendingRequests = () => {
           >
             <li className="edit">
               <button
+                title="Forward"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
-                  forwardToggle(row?.postId);
+                  forwardToggle(row);
                 }}
               >
                 <i className="fa fa-mail-forward"></i>
@@ -212,10 +205,16 @@ const PendingRequests = () => {
           </ul>
         );
       },
-      sortable: true,
     },
   ];
-
+  const filteredItems = users.filter(
+    (item: any) =>
+      item.makeName &&
+      item.makeName.toLowerCase().includes(filterText.toLowerCase())
+  );
+  console.log("====================================");
+  console.log(filteredItems, "filteredItems");
+  console.log("====================================");
   const handleReject = async (id: number) => {
     try {
       const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
@@ -323,7 +322,7 @@ const PendingRequests = () => {
             <div className="table-responsive">
               <DataTable
                 className="theme-scrollbar"
-                data={users}
+                data={filteredItems}
                 columns={PostsColumn}
                 striped
                 highlightOnHover
@@ -375,7 +374,7 @@ const PendingRequests = () => {
                 type="text"
                 defaultValue={address}
                 onChange={(event: any) => setAddress(event.target.value)}
-                placeholder="test123@gmail.com"
+                placeholder="Complete address"
               />
             </FormGroup>
             <FormGroup>
@@ -394,6 +393,7 @@ const PendingRequests = () => {
             <FormGroup className="mb-0">
               <div className="text-center mt-3">
                 <Button
+                  type="submit"
                   color="primary"
                   // block
                   // className="w-100"
