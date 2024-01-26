@@ -16,6 +16,7 @@ import SinglePost from "@/Components/SinglePost/SinglePost";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/Redux/Hooks";
+import NewCarDetials from "@/Components/SinglePost/NewCar";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
@@ -33,14 +34,17 @@ const CarPostList = () => {
 
   const detailsToggle = (id: number) => {
     setPostId(id);
-    // return setDetailModal(!detailModal);
-    router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${id}`);
+    return setDetailModal(!detailModal);
+    // router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${id}`);
   };
 
   const closeDetailModal = () => {
     detailsToggle(postId); // Call forwardToggle with the necessary argument (postId)
   };
 
+  const openDetails = () => {
+    router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${postId}`);
+  };
   const fetchData = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/newcarpostlilst`, {
@@ -211,18 +215,26 @@ const CarPostList = () => {
         centered
         isOpen={detailModal}
         toggle={closeDetailModal}
-        size="xl"
+        size="lg"
       >
         <div className="modal-toggle-wrapper">
-          <SinglePost id={postId} />
-
-          <Button
-            color="secondary"
-            className="d-flex m-auto"
-            onClick={closeDetailModal}
-          >
-            {Close}
-          </Button>
+          <NewCarDetials id={postId} />
+          <div className=" d-flex align-items-center">
+            <Button
+              color="secondary"
+              className="d-flex m-auto"
+              onClick={closeDetailModal}
+            >
+              {Close}
+            </Button>
+            <Button
+              color="secondary"
+              className="d-flex m-auto"
+              onClick={openDetails}
+            >
+              {"View More"}
+            </Button>
+          </div>
         </div>
       </CommonModal>
     </Col>
