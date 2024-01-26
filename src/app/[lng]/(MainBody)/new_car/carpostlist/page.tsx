@@ -103,36 +103,30 @@ const CarPostList = () => {
     {
       name: "S.no",
       selector: (row) => row.newcarpost_id,
-      sortable: true,
     },
 
     {
       name: "Make",
       selector: (row) => row.make,
-      sortable: true,
     },
 
     {
       name: "Model",
       selector: (row) => row.model_name,
-      sortable: true,
     },
 
     {
       name: "Year",
       selector: (row) => row.year,
-      sortable: true,
     },
 
     {
       name: "Price",
       selector: (row) => row.newcarpost_price,
-      sortable: true,
     },
     {
       name: "variants",
       selector: (row) => row.newcarpost_variants,
-      sortable: true,
     },
 
     {
@@ -166,7 +160,6 @@ const CarPostList = () => {
           </ul>
         );
       },
-      sortable: true,
     },
   ];
 
@@ -182,7 +175,6 @@ const CarPostList = () => {
       });
       toast.success(response?.data?.message || "Deleted Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
