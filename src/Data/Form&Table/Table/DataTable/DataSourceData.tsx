@@ -1,6 +1,13 @@
 import CenteredModal from "@/Components/UiKits/Modal/CenteredModal";
 import { Href } from "@/Constant";
-import { AjaxSourcedColumnsInterface, CarImport, CustomCellInterFaces,  Posts,  User } from "@/Types/TableType";
+import {
+  AjaxSourcedColumnsInterface,
+  CarImport,
+  CustomCellInterFaces,
+  Posts,
+  ScrollImageType,
+  User,
+} from "@/Types/TableType";
 import { useState } from "react";
 import { TableColumn } from "react-data-table-component";
 import { Badge } from "reactstrap";
@@ -13,8 +20,8 @@ export const HtmlData = [
 
 const handlePDFClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
   event.preventDefault();
-  const pdfUrl = '/assets/pdf/sample.pdf'; // Replace with your actual PDF file name or path
-  window.open(pdfUrl, '_blank');
+  const pdfUrl = "/assets/pdf/sample.pdf"; // Replace with your actual PDF file name or path
+  window.open(pdfUrl, "_blank");
 };
 
 export const HtmlColumnData = [
@@ -22,7 +29,13 @@ export const HtmlColumnData = [
     id: 1,
     cv: (
       <div className="action">
-        <a className="pdf" onClick={handlePDFClick} rel="/assets/images/favicon.png" href="/public/assets/pdf/sample.pdf" target="_blank">
+        <a
+          className="pdf"
+          onClick={handlePDFClick}
+          rel="/assets/images/favicon.png"
+          href="/public/assets/pdf/sample.pdf"
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -39,7 +52,12 @@ export const HtmlColumnData = [
     id: 2,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -56,7 +74,12 @@ export const HtmlColumnData = [
     id: 3,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -73,7 +96,12 @@ export const HtmlColumnData = [
     id: 4,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -90,7 +118,12 @@ export const HtmlColumnData = [
     id: 5,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -107,7 +140,12 @@ export const HtmlColumnData = [
     id: 6,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -124,7 +162,12 @@ export const HtmlColumnData = [
     id: 7,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -141,7 +184,12 @@ export const HtmlColumnData = [
     id: 8,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -158,7 +206,12 @@ export const HtmlColumnData = [
     id: 9,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -175,7 +228,12 @@ export const HtmlColumnData = [
     id: 10,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -192,7 +250,12 @@ export const HtmlColumnData = [
     id: 11,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -209,7 +272,12 @@ export const HtmlColumnData = [
     id: 12,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -226,7 +294,12 @@ export const HtmlColumnData = [
     id: 13,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -243,7 +316,12 @@ export const HtmlColumnData = [
     id: 14,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -260,7 +338,12 @@ export const HtmlColumnData = [
     id: 15,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -277,7 +360,12 @@ export const HtmlColumnData = [
     id: 16,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -294,7 +382,12 @@ export const HtmlColumnData = [
     id: 17,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -311,7 +404,12 @@ export const HtmlColumnData = [
     id: 18,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -328,7 +426,12 @@ export const HtmlColumnData = [
     id: 19,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -345,7 +448,12 @@ export const HtmlColumnData = [
     id: 20,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -362,7 +470,12 @@ export const HtmlColumnData = [
     id: 21,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -379,7 +492,12 @@ export const HtmlColumnData = [
     id: 22,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -396,7 +514,12 @@ export const HtmlColumnData = [
     id: 23,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -413,7 +536,12 @@ export const HtmlColumnData = [
     id: 24,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -430,7 +558,12 @@ export const HtmlColumnData = [
     id: 25,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -447,7 +580,12 @@ export const HtmlColumnData = [
     id: 26,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -464,7 +602,12 @@ export const HtmlColumnData = [
     id: 27,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -481,7 +624,12 @@ export const HtmlColumnData = [
     id: 28,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -498,7 +646,12 @@ export const HtmlColumnData = [
     id: 29,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -515,7 +668,12 @@ export const HtmlColumnData = [
     id: 30,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -532,7 +690,12 @@ export const HtmlColumnData = [
     id: 31,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -549,7 +712,12 @@ export const HtmlColumnData = [
     id: 32,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -566,7 +734,12 @@ export const HtmlColumnData = [
     id: 33,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -583,7 +756,12 @@ export const HtmlColumnData = [
     id: 34,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -600,7 +778,12 @@ export const HtmlColumnData = [
     id: 35,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -617,7 +800,12 @@ export const HtmlColumnData = [
     id: 36,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -634,7 +822,12 @@ export const HtmlColumnData = [
     id: 37,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -651,7 +844,12 @@ export const HtmlColumnData = [
     id: 38,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -668,7 +866,12 @@ export const HtmlColumnData = [
     id: 39,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -685,7 +888,12 @@ export const HtmlColumnData = [
     id: 40,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -702,7 +910,12 @@ export const HtmlColumnData = [
     id: 41,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -719,7 +932,12 @@ export const HtmlColumnData = [
     id: 42,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -736,7 +954,12 @@ export const HtmlColumnData = [
     id: 43,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -753,7 +976,12 @@ export const HtmlColumnData = [
     id: 44,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -770,7 +998,12 @@ export const HtmlColumnData = [
     id: 45,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -787,7 +1020,12 @@ export const HtmlColumnData = [
     id: 46,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -804,7 +1042,12 @@ export const HtmlColumnData = [
     id: 47,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -821,7 +1064,12 @@ export const HtmlColumnData = [
     id: 48,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -838,7 +1086,12 @@ export const HtmlColumnData = [
     id: 49,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -855,7 +1108,12 @@ export const HtmlColumnData = [
     id: 50,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -872,7 +1130,12 @@ export const HtmlColumnData = [
     id: 51,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -889,7 +1152,12 @@ export const HtmlColumnData = [
     id: 52,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -906,7 +1174,12 @@ export const HtmlColumnData = [
     id: 53,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -923,7 +1196,12 @@ export const HtmlColumnData = [
     id: 54,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -940,7 +1218,12 @@ export const HtmlColumnData = [
     id: 55,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -957,7 +1240,12 @@ export const HtmlColumnData = [
     id: 56,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -974,7 +1262,12 @@ export const HtmlColumnData = [
     id: 57,
     cv: (
       <div className="action">
-        <a className="pdf" href="/assets/pdf/sample.pdf" onClick={handlePDFClick} target="_blank">
+        <a
+          className="pdf"
+          href="/assets/pdf/sample.pdf"
+          onClick={handlePDFClick}
+          target="_blank"
+        >
           <i className="icofont icofont-file-pdf"> </i>
         </a>
       </div>
@@ -1008,38 +1301,33 @@ const ActionDataSource: React.FC<ActionDataSourceProp> = ({ id }) => (
   </ul>
 );
 
-
-
-
-
 const ActionDataSourcePosts: React.FC<ActionDataSourceProp> = ({ id }) => {
-  const [postId,setPostId] = useState<any>(null)
-  
+  const [postId, setPostId] = useState<any>(null);
+
   return (
-  <ul className="action simple-list d-flex flex-row gap-2" key={id}>
-    <li className="edit">
-      <button className="p-0 border-0 bg-transparent">
-        <i className="icon-pencil-alt" />
-      </button>
-    </li>
-    <li className="delete">
-      <button className="p-0 border-0 bg-transparent">
-        <i className="icon-trash" />
-      </button>
-    </li>
-    <li className="view">
-      <button className="p-0 border-0 bg-transparent" onClick={()=>console.log('object === > ',setPostId(id))}>
-        <i className="icon-eye link-primary" />
-        {/* <CenteredModal id={postId}/> */}
-      </button>
-    </li>
-  </ul>
-);}
-
-
-
-
-
+    <ul className="action simple-list d-flex flex-row gap-2" key={id}>
+      <li className="edit">
+        <button className="p-0 border-0 bg-transparent">
+          <i className="icon-pencil-alt" />
+        </button>
+      </li>
+      <li className="delete">
+        <button className="p-0 border-0 bg-transparent">
+          <i className="icon-trash" />
+        </button>
+      </li>
+      <li className="view">
+        <button
+          className="p-0 border-0 bg-transparent"
+          onClick={() => console.log("object === > ", setPostId(id))}
+        >
+          <i className="icon-eye link-primary" />
+          {/* <CenteredModal id={postId}/> */}
+        </button>
+      </li>
+    </ul>
+  );
+};
 
 const CustomBadge: React.FC<CustomCellInterFaces> = ({ position, color }) => {
   return (
@@ -1078,13 +1366,27 @@ export const HtmlColumn: TableColumn<User>[] = [
   },
 ];
 
-
-
-
-
-
+const ScrollImage: React.FC<ScrollImageType> = ({ image, title }) => {
+  return (
+    <>
+      <img className="img-fluid table-avtar" src={`${image}`} alt="userImage" />{" "}
+      {title}
+    </>
+  );
+};
 
 export const DealerColumn: TableColumn<User>[] = [
+  {
+    name: "Name",
+    cell: (row) => (
+      <ScrollImage
+        image={
+          "https://cdn.pixabay.com/photo/2017/01/30/23/52/female-2022387_1280.png"
+        }
+        title={row.name}
+      />
+    ),
+  },
   {
     name: "Name",
     selector: (row) => row.name,
@@ -1118,8 +1420,6 @@ export const DealerColumn: TableColumn<User>[] = [
   },
 ];
 
-
-
 export const PostsColumn: TableColumn<Posts>[] = [
   {
     name: "S.no",
@@ -1148,16 +1448,11 @@ export const PostsColumn: TableColumn<Posts>[] = [
     sortable: true,
   },
 
-
-
   {
     name: "Make",
     selector: (row) => row.makeName,
     sortable: true,
   },
-
-
-
 
   {
     name: "Model",
@@ -1165,16 +1460,11 @@ export const PostsColumn: TableColumn<Posts>[] = [
     sortable: true,
   },
 
-
-
   {
     name: "Year",
     selector: (row) => row.yearName,
     sortable: true,
   },
-
-
-
 
   {
     name: "Action",
@@ -1183,8 +1473,7 @@ export const PostsColumn: TableColumn<Posts>[] = [
   },
 ];
 
-
-export const CarImportColumn :  TableColumn<CarImport>[] = [
+export const CarImportColumn: TableColumn<CarImport>[] = [
   {
     name: "S.no",
     selector: (row) => row.id,
@@ -1196,13 +1485,11 @@ export const CarImportColumn :  TableColumn<CarImport>[] = [
     sortable: true,
   },
 
-
   {
     name: "Model",
     selector: (row) => row.model_name,
     sortable: true,
   },
-
 
   {
     name: "Year",
@@ -2016,41 +2303,42 @@ export const JavaScriptSourceData = [
   },
 ];
 
-export const JavaScriptSourceColumn : TableColumn<AjaxSourcedColumnsInterface>[] = [
-  {
-    name: "Name",
-    selector: (row) => row.name,
-    sortable: true,
-    center: false,
-  },
-  {
-    name: "Position",
-    selector: (row) => row.position,
-    sortable: true,
-    center: false,
-  },
-  {
-    name: "Office",
-    selector: (row) => row.office,
-    sortable: true,
-    center: false,
-  },
-  {
-    name: "Extn.",
-    selector: (row) => row.extends,
-    sortable: true,
-    center: false,
-  },
-  {
-    name: "Start Date",
-    selector: (row) => row.date,
-    sortable: true,
-    center: false,
-  },
-  {
-    name: "Salary",
-    selector: (row) => row.salary,
-    sortable: true,
-    center: false,
-  },
-];
+export const JavaScriptSourceColumn: TableColumn<AjaxSourcedColumnsInterface>[] =
+  [
+    {
+      name: "Name",
+      selector: (row) => row.name,
+      sortable: true,
+      center: false,
+    },
+    {
+      name: "Position",
+      selector: (row) => row.position,
+      sortable: true,
+      center: false,
+    },
+    {
+      name: "Office",
+      selector: (row) => row.office,
+      sortable: true,
+      center: false,
+    },
+    {
+      name: "Extn.",
+      selector: (row) => row.extends,
+      sortable: true,
+      center: false,
+    },
+    {
+      name: "Start Date",
+      selector: (row) => row.date,
+      sortable: true,
+      center: false,
+    },
+    {
+      name: "Salary",
+      selector: (row) => row.salary,
+      sortable: true,
+      center: false,
+    },
+  ];
