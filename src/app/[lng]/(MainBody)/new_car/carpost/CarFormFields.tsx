@@ -806,7 +806,7 @@ setPassengerSeatElectricAdjustment(comfort?.passengerSeatElectricAdjustment)
         });
       }
 
-      const response = await axios.post(`${BASE_URL}/savepostimage`, formData, {
+      const response = await axios.post(`https://onlinepayment.famewheels.com/savepostimage`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",

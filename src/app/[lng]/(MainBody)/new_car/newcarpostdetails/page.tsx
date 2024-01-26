@@ -54,7 +54,7 @@ useEffect(()=>{
         });
   
         console.log("res ==",response?.data);
-        setToken(response?.data?.newcarpost_token)
+          setToken(response?.data?.newcarpost_token)
           setDimensions(JSON.parse(response?.data?.newcarpost_dimensions));
           setEngineMotor(JSON.parse(response?.data?.newcarpost_enginemotor));
           setTransmission(JSON.parse(response?.data?.newcarpost_transmission));
@@ -77,15 +77,13 @@ useEffect(()=>{
   
     const getPostImages = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/${token}/postimages`, {
-      params: {
-          post_id:id,
+        const response = await axios.get(`https://onlinepayment.famewheels.com/postimages`, {
+        params: {
+          post_id:token,
         },
-         
         });
   
         console.log("imgs ============== ", response?.data);
-        
         return response?.data;
       } catch (error) {
         console.log(error);
@@ -99,7 +97,7 @@ useEffect(()=>{
       //   enabled: !!509, // Set enabled to false initially
       // }
     );
-  
+ 
     const {
       data: images,
       error: imgError,
