@@ -5,16 +5,12 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
-import {
-  HtmlColumnData as HtmlColumnData,
-} from "@/Data/Form&Table/Table/DataTable/DataSourceData";
+import { HtmlColumnData as HtmlColumnData } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
 import { useMemo, useState } from "react";
 import PaginationDynamic from "@/utils/Paginations";
 import Loading from "@/app/loading";
 import CommonModal from "@/Components/UiKits/Modal/Common/CommonModal";
-import {
-  Close,
-} from "@/Constant";
+import { Close } from "@/Constant";
 import { NewCarList, Posts } from "@/Types/TableType";
 import SinglePost from "@/Components/SinglePost/SinglePost";
 import { toast } from "react-toastify";
@@ -26,7 +22,7 @@ const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 const CarPostList = () => {
   const token = localStorage.getItem("authToken");
   const { i18LangStatus } = useAppSelector((state) => state.langSlice);
-const router = useRouter()
+  const router = useRouter();
 
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(1);
@@ -38,7 +34,7 @@ const router = useRouter()
   const detailsToggle = (id: number) => {
     setPostId(id);
     // return setDetailModal(!detailModal);
-    router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${id}`)
+    router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${id}`);
   };
 
   const closeDetailModal = () => {
@@ -47,17 +43,14 @@ const router = useRouter()
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}/newcarpostlilst`,
-        {
-         params:{
-page
-         },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/newcarpostlilst`, {
+        params: {
+          page,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setTotal(response?.data?.last_page);
       console.log(response?.data);
       return response?.data?.data;
@@ -70,12 +63,24 @@ page
     data: cars,
     error,
     isLoading,
-  } = useQuery(`new_carList${page}${getUpdate}`, fetchData);
+  } = useQuery(`new_carList_${page}${getUpdate}`, fetchData);
 
-  const filteredItems = HtmlColumnData.filter(
-    (item: any) =>
-      item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
-  );
+  const filteredItems = cars?.filter((item: any) => {
+    const lowerCaseFilterText = filterText.toLowerCase();
+
+    return (
+      (item?.make && item?.make.toLowerCase().includes(lowerCaseFilterText)) ||
+      (item?.model_name &&
+        item?.model_name.toLowerCase().includes(lowerCaseFilterText)) ||
+      (item?.newcarpost_variants &&
+        item?.newcarpost_variants
+          .toLowerCase()
+          .includes(lowerCaseFilterText)) ||
+      (item?.newcarpost_price &&
+        item?.newcarpost_price.toString().includes(lowerCaseFilterText))
+    );
+  });
+
   const subHeaderComponentMemo = useMemo(() => {
     return (
       <div
@@ -193,7 +198,7 @@ page
             <div className="table-responsive">
               <DataTable
                 className="theme-scrollbar"
-                data={cars}
+                data={filteredItems}
                 columns={PostsColumn}
                 striped
                 highlightOnHover
