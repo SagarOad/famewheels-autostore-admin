@@ -9,6 +9,7 @@ import BrandDetail from "./BrandDetail";
 import ClothsDetails from "./ClothsDetails";
 import { useQuery } from "react-query";
 import axios from "axios";
+import Loading from "@/app/loading";
 
 
 
@@ -76,9 +77,9 @@ useEffect(()=>{
   
     const getPostImages = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/postimages`, {
+        const response = await axios.get(`${BASE_URL}/${token}/postimages`, {
       params: {
-          post_id:id
+          post_id:id,
         },
          
         });
@@ -107,6 +108,9 @@ useEffect(()=>{
 
   return (
     <Container fluid>
+
+
+{ isLoading || imgLoading ? <Loading/> :
       <div>
         <Row>
           <ImageSlider />
@@ -119,6 +123,9 @@ useEffect(()=>{
           </Row>
         </Card>
       </div>
+}
+
+
     </Container>
   );
 };

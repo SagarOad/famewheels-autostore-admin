@@ -146,7 +146,7 @@ import { ButtonSection } from "./ButtonSection";
 import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import Loading from "@/app/loading";
-
+import { parseISO, format } from 'date-fns';
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
@@ -159,16 +159,9 @@ export const NewCarFormFields = () => {
 
   const [postToken, setPostToken] = useState("");
 
-  useEffect(() => {
-    // Function to generate a 12-digit token
-    const generateToken = () => {
-      const newToken = uuidv4().replace(/-/g, "").slice(0, 12);
-      setPostToken(newToken);
-    };
+  // Function to generate a 12-digit token
 
-    // Call the function when the component mounts
-    generateToken();
-  }, []);
+
 
 
 
@@ -250,7 +243,7 @@ export const NewCarFormFields = () => {
   const [voiceControl, setVoiceControl] = useState("false");
   const [androidAuto, setAndroidAuto] = useState("false");
   const [appleCarPlay, setAppleCarPlay] = useState("false");
-  const [seatMaterialType, setSeatMaterialType] = useState("false");
+  const [seatMaterialType, setSeatMaterialType] = useState("");
   const [keyType, setKeyType] = useState("false");
   const [cruiseControl, setCruiseControl] = useState("false");
   const [rainSensingWiper, setRainSensingWiper] = useState("false");
@@ -307,7 +300,7 @@ export const NewCarFormFields = () => {
   const [selectedEndTime, setSelectedEndTime] = useState<string>("");
   const [randomString, setRandomString] = useState("");
   const [description, setDescription] = useState("");
-  const [launchDate, setLaunchDate] = useState(new Date());
+  const [launchDate, setLaunchDate] = useState<any>(new Date());
   const [makeName, setMakeName] = useState("");
   const [vehicleColour, setVehicleColour] = useState("");
   const [startingAmount, setStartingAmount] = useState("");
@@ -351,7 +344,279 @@ export const NewCarFormFields = () => {
 
   const [uploadedImages, setUploadedImages] = useState([]);
   const [files, setFiles] = useState<ExtFile[]>([]);
+  const [id, setId] = useState <string | null>(null);
 
+
+// for parsing data
+
+  const [dimensionsObj, setDimensionsObj] = useState<object | any>({});
+  const [engineMotor, setEngineMotor] = useState<object | any>({});
+  const [transmissionObj, setTransmissionObj] = useState<object | any>({});
+  const [steering, setSteering] = useState<object | any>({});
+  const [suspension, setsuspension] = useState<object | any>({});
+  const [wheelTyre, setWheelTyre] = useState<object | any>({});
+  const [fuelEconomy, setFuelEconomy] = useState<object | any>({});
+  const [safety, setSafety] = useState<object | any>({});
+  const [exterior, setExterior] = useState<object | any>({});
+  const [instrument, setInstrument] = useState<object | any>({});
+  const [info, setInfo] = useState<object | any>({});
+  const [comfort, setComfort] = useState<object | any>({});
+
+
+  const generateToken = () => {
+    const newToken = uuidv4().replace(/-/g, "").slice(0, 12);
+    setPostToken(newToken);
+  };
+
+  const getPostDetil = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/newcarpostdetails`, {
+        params: {
+            newcarpost_id  :id
+
+        },
+      });
+
+      console.log("res ==",response?.data);
+        setUpdateToken(response?.data?.newcarpost_token)
+        setDimensionsObj(JSON.parse(response?.data?.newcarpost_dimensions));
+        setEngineMotor(JSON.parse(response?.data?.newcarpost_enginemotor));
+        setTransmissionObj(JSON.parse(response?.data?.newcarpost_transmission));
+        setSteering(JSON.parse(response?.data?.newcarpost_steering));
+        setsuspension(JSON.parse(response?.data?.newcarpost_suspensionbrakes));
+        setWheelTyre(JSON.parse(response?.data?.newcarpost_wheeltyres));
+        setFuelEconomy(JSON.parse(response?.data?.newcarpost_fueleconomy));
+        setSafety(JSON.parse(response?.data?.newcarpost_safety));
+        setExterior(JSON.parse(response?.data?.newcarpost_exterior));
+        setInstrument(JSON.parse(response?.data?.newcarpost_instrumentation));
+        setInfo(JSON.parse(response?.data?.newcarpost_Infotainment));
+        setComfort(JSON.parse(response?.data?.newcarpost_comfortconvenience));
+
+           return response?.data;
+        
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const {
+    data: carData,
+    error: carError,
+    isLoading: carLoading,
+  } = useQuery(`getCarData${id}`, getPostDetil, {
+    enabled: !!id, // Set enabled to false initially
+  });
+
+
+
+
+
+  const extractTokenFromUrl = (url : string, paramName : string) => {
+    const urlSearchParams = new URLSearchParams(url);
+    return urlSearchParams.get(paramName);
+  };
+
+  useEffect(() => {
+    const url = window.location.search;
+    const ID = extractTokenFromUrl(url, "id");
+    setId(ID)
+    // Call the function when the component mounts
+    if (!id) {
+    generateToken();
+    }
+  }, []);
+
+
+function formatDate(dateString:any) {
+  const parts = dateString?.match(/(\d+)-(\d+)-(\d+)/);
+
+  if (!parts) {
+      // Handle invalid format
+      return null; // Or throw an error, depending on your use case
+  }
+
+  const [, year, month, day] = parts;
+
+
+  setLaunchDate(new Date(year, month - 1, day))
+
+  return new Date(year, month - 1, day);
+}
+
+useEffect(()=>{
+setCoverImage(carData?.newcarpost_cover)
+setMakeId(carData?.make_id)
+setModelName(carData?.model_id)
+setYearName(carData?.year_id)
+setVarient(carData?.newcarpost_variants)
+setColor(carData?.newcarpost_color)
+setBodytype(carData?.newcarpost_bodytype)
+setDescription(carData?.newcarpost_overview)
+setExfactoryPrice(carData?.newcarpost_price)
+
+console.log( "date ===== ",formatDate(carData?.newcarpost_date))
+//// dimensions 
+
+setOverallLength(dimensionsObj?.overallLength)
+setKerbWeight(dimensionsObj?.kerbWeight)
+setOverallWidth(dimensionsObj?.overallWidth)
+setBootSpaceL(dimensionsObj?.bootSpaceL)
+setWheelBase(dimensionsObj?.wheelBase)
+setNoOfDoors(dimensionsObj?.noOfDoors)
+setGroundClearance(dimensionsObj?.groundClearance)
+setSeatingCapacity(dimensionsObj?.seatingCapacity)
+
+
+// engine / motor 
+
+setEngineType(engineMotor?.engineType)
+setTurboCharger(engineMotor?.turboCharger)
+setDisplacement(engineMotor?.displacement)
+setNoOfCylinders(engineMotor?.noOfCylinders)
+setHorsePower(engineMotor?.horsePower)
+setRPM(engineMotor?.rpm)
+setValvesPerCylinder(engineMotor?.valvesPerCylinder)
+setFuelSystem(engineMotor?.fuelSystem)
+setMaxSpeed(engineMotor?.maxSpeed)
+
+// transmission 
+
+setTransmission(transmissionObj?.transmission)
+setGearBox(transmissionObj?.gearBox)
+
+// steering
+
+setSteeringType(steering?.steeringType)
+setPowerAssisted(steering?.powerAssisted)
+
+
+// suspension
+
+setFrontSuspension(suspension?.frontSuspension)
+setFrontBrakes(suspension?.frontBrakes)
+setRearSuspension(suspension?.rearSuspension)
+setRearBrakes(suspension?.rearBrakes)
+
+
+// wheel tyre 
+
+setWheelType(wheelTyre?.wheelType)
+setWheelSize(wheelTyre?.wheelSize)
+setSpareTyre(wheelTyre?.spareTyre)
+setSpareTyreSize(wheelTyre?.spareTyreSize)
+setTyreSizeWidth(wheelTyre?.tyreSizeWidth)
+setTyreSizeRatio(wheelTyre?.tyreSizeRatio)
+setTyreSizeDiameter(wheelTyre?.tyreSizeDiameter)
+
+// fuel economy 
+
+setFuelTankCapacity(fuelEconomy?.fuelTankCapacity)
+setMileageCity(fuelEconomy?.mileageCity)
+setMileageHighway(fuelEconomy?.mileageHighway)
+
+// safety 
+
+setAirBags(safety?.airbags)
+setSeatbelts(safety?.seatbelts)
+setSpeedSensingDoorLock(safety?.speedSensingDoorLock)
+setAntiTheftAlarmSystem(safety?.antiTheftAlarmSystem)
+setDriverSeatBeltWarning(safety?.driverSeatBeltWarning)
+setDownHillAssistControl(safety?.downHillAssistControl)
+setPassengerSeatBeltWarning(safety?.passengerSeatBeltWarning)
+setHillStartAssistControl(safety?.hillStartAssistControl)
+setImmobilizer(safety?.immobilizer)
+setTractionControl(safety?.tractionControl)
+setVehicleStabilityControl(safety?.vehicleStabilityControl)
+setBlindSpotDetection(safety?.blindSpotDetection)
+setAntiLockBrakingSystem(safety?.antiLockBrakingSystem)
+setDoorOpeningWarning(safety?.doorOpeningWarning)
+setLaneKeepAssistSystem(safety?.laneKeepAssistSystem)
+setElectricBrakeForce(safety?.electricBrakeForce)
+setAutonomousEmergencyBraking(safety?.autonomousEmergencyBraking)
+
+// exterior 
+
+setAlloyWheels(exterior?.alloyWheels)
+setAdjustableHeadlights(exterior?.adjustableHeadlights)
+setRearSpoiler(exterior?.rearSpoiler)
+setSideMirrorIndicators(exterior?.sideMirrorIndicators)
+setSunRoof(exterior?.sunRoof)
+setPanaromic(exterior?.panaromic)
+setFogLights(exterior?.fogLights)
+setDRLs(exterior?.DRLs)
+setRoofRails(exterior?.roofRails)
+setSideSteps(exterior?.sideSteps)
+setDualExhaust(exterior?.dualExhaust)
+
+// Instrumentation 
+setTachometer(instrument?.tachometer)
+setMultiInfo(instrument?.multiInfo)
+setInfoCluster(instrument?.infoCluster)
+
+// Infotainment 
+
+setDisplaySize(info?.displaySize)
+setUSBAuxilaryCable(info?.usbAuxilaryCable)
+setCDPlayer(info?.cdPlayer)
+setDVDPlayer(info?.dvdPlayer)
+setNoOfSpeakers(info?.noOfSpeakers)
+setFrontSpeakers(info?.frontSpeakers)
+setRearSpeakers(info?.rearSpeakers)
+setRearSeatEntertainment(info?.rearSeatEntertainment)
+setVoiceControl(info?.voiceControl)
+setAndroidAuto(info?.androidAuto)
+setAppleCarPlay(info?.appleCarPlay)
+
+// comfort 
+
+setSeatMaterialType(comfort?.seatMaterialType)
+setKeyType(comfort?.keyType)
+setAirConditioning(comfort?.airconditioning)
+setRainSensingWiper(comfort?.rainSensingWiper)
+setClimateControl(comfort?.climateControl)
+setCruiseControl(comfort?.cruiseControl)
+setRearACVents(comfort?.rearACVents)
+setDrivingModes(comfort?.drivingModes)
+setPaddleShifter(comfort?.paddleShifter)
+setHeater(comfort?.heater)
+setHeatedSeats(comfort?.heatedSeats)
+setKeylessEntry(comfort?.keylessEntry)
+setPushStart(comfort?.pushStart)
+setCoolBox(comfort?.coolBox)
+setRemoteEngineStart(comfort?.remoteEngineStart)
+setNavigation(comfort?.navigation)
+setCentralLocking(comfort?.centralLocking)
+setPowerDoorLocks(comfort?.powerDoorLocks)
+setFrontCamera(comfort?.frontCamera)
+setRearCamera(comfort?.rearCamera)
+setCamera360(comfort?.Camera360)
+setPowerWindows(comfort?.powerWindows)
+setPowerMirrors(comfort?.powerMirrors)
+setAutoRetractableSideMirror(comfort?.autoRetractableSideMirror)
+setFrontParkingSensors(comfort?.frontParkingSensors)
+setRearParkingSensors(comfort?.rearParkingSensors)
+setArmRest(comfort?.armRest)
+setRearFoldingSeat(comfort?.rearFoldingSeat)
+setHandBrake(comfort?.handBrake)
+setRearHeadRest(comfort?.rearHeadRest)
+setAutoBrakeHold(comfort?.autoBrakeHold)
+setRearWiper(comfort?.rearWiper)
+setAutoParkingSystem(comfort?.autoParkingSystem)
+setDriverSeatElectricAdjustment(comfort?.driverSeatElectricAdjustment)
+setDriverSeatLumbarSupport(comfort?.driverSeatLumbarSupport)
+setDriverSeatMemoryFunction(comfort?.driverSeatMemoryFunction)
+setFrontPowerOutlet(comfort?.frontPowerOutlet)
+setRearPowerOutlet(comfort?.reartPowerOutlet)
+setSteeringAdjustment(comfort?.steeringAdjustment)
+setSteeringSwitches(comfort?.steeringSwitches)
+setWirelessCharger(comfort?.wirelessCharger)
+setHeadlightReminder(comfort?.headlightReminder)
+setBossSeatSwitch(comfort?.bossSeatSwitch)
+setAutomaticHeadLamps(comfort?.automaticHeadLamps)
+setTyrePressureMonitoringSystem(comfort?.tyrePressureMonitoringSystem)
+setPassengerSeatElectricAdjustment(comfort?.passengerSeatElectricAdjustment)
+
+},[carData])
 
   const dimensions = {
     overallLength,
@@ -710,8 +975,6 @@ export const NewCarFormFields = () => {
   };
 
 
-
-
 const handleSubmit = async (e:FormEvent)=>{
   e.preventDefault()
   const formData = new FormData();
@@ -778,7 +1041,8 @@ const handleSubmit = async (e:FormEvent)=>{
     }
   }
   }
-  
+
+
 
   return (
     <>
@@ -995,12 +1259,17 @@ value={exFactoryPrice}
               type="date"
               className="form-control"
               placeholder={LaunchDate}
+value={launchDate}
+onChange={(e)=>setLaunchDate(e.target.value)}
             /> */}
             <DatePicker
               className="datepicker-here form-control"
               selected={launchDate}
-              name="launchDate"
-              onChange={(date: Date) => setLaunchDate(date)}
+              dateFormat="yyyy-MM-dd"
+              onChange={(date: any) => {
+                setLaunchDate(date)
+                // formatDate(date)
+              }}
               />
           </FormGroup>
       

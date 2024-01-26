@@ -41,6 +41,12 @@ const router = useRouter()
     router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${id}`)
   };
 
+  const handleEdit = (id: number) => {
+    setPostId(id);
+    // return setDetailModal(!detailModal);
+    router.push(`/${i18LangStatus}/new_car/carpost?id=${id}`)
+  };
+
   const closeDetailModal = () => {
     detailsToggle(postId); // Call forwardToggle with the necessary argument (postId)
   };
@@ -132,13 +138,22 @@ page
 
     {
       name: "Action",
-      // cell: (row) => <ActionDataSourcePosts id={row.postId} />,
       cell: (row) => {
         return (
           <ul
             className="action simple-list d-flex flex-row gap-2"
             key={row?.newcarpost_id}
           >
+
+              <li className="edit">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => handleEdit(row?.newcarpost_id)}>
+                <i className="icon-pencil" />
+              </button>
+            </li>
+
+
             <li className="delete">
               <button
                 className="p-0 border-0 bg-transparent"

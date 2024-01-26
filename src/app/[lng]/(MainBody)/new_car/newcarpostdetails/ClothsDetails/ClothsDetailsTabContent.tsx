@@ -15,7 +15,6 @@ const ClothsDetailsTabContent :React.FC<ClothsDetailsTabContentProp> = ({ active
   comfort }) => {
 
 
-console.log("com =======",comfort)
 
 
 
@@ -515,12 +514,28 @@ console.log("com =======",comfort)
 <p className="fw-bold txt-primary">Seat Material Type</p>  
 <p className="fw-bold txt-primary">Air Conditioner (AC)</p>  
 <p className="fw-bold txt-primary">Arm Rest</p>  
-<p className="fw-bold txt-primary">Downhill Assist Control</p>  
-<p className="fw-bold txt-primary">Hill Start Assist Control</p>  
-<p className="fw-bold txt-primary">Immobilizer</p>  
-<p className="fw-bold txt-primary">Passenger SeatBelt Warning</p>  
-<p className="fw-bold txt-primary">Speed Sensing Door Lock</p>  
-<p className="fw-bold txt-primary">vehicle Stability Control</p>  
+<p className="fw-bold txt-primary">Auto Brake Hold</p>
+<p className="fw-bold txt-primary">Auto Parking System</p>  
+<p className="fw-bold txt-primary">Driver Seat Lumbar Support</p>  
+<p className="fw-bold txt-primary">driver Seat Memory Function</p>  
+<p className="fw-bold txt-primary">Driving Modes</p>  
+<p className="fw-bold txt-primary">HandBrake</p>  
+<p className="fw-bold txt-primary">Camera 360</p>  
+<p className="fw-bold txt-primary">front Parking Sensors</p>  
+<p className="fw-bold txt-primary">Front Power Outlet</p>  
+<p className="fw-bold txt-primary">Headlight Reminder</p>  
+<p className="fw-bold txt-primary">Heated Seats</p>  
+<p className="fw-bold txt-primary">Heater</p>  
+<p className="fw-bold txt-primary">Key Type</p>  
+<p className="fw-bold txt-primary">Keyless Entry</p>  
+<p className="fw-bold txt-primary">Rear Folding Seat</p>  
+<p className="fw-bold txt-primary">Rear Head Rest</p>  
+<p className="fw-bold txt-primary">Rear Parking Sensors</p>  
+<p className="fw-bold txt-primary">Rear Wiper</p>  
+<p className="fw-bold txt-primary">Rear Power Outlet</p>  
+<p className="fw-bold txt-primary">Remote Engine Start</p>  
+
+
 </Col>
 
 
@@ -528,36 +543,85 @@ console.log("com =======",comfort)
  <p>{comfort?.seatMaterialType}</p>
  <p>{comfort?.airconditioning}</p>
  <p>{comfort?.armRest}</p>
- <p>{comfort?.downHillAssistControl}</p>
- <p>{comfort?.hillStartAssistControl}</p>
- <p>{comfort?.immobilizer}</p>
- <p>{comfort?.passengerSeatBeltWarning}</p>
- <p>{comfort?.speedSensingDoorLock}</p>
- <p>{comfort?.vehicleStabilityControl}</p>
+ <p>{comfort?.autoBrakeHold}</p>
+ <p>{comfort?.autoParkingSystem}</p>
+ <p>{comfort?.driverSeatLumbarSupport}</p>
+ <p>{comfort?.driverSeatMemoryFunction}</p>
+ <p>{comfort?.drivingModes}</p>
+ <p>{comfort?.handBrake}</p>
+ <p>{comfort?.Camera360}</p>
+ <p>{comfort?.frontParkingSensors}</p>
+ <p>{comfort?.frontPowerOutlet}</p>
+ <p>{comfort?.headlightReminder}</p>
+ <p>{comfort?.heatedSeats}</p>
+ <p>{comfort?.heater}</p>
+ <p>{comfort?.keyType}</p>
+ <p>{comfort?.keylessEntry}</p>
+ <p>{comfort?.rearFoldingSeat}</p>
+ <p>{comfort?.rearHeadRest}</p>
+ <p>{comfort?.rearParkingSensors}</p>
+ <p>{comfort?.rearWiper}</p>
+ <p>{comfort?.reartPowerOutlet}</p>
+ <p>{comfort?.remoteEngineStart}</p>
+
   </Col>
 
 
   <Col md="3">
-<p className="fw-bold txt-primary">Anti-Theft Alarm System</p>
-<p className="fw-bold txt-primary">Autonomous Emergency Braking (AEB)</p>
-<p className="fw-bold txt-primary">Blind Spot Detection</p>  
-<p className="fw-bold txt-primary">Driver Seatbelt Warning</p>  
-<p className="fw-bold txt-primary">Electric Brake Force</p>  
-<p className="fw-bold txt-primary">Lane Keep Assist System</p>  
-<p className="fw-bold txt-primary">Seat Belts</p>  
-<p className="fw-bold txt-primary">Traction Control</p>  
+<p className="fw-bold txt-primary">Auto Retractable Side Mirror</p>
+<p className="fw-bold txt-primary">Automatic Head Lamps</p>
+<p className="fw-bold txt-primary">Boss Seat Switch</p>
+<p className="fw-bold txt-primary">Central Locking</p>  
+<p className="fw-bold txt-primary">Climate Control</p>  
+<p className="fw-bold txt-primary">Cool Box</p>  
+<p className="fw-bold txt-primary">Cruise Control</p>  
+<p className="fw-bold txt-primary">Driver Seat Electric Adjustment</p>  
+<p className="fw-bold txt-primary">Front Camera</p>  
+<p className="fw-bold txt-primary">Navigation</p>  
+<p className="fw-bold txt-primary">Paddle Shifter</p>  
+<p className="fw-bold txt-primary">Passenger Seat Electric Adjustment</p>  
+<p className="fw-bold txt-primary">Power Door Locks</p>  
+<p className="fw-bold txt-primary">Power Mirrors</p>  
+<p className="fw-bold txt-primary">Power Windows</p>  
+<p className="fw-bold txt-primary">Push Start</p>  
+<p className="fw-bold txt-primary">Rain Sensing Wiper</p>  
+<p className="fw-bold txt-primary">Rear AC Vents</p>  
+<p className="fw-bold txt-primary">Rear Camera</p>  
+<p className="fw-bold txt-primary">Steering Adjustment</p>  
+<p className="fw-bold txt-primary">Steering Switches</p>  
+<p className="fw-bold txt-primary">Tyre Pressure Monitoring System</p>  
+<p className="fw-bold txt-primary">Wireless Charger</p>  
+
+
 </Col>
 
 
 <Col md="3">
- <p>{comfort?.antiTheftAlarmSystem}</p>
- <p>{comfort?.autonomousEmergencyBraking}</p>
- <p>{comfort?.blindSpotDetection}</p>
- <p>{comfort?.driverSeatBeltWarning}</p>
- <p>{comfort?.electricBrakeForce}</p>
- <p>{comfort?.laneKeepAssistSystem}</p>
- <p>{comfort?.seatbelts}</p>
- <p>{comfort?.tractionControl}</p>
+ <p>{comfort?.autoRetractableSideMirror}</p>
+ <p>{comfort?.automaticHeadLamps}</p>
+ <p>{comfort?.bossSeatSwitch}</p>
+ <p>{comfort?.centralLocking}</p>
+ <p>{comfort?.climateControl}</p>
+ <p>{comfort?.coolBox}</p>
+ <p>{comfort?.cruiseControl}</p>
+ <p>{comfort?.driverSeatElectricAdjustment}</p>
+ <p>{comfort?.frontCamera}</p>
+ <p>{comfort?.navigation}</p>
+ <p>{comfort?.paddleShifter}</p>
+ <p>{comfort?.passengerSeatElectricAdjustment}</p>
+ <p>{comfort?.powerDoorLocks}</p>
+ <p>{comfort?.powerMirrors}</p>
+ <p>{comfort?.powerWindows}</p>
+ <p>{comfort?.pushStart}</p>
+ <p>{comfort?.rainSensingWiper}</p>
+ <p>{comfort?.rearACVents}</p>
+ <p>{comfort?.rearCamera}</p>
+
+ <p>{comfort?.steeringAdjustment}</p>
+ <p>{comfort?.steeringSwitches}</p>
+ <p>{comfort?.tyrePressureMonitoringSystem}</p>
+ <p>{comfort?.wirelessCharger}</p>
+
 </Col>
 
 
