@@ -207,14 +207,12 @@ const PendingRequests = () => {
       },
     },
   ];
-  const filteredItems = users.filter(
+  const filteredItems = users?.filter(
     (item: any) =>
-      item.makeName &&
-      item.makeName.toLowerCase().includes(filterText.toLowerCase())
+      item?.makeName &&
+      item?.makeName.toLowerCase().includes(filterText.toLowerCase())
   );
-  console.log("====================================");
-  console.log(filteredItems, "filteredItems");
-  console.log("====================================");
+
   const handleReject = async (id: number) => {
     try {
       const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
@@ -321,7 +319,7 @@ const PendingRequests = () => {
           <CardBody>
             <div className="table-responsive">
               <DataTable
-                className="theme-scrollbar"
+                className="theme-scrollbar "
                 data={filteredItems}
                 columns={PostsColumn}
                 striped
