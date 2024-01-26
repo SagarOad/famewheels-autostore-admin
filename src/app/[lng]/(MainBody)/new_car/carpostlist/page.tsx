@@ -5,28 +5,25 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
-import {
-  HtmlColumnData as HtmlColumnData,
-} from "@/Data/Form&Table/Table/DataTable/DataSourceData";
+import { HtmlColumnData as HtmlColumnData } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
 import { useMemo, useState } from "react";
 import PaginationDynamic from "@/utils/Paginations";
 import Loading from "@/app/loading";
 import CommonModal from "@/Components/UiKits/Modal/Common/CommonModal";
-import {
-  Close,
-} from "@/Constant";
+import { Close } from "@/Constant";
 import { NewCarList, Posts } from "@/Types/TableType";
 import SinglePost from "@/Components/SinglePost/SinglePost";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/Redux/Hooks";
+import NewCarDetials from "@/Components/SinglePost/NewCar";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const CarPostList = () => {
   const token = localStorage.getItem("authToken");
   const { i18LangStatus } = useAppSelector((state) => state.langSlice);
-const router = useRouter()
+  const router = useRouter();
 
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(1);
@@ -37,8 +34,8 @@ const router = useRouter()
 
   const detailsToggle = (id: number) => {
     setPostId(id);
-    // return setDetailModal(!detailModal);
-    router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${id}`)
+    return setDetailModal(!detailModal);
+    // router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${id}`);
   };
 
   const handleEdit = (id: number) => {
@@ -51,19 +48,19 @@ const router = useRouter()
     detailsToggle(postId); // Call forwardToggle with the necessary argument (postId)
   };
 
+  const openDetails = () => {
+    router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${postId}`);
+  };
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        `${BASE_URL}/newcarpostlilst`,
-        {
-         params:{
-page
-         },
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get(`${BASE_URL}/newcarpostlilst`, {
+        params: {
+          page,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setTotal(response?.data?.last_page);
       console.log(response?.data);
       return response?.data?.data;
@@ -76,12 +73,24 @@ page
     data: cars,
     error,
     isLoading,
-  } = useQuery(`new_carList${page}${getUpdate}`, fetchData);
+  } = useQuery(`new_carList_${page}${getUpdate}`, fetchData);
 
-  const filteredItems = HtmlColumnData.filter(
-    (item: any) =>
-      item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
-  );
+  const filteredItems = cars?.filter((item: any) => {
+    const lowerCaseFilterText = filterText.toLowerCase();
+
+    return (
+      (item?.make && item?.make.toLowerCase().includes(lowerCaseFilterText)) ||
+      (item?.model_name &&
+        item?.model_name.toLowerCase().includes(lowerCaseFilterText)) ||
+      (item?.newcarpost_variants &&
+        item?.newcarpost_variants
+          .toLowerCase()
+          .includes(lowerCaseFilterText)) ||
+      (item?.newcarpost_price &&
+        item?.newcarpost_price.toString().includes(lowerCaseFilterText))
+    );
+  });
+
   const subHeaderComponentMemo = useMemo(() => {
     return (
       <div
@@ -104,36 +113,30 @@ page
     {
       name: "S.no",
       selector: (row) => row.newcarpost_id,
-      sortable: true,
     },
 
     {
       name: "Make",
       selector: (row) => row.make,
-      sortable: true,
     },
 
     {
       name: "Model",
       selector: (row) => row.model_name,
-      sortable: true,
     },
 
     {
       name: "Year",
       selector: (row) => row.year,
-      sortable: true,
     },
 
     {
       name: "Price",
       selector: (row) => row.newcarpost_price,
-      sortable: true,
     },
     {
       name: "variants",
       selector: (row) => row.newcarpost_variants,
-      sortable: true,
     },
 
     {
@@ -176,7 +179,6 @@ page
           </ul>
         );
       },
-      sortable: true,
     },
   ];
 
@@ -192,7 +194,6 @@ page
       });
       toast.success(response?.data?.message || "Deleted Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
@@ -208,7 +209,7 @@ page
             <div className="table-responsive">
               <DataTable
                 className="theme-scrollbar"
-                data={cars}
+                data={filteredItems}
                 columns={PostsColumn}
                 striped
                 highlightOnHover
@@ -229,18 +230,26 @@ page
         centered
         isOpen={detailModal}
         toggle={closeDetailModal}
-        size="xl"
+        size="lg"
       >
         <div className="modal-toggle-wrapper">
-          <SinglePost id={postId} />
-
-          <Button
-            color="secondary"
-            className="d-flex m-auto"
-            onClick={closeDetailModal}
-          >
-            {Close}
-          </Button>
+          <NewCarDetials id={postId} />
+          <div className=" d-flex align-items-center">
+            <Button
+              color="secondary"
+              className="d-flex m-auto"
+              onClick={closeDetailModal}
+            >
+              {Close}
+            </Button>
+            <Button
+              color="secondary"
+              className="d-flex m-auto"
+              onClick={openDetails}
+            >
+              {"View More"}
+            </Button>
+          </div>
         </div>
       </CommonModal>
     </Col>
