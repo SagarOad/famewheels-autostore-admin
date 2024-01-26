@@ -11,7 +11,7 @@ import PaginationDynamic from "@/utils/Paginations";
 import Loading from "@/app/loading";
 import CommonModal from "@/Components/UiKits/Modal/Common/CommonModal";
 import { Close } from "@/Constant";
-import { NewCarList, Posts } from "@/Types/TableType";
+import { NewCarList, Posts, ScrollImageType } from "@/Types/TableType";
 import SinglePost from "@/Components/SinglePost/SinglePost";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
@@ -41,7 +41,7 @@ const CarPostList = () => {
   const handleEdit = (id: number) => {
     setPostId(id);
     // return setDetailModal(!detailModal);
-    router.push(`/${i18LangStatus}/new_car/carpost?id=${id}`)
+    router.push(`/${i18LangStatus}/new_car/carpost?id=${id}`);
   };
 
   const closeDetailModal = () => {
@@ -122,6 +122,7 @@ const CarPostList = () => {
 
     {
       name: "Model",
+
       selector: (row) => row.model_name,
     },
 
@@ -147,15 +148,14 @@ const CarPostList = () => {
             className="action simple-list d-flex flex-row gap-2"
             key={row?.newcarpost_id}
           >
-
-              <li className="edit">
+            <li className="edit">
               <button
                 className="p-0 border-0 bg-transparent"
-                onClick={() => handleEdit(row?.newcarpost_id)}>
+                onClick={() => handleEdit(row?.newcarpost_id)}
+              >
                 <i className="icon-pencil" />
               </button>
             </li>
-
 
             <li className="delete">
               <button
@@ -211,9 +211,11 @@ const CarPostList = () => {
                 className="theme-scrollbar"
                 data={filteredItems}
                 columns={PostsColumn}
-                striped
                 highlightOnHover
                 subHeader
+                striped
+                fixedHeader
+                fixedHeaderScrollHeight="70vh"
                 subHeaderComponent={subHeaderComponentMemo}
               />
             </div>
