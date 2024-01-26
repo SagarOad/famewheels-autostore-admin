@@ -3,6 +3,7 @@ import HeaderBookmarkSlice from "./Reducers/HeaderBookmarkSlice";
 import LayoutSlice from "./Reducers/LayoutSlice";
 import ThemeCustomizerSlice from "./Reducers/ThemeCustomizerSlice";
 import LanguageSlice from "./Reducers/LanguageSlice";
+import ProductSlice from "./Reducers/ProductSlice";
 
 const Store = configureStore({
   reducer: {
@@ -10,6 +11,7 @@ const Store = configureStore({
     headerBookMark:HeaderBookmarkSlice,
     themeCustomizer: ThemeCustomizerSlice,
     langSlice: LanguageSlice,
+    product:ProductSlice,
   },
 });
 

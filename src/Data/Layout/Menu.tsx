@@ -248,4 +248,36 @@ export const MenuList: MenuItem[] | undefined = [
       },
     ],
   },
+
+
+
+  {
+    title: "New Car",
+    lanClass: "lan-8",
+    menucontent: "Dashboards,Widgets",
+    Items: [
+      {
+        title: "New Car Post",
+        id: 7,
+        icon: "widget",
+        type: "sub",
+        lanClass: "lan-8",
+        active: false,
+        children: [
+          {
+            path: "/new_car/carpost",
+            title: "New Car Post",
+            type: "link",
+          },
+          {
+            path: "/new_car/carpostlist",
+            title: "New Car List",
+            type: "link",
+          },
+ 
+        ],
+      },
+    ],
+  },
+
 ];

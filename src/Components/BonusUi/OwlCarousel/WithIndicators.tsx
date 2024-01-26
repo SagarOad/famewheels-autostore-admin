@@ -4,7 +4,7 @@ import { WithIndicatorData, WithIndicatorDataList } from "@/Data/BonusUi/OwlCaro
 import { Card, CardBody, Col } from "reactstrap";
 import CommonCarousel from "./Common/CommonCarousel";
 
-const WithIndicators = ({images,id}:{images:any,id:number}) => {
+const WithIndicators = ({images,id}:{images:any,id:any}) => {
   return (
     <Col>
       <Card>

@@ -189,6 +189,23 @@ export interface Posts {
   yearName: number;
 }
 
+
+export interface NewCarList {
+  newcarpost_id: number;
+  make: string;
+  model_name: string;
+  year: string;
+  newcarpost_price:number;
+  newcarpost_cover:string;
+  modelName: string;
+  newcarpost_token: string;
+  newcarpost_variants:string
+  
+}
+
+
+
+
 export interface Payment {
   order_id: number;
   payment_method: string;

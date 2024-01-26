@@ -1549,6 +1549,150 @@ export const ProjectCreate: string = "Project Create";
 export const ProjectTitle: string = "Project Title";
 export const ProjectTitlePlaceholder: string = "Project name *";
 export const ClientName: string = "Client name";
+
+// carpost types
+
+export const CoverImage: string = "Cover Image";
+export const Make: string = "Make";
+export const Model: string = "Model";
+export const Year: string = "Year";
+export const Varient: string = "Varient";
+export const BodyType: string = "Body Type";
+export const VehicleColor: string = "Vehicle Color";
+export const EXFactoryPrice: string = "EX-Factory Price";
+export const LaunchDate: string = "Launch Date";
+export const VehicleDescription: string = "Description";
+export const OverallLengthMM: string = "Overall Length (MM)";
+export const KerbWeightKG: string = "Kerb Weight (KG)";
+export const OverallWidthMM: string = "Overall Width (MM)";
+export const BootSpaceL: string = "Boot Space (L)";
+export const WheelBaseMM: string = "Wheel Base (MM)";
+export const NoOfDoors: string = "No. of Doors";
+export const GroundClearenceMM: string = "Ground Clearence (MM)";
+export const SeatingCapacity: string = "Seating Capacity";
+export const EngineType: string = "Engine Type";
+export const TurboCharger: string = "Turbo Charger";
+export const Displacement: string = "Displacement";
+export const NoOfCylinders: string = "No. of Cylinders";
+export const HorsePower: string = "Horse Power";
+export const ValvesPerCylinder: string = "Valves per Cylinder";
+export const FuelSystem: string = "Fuel System";
+export const MaxSpeedKMH: string = "Max Speed (KM/H)";
+export const TransmissionType: string = "Transmission Type";
+export const Gearboxspeed: string = "Gearbox (speed)";
+export const SteeringType: string = "Steering Type";
+export const PowerAssisted: string = "Power Assisted";
+export const FrontSuspension: string = "Front Suspension";
+export const FrontBrakes: string = "Front Brakes";
+export const RearSuspension: string = "Rear Suspension";
+export const RearBrakes: string = "Rear Brakes";
+export const WheelType: string = "Wheel Type";
+export const WheelSizeInch: string = "Wheel Size (inch)";
+export const SpareTyre: string = "Spare Tyre";
+export const SpareTyreSizeInch: string = "Spare Tyre Size (inch)";
+export const TyreSize: string = "Tyre Size";
+export const FuelTankCapacityL: string = "Fuel Tank Capacity (L)";
+export const MileageCityKML: string = "Mileage City (KM/L)";
+export const MileageHighwayKML: string = "Mileage Highway (KM/L)";
+export const NoOfAirbags: string = "No. of Airbags";
+export const NoOfSeatbelts: string = "No. of Seatbelts";
+export const SpeedSensingAutoDoorLock: string = "Speed Sensing Auto Door Lock";
+export const AntiTheftAlarmSystem: string = "Anti-Theft Alarm System";
+export const DriverSeatBeltWarning: string = "Driver Seat Belt Warning";
+export const DownHillAssistControl: string = "Down Hill Assist Control";
+export const PassengerSeatBeltWarning: string = "Passenger Seat Belt Warning";
+export const HillStartAssistControl: string = "Hill Start Assist Control";
+export const Immobilizer: string = "Immobilizer";
+export const TractionControl: string = "Traction Control";
+export const VehicleStabilityControl: string = "Vehicle Stability Control";
+export const BlindSpotDetectionBSD: string = "BlindSpot Detection (BSD)";
+export const AntiLockBrakingSystemABS: string = "Anti-Lock Braking System (ABS)";
+export const DoorOpeningWarning: string = "Door Opening Warning";
+export const LaneKeepAssistSystemLKAS: string = "Lane Keep Assist System (LKAS)";
+export const ElectronicBrakeForceDistributionEBD: string = "Electronic Brake-Force Distribution (EBD)";
+export const AutonomousEmergencyBrakingAEB: string = "Autonomous Emergency Braking (AEB)";
+export const AlloyWheels: string = "Alloy Wheels";
+export const AdjustableHeadlights: string = "Adjustable Headlights";
+export const RearSpoiler: string = "Rear Spoiler";
+export const SideMirrorswithIndicators: string = "Side Mirrors with Indicators";
+export const SunRoof: string = "Sun Roof";
+export const Panaromic: string = "Panaromic";
+export const FogLights: string = "Fog Lights";
+export const drls: string = "DRLs";
+export const RoofRails: string = "Roof Rails";
+export const SideSteps: string = "Side Steps";
+export const DualExhaust: string = "Dual Exhaust";
+export const Tachometer: string = "Tachometer";
+export const MultiInfo: string = "Multi Info";
+export const InformationCluster: string = "Information Cluster";
+export const DisplaySizeinch: string = "Display Size (inch)";
+export const USBandAuxillaryCable: string = "USB and Auxillary Cable";
+export const CDPlayer: string = "CD Player";
+export const DVDPlayer: string = "DVD Player";
+export const NoOfSpeakers: string = "No. of Speakers";
+export const FrontSpeakers: string = "Front Speakers";
+export const RearSpeakers: string = "Rear Speakers";
+export const RearSeatEntertainment: string = "Rear Seat Entertainment";
+export const VoiceControl: string = "Voice Control";
+export const AndroidAuto: string = "Android Auto";
+export const AppleCarPlay: string = "Apple Car Play";
+export const SeatMaterialType: string = "Seat Material Type";
+export const KeyType: string = "Key Type";
+export const AirConditioner: string = "Air Conditioner";
+export const RainSensingWipers: string = "Rain Sensing Wipers";
+export const ClimateControl: string = "Climate Control";
+export const CruiseControl: string = "Cruise Control";
+export const RearACVents: string = "Rear AC Vents";
+export const DrivingModes: string = "Driving Modes";
+export const PaddleShifter: string = "Paddle Shifter";
+export const Heater: string = "Heater";
+export const HeatedSeats: string = "Heated Seats";
+export const KeylessEntry: string = "Keyless Entry";
+export const PushStart: string = "Push Start";
+export const CoolBox: string = "Cool Box";
+export const RemoteEngineStart: string = "Remote Engine Start";
+export const CentralLocking: string = "Central Locking";
+export const PowerDoorLocks: string = "Power Door Locks";
+export const FrontCamera: string = "Front Camera";
+export const RearCamera: string = "Rear Camera";
+export const Camera360: string = "360 Camera";
+export const PowerWindows: string = "Power Windows";
+export const PowerMirrors: string = "Power Mirrors";
+export const AutoRetractableSideMirrors: string = "Auto Retractable Side Mirrors";
+export const FrontParkingSensors: string = "Front Parking Sensors";
+export const RearParkingSensors: string = "Rear Parking Sensors";
+export const ArmRest: string = "Arm Rest";
+export const RearFoldingSeat: string = "Rear Folding Seat";
+export const Handbrake: string = "Handbrake";
+export const RearHeadrest: string = "Rear Headrest";
+export const AutoBrakeHold: string = "Auto Brake Hold";
+export const RearWiper: string = "Rear Wiper";
+export const AutoParkingSystem: string = "Auto Parking System";
+export const DriverSeatElectricAdjustment: string = "Driver Seat Electric Adjustment";
+export const DriverSeatLumbarSupport: string = "Driver Seat Lumbar Support";
+export const DriverSeatMemoryFunction: string = "Driver Seat Memory Function";
+export const FrontPowerOutlet: string = "Front Power Outlet";
+export const RearPowerOutlet: string = "Rear Power Outlet";
+export const SteeringAdjustment: string = "Steering Adjustment";
+export const SteeringSwitches: string = "Steering Switches";
+export const WirelessCharger: string = "Wireless Charger";
+export const HeadlightOnReminder: string = "Headlight On Reminder";
+export const BossSeatSwitch: string = "Boss Seat Switch";
+export const AutomaticHeadLamps: string = "Automatic Head Lamps";
+export const TyrePressureMonitoringSystemTPMS: string = "Tyre Pressure Monitoring System (TPMS)";
+export const PassengerSeatElectricAdjustment: string = "Passenger Seat Electric Adjustment";
+
+
+
+
+
+
+
+
+
+
+
+
 export const ClientNamePlaceholder: string = "Name client or company name";
 export const ProjectProgress: string = "Project Progress";
 export const ProjectProgressPlaceholder: string = "Enter project Progress";
