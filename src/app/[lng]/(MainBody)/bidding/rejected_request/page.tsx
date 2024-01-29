@@ -150,26 +150,29 @@ const RejectedRequests = () => {
 
             <li className="delete">
               <button
+              title="Normal"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleNormal(row?.postId)}
               >
-                <i className="icon-trash" />
-                normal
+                <i className="icofont icofont-magic txt-primary"></i>
+                {/* normal */}
               </button>
             </li>
 
             <li className="delete">
               <button
+              title="Sale Through famewheels"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleThrough(row?.postId)}
               >
-                <i className="icon-trash" />
-                through
+              <i className="icofont icofont-car text-danger"></i>
+                {/* through */}
               </button>
             </li>
 
             <li className="view">
               <button
+              title="Details"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
                   detailsToggle(row?.postId);

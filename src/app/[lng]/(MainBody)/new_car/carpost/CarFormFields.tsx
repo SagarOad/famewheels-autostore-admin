@@ -150,6 +150,12 @@ import { parseISO, format } from 'date-fns';
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
+interface ImageData {
+  id: string; // Adjust the type based on your actual data structure
+  filename: string; // Adjust the type based on your actual data structure
+  // Add other properties as needed
+}
+
 export const NewCarFormFields = () => {
 
   const [submitting, setSubmitting] = useState(false);
@@ -158,6 +164,7 @@ export const NewCarFormFields = () => {
   const [updateToken, setUpdateToken] = useState("");
 
   const [postToken, setPostToken] = useState("");
+  const [imagePath, setImagePath] = useState("");
 
   // Function to generate a 12-digit token
 
@@ -343,9 +350,8 @@ export const NewCarFormFields = () => {
   const [assembly, setAssembly] = useState("Local");
 
   const [uploadedImages, setUploadedImages] = useState([]);
-  const [files, setFiles] = useState<ExtFile[]>([]);
+  const [files, setFiles] = useState<any[]>([]);
   const [id, setId] = useState <string | null>(null);
-
 
 // for parsing data
 
@@ -377,27 +383,52 @@ export const NewCarFormFields = () => {
         },
       });
 
-      console.log("res ==",response?.data);
-        setUpdateToken(response?.data?.newcarpost_token)
-        setDimensionsObj(JSON.parse(response?.data?.newcarpost_dimensions));
-        setEngineMotor(JSON.parse(response?.data?.newcarpost_enginemotor));
-        setTransmissionObj(JSON.parse(response?.data?.newcarpost_transmission));
-        setSteering(JSON.parse(response?.data?.newcarpost_steering));
-        setsuspension(JSON.parse(response?.data?.newcarpost_suspensionbrakes));
-        setWheelTyre(JSON.parse(response?.data?.newcarpost_wheeltyres));
-        setFuelEconomy(JSON.parse(response?.data?.newcarpost_fueleconomy));
-        setSafety(JSON.parse(response?.data?.newcarpost_safety));
-        setExterior(JSON.parse(response?.data?.newcarpost_exterior));
-        setInstrument(JSON.parse(response?.data?.newcarpost_instrumentation));
-        setInfo(JSON.parse(response?.data?.newcarpost_Infotainment));
-        setComfort(JSON.parse(response?.data?.newcarpost_comfortconvenience));
-
-           return response?.data;
+      console.log("res ==",response?.data?.data);
+        setUpdateToken(response?.data?.data?.newcarpost_token)
+        setDimensionsObj(JSON.parse(response?.data?.data?.newcarpost_dimensions));
+        setEngineMotor(JSON.parse(response?.data?.data?.newcarpost_enginemotor));
+        setTransmissionObj(JSON.parse(response?.data?.data?.newcarpost_transmission));
+        setSteering(JSON.parse(response?.data?.data?.newcarpost_steering));
+        setsuspension(JSON.parse(response?.data?.data?.newcarpost_suspensionbrakes));
+        setWheelTyre(JSON.parse(response?.data?.data?.newcarpost_wheeltyres));
+        setFuelEconomy(JSON.parse(response?.data?.data?.newcarpost_fueleconomy));
+        setSafety(JSON.parse(response?.data?.data?.newcarpost_safety));
+        setExterior(JSON.parse(response?.data?.data?.newcarpost_exterior));
+        setInstrument(JSON.parse(response?.data?.data?.newcarpost_instrumentation));
+        setInfo(JSON.parse(response?.data?.data?.newcarpost_Infotainment));
+        setComfort(JSON.parse(response?.data?.data?.newcarpost_comfortconvenience));
+        setImagePath
+         return response?.data?.data;
         
     } catch (error) {
       console.log(error);
     }
   };
+
+  const getPostImages = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/postimages`, {
+        params: {
+          post_id: updateToken ? updateToken : postToken,
+        },
+      });
+  
+      console.log("response === ", response?.data);
+  
+      if (response?.data) {
+        const newFiles = response?.data?.map((img: any) => img.filename);
+        console.log("newFiles === ", newFiles);
+        setFiles(response?.data);
+        
+      }
+  
+      return response?.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
+
 
   const {
     data: carData,
@@ -407,6 +438,13 @@ export const NewCarFormFields = () => {
     enabled: !!id, // Set enabled to false initially
   });
 
+  const {
+    data: newImages,
+    error: imgError,
+    isLoading: imgLoading,
+  } = useQuery(`getCarImgs`, getPostImages,{
+    enabled: !!updateToken
+  });
 
 
 
@@ -455,6 +493,9 @@ setDescription(carData?.newcarpost_overview)
 setExfactoryPrice(carData?.newcarpost_price)
 
 console.log( "date ===== ",formatDate(carData?.newcarpost_date))
+
+formatDate(carData?.newcarpost_date)
+
 //// dimensions 
 
 setOverallLength(dimensionsObj?.overallLength)
@@ -615,6 +656,7 @@ setBossSeatSwitch(comfort?.bossSeatSwitch)
 setAutomaticHeadLamps(comfort?.automaticHeadLamps)
 setTyrePressureMonitoringSystem(comfort?.tyrePressureMonitoringSystem)
 setPassengerSeatElectricAdjustment(comfort?.passengerSeatElectricAdjustment)
+
 
 },[carData])
 
@@ -784,13 +826,8 @@ setPassengerSeatElectricAdjustment(comfort?.passengerSeatElectricAdjustment)
 
 
   const updateFiles = async (incomingFiles: any) => {
-   setFiles(incomingFiles);
 
-    if (incomingFiles?.length > 0) {
-      console.log("files === ",incomingFiles)
-    }
-
-    try {
+      try {
       const formData:any = new FormData();
       formData.append("imagesList", null);
       formData.append(`post_token`, postToken);
@@ -806,21 +843,48 @@ setPassengerSeatElectricAdjustment(comfort?.passengerSeatElectricAdjustment)
         });
       }
 
-      const response = await axios.post(`https://onlinepayment.famewheels.com/savepostimage`, formData, {
+      const response = await axios.post(`${BASE_URL}/savepostimage`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "multipart/form-data",
         },
       });
-      setUploadedImages(response?.data);
+
+      console.log('data',response?.data)
+
+if (response?.data) { 
+  setFiles([...files,...response?.data])
+}
+
       setImageApi(true);
     } catch (error) {
       console.error("image upload Error:", error);
     }
   };
 
-  const removeFile = (id: string | number | undefined) => {
-    setFiles(files.filter((x: ExtFile) => x.id !== id));
+  const removeFile = async (name: string,index:number) => {
+    const formData = new FormData()
+    formData.append("post_id",updateToken ? updateToken : postToken)
+    formData.append("filename",name)
+
+files.splice(index,1)
+    setFiles([...files])
+// try {
+//   const response = await axios.post(`${BASE_URL}/deleteImages`,formData, {
+//     // params:{
+//     //   post_id:updateToken ? updateToken : postToken,
+//     //   filename:name
+//     // },
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//       "Content-Type": "multipart/form-data",
+//     },
+//   });
+//   console.log(response?.data)
+//  setFiles(files.splice(0,index))
+// } catch (error) {
+//   console.error("image delete Error:", error);
+// }
   };
 
   const token = localStorage.getItem("authToken");
@@ -998,12 +1062,9 @@ const handleSubmit = async (e:FormEvent)=>{
     formData.append("newcarpost_exterior", ExteriorJSON);
     formData.append("newcarpost_instrumentation", InstrumentationJSON);
     formData.append("newcarpost_Infotainment", InfotainmentJSON);
-    formData.append(
-      "newcarpost_comfortconvenience",
-      ComfortandConvenienceJSON
-    );
+    formData.append("newcarpost_comfortconvenience",ComfortandConvenienceJSON);
     formData.append(`newcarpost_token`, updateToken ? updateToken : postToken);
-    formData.append(`newcarpost_launchdate`, launchDate.toDateString());
+    formData.append(`newcarpost_launchdate`, launchDate);
     formData.append(`make_id`, makeId);
     formData.append(`model_id`, modelName);
     formData.append(`year_id`, yearName);
@@ -1013,6 +1074,7 @@ const handleSubmit = async (e:FormEvent)=>{
     formData.append(`newcarpost_variants`, `${varient}`);
     formData.append(`newcarpost_overview`, `${description}`);
     formData.append(`bodytype_id`, `${bodyType}`);
+    formData.append(`newcarpost_id`, `${id}`);
 
     files.forEach((image : any) => {
       formData.append(`imageFiles[]`, image.file);
@@ -1020,7 +1082,7 @@ const handleSubmit = async (e:FormEvent)=>{
     setSubmitting(true);
     try {
       const response = await axios.post(
-        `${BASE_URL}/${updateToken ? "savenewcarpost" : "savenewcarpost"}`,
+        `${BASE_URL}/${updateToken ? "savenewcarpostupdate" : "savenewcarpost"}`,
         formData,
         {
           headers: {
@@ -1030,9 +1092,6 @@ const handleSubmit = async (e:FormEvent)=>{
         }
       );
 
-
-
-
       toast.success(response?.data?.message);
     } catch (error) {
       console.log(error);
@@ -1040,8 +1099,9 @@ const handleSubmit = async (e:FormEvent)=>{
       setSubmitting(false);
     }
   }
-  }
+}
 
+console.log("file it is === ",files)
 
 
   return (
@@ -1049,37 +1109,46 @@ const handleSubmit = async (e:FormEvent)=>{
 
 {
   submitting ? <Loading />
-
 :
-
     <form onSubmit={handleSubmit}>
       <h1 className="faq-title">Basic Information</h1>
 
       <Row>
       <Col>
         <FormGroup>
-          <Label check>{UploadProjectFiles}</Label>
-          <Dropzone onChange={updateFiles} accept="image/*" value={files} maxFiles={20} header={false} footer={false} minHeight="80px" label="Drag'n drop files here or click to Browse">
-            {files.map((file: ExtFile) => (
-              <FileMosaic key={file.id} {...file} onDelete={removeFile} preview/>
-            ))}
-            {files.length === 0 && (
+          <Label check>New Car Images</Label>
+          <Dropzone onChange={updateFiles} required accept="image/*" value={files} maxFiles={20} header={false} footer={false} minHeight="80px" label="Drag'n drop files here or click to Browse">
+          
+            {files?.length === 0 && (
               <div className="dz-message needsclick">
                 <i className="icon-cloud-up fs-1 txt-primary"></i>
                 <h6 className="f-w-700 mb-1">Drop images here or click to upload.</h6>
                 <h6 className="note needsclick">
-                  (This is just a demo dropzone. Selected images are <strong>not</strong> actually uploaded.)
+                  (This is a dropzone. Selected )
                 </h6>
               </div>
             )}
           </Dropzone>
+
+          {files?.length !== 0 && <h4 className="faq-title">Previous Images</h4>}
+
+          <div className="d-flex flex-wrap w-100 justify-content-center gap-2 border-1 mt-4 align-items-center ">
+          {files?.map((file:ImageData,ind) =>{ 
+            return (
+              // <FileMosaic key={file.id} {...file} onDelete={removeFile} preview/>
+              
+              <div className=" position-relative d-flex w-25" key={file.filename}>
+              <img src={`${BASE_URL}/public/posts/${updateToken ? updateToken : postToken}/${file.filename}`} className="img-fluid object-fit-contain rounded-4 " alt={file.id} />
+             <i className="icofont icofont-close-circled rounded-pill bg-primary fs-6 position-absolute top-0 z-3 m-1" style={{right:"0%",cursor:"pointer"}} onClick={()=>removeFile(file.filename,ind)}></i>
+              </div>
+            )})}
+            </div>
         </FormGroup>
       </Col>
     </Row>
 
 
       <Row>
-     
         <Col lg="3" md="6">
           <FormGroup>
             <Label check>{CoverImage}</Label>

@@ -164,6 +164,7 @@ const InprocessRequests = () => {
 
             <li className="view">
               <button
+              title="Details"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
                   detailsToggle(row?.postId);

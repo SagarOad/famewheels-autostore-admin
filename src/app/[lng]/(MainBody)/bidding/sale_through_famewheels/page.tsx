@@ -143,6 +143,7 @@ const SellThroughFW = () => {
             <i className="icofont icofont-check"></i>
             </button>
           </li>
+          
           <li className="delete">
             <button className="p-0 border-0 bg-transparent" onClick={()=>handleReject(row?.postId)}>
               <i className="icon-trash" />
@@ -165,6 +166,7 @@ const SellThroughFW = () => {
 
             <li className="view">
               <button
+              title="Details"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
                   detailsToggle(row?.postId);

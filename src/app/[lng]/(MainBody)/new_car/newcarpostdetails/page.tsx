@@ -32,7 +32,8 @@ const ProductPageContainer = () => {
   const [comfort, setComfort] = React.useState<any>({});
 
   const [id, setId] = React.useState <string | null>(null);
-  const [token, setToken] = React.useState <string | null>(null);
+  const [token, setToken] = React.useState <string>('');
+  const [imagePath, setImagePath] = React.useState <string>('');
   
 const extractTokenFromUrl = (url : string, paramName : string) => {
   const urlSearchParams = new URLSearchParams(url);
@@ -53,22 +54,21 @@ useEffect(()=>{
           },
         });
   
-        console.log("res ==",response?.data);
-          setToken(response?.data?.newcarpost_token)
-          setDimensions(JSON.parse(response?.data?.newcarpost_dimensions));
-          setEngineMotor(JSON.parse(response?.data?.newcarpost_enginemotor));
-          setTransmission(JSON.parse(response?.data?.newcarpost_transmission));
-          setSteering(JSON.parse(response?.data?.newcarpost_steering));
-          setsuspension(JSON.parse(response?.data?.newcarpost_suspensionbrakes));
-          setWheelTyre(JSON.parse(response?.data?.newcarpost_wheeltyres));
-          setFuelEconomy(JSON.parse(response?.data?.newcarpost_fueleconomy));
-          setSafety(JSON.parse(response?.data?.newcarpost_safety));
-          setExterior(JSON.parse(response?.data?.newcarpost_exterior));
-          setInstrument(JSON.parse(response?.data?.newcarpost_instrumentation));
-          setInfo(JSON.parse(response?.data?.newcarpost_Infotainment));
-          setComfort(JSON.parse(response?.data?.newcarpost_comfortconvenience));
-
-             return response?.data;
+          setToken(response?.data?.data?.newcarpost_token)
+          setDimensions(JSON.parse(response?.data?.data?.newcarpost_dimensions));
+          setEngineMotor(JSON.parse(response?.data?.data?.newcarpost_enginemotor));
+          setTransmission(JSON.parse(response?.data?.data?.newcarpost_transmission));
+          setSteering(JSON.parse(response?.data?.data?.newcarpost_steering));
+          setsuspension(JSON.parse(response?.data?.data?.newcarpost_suspensionbrakes));
+          setWheelTyre(JSON.parse(response?.data?.data?.newcarpost_wheeltyres));
+          setFuelEconomy(JSON.parse(response?.data?.data?.newcarpost_fueleconomy));
+          setSafety(JSON.parse(response?.data?.data?.newcarpost_safety));
+          setExterior(JSON.parse(response?.data?.data?.newcarpost_exterior));
+          setInstrument(JSON.parse(response?.data?.data?.newcarpost_instrumentation));
+          setInfo(JSON.parse(response?.data?.data?.newcarpost_Infotainment));
+          setComfort(JSON.parse(response?.data?.data?.newcarpost_comfortconvenience));
+setImagePath(response?.data?.image_path)
+             return response?.data?.data;
           
       } catch (error) {
         console.log(error);
@@ -77,14 +77,12 @@ useEffect(()=>{
   
     const getPostImages = async () => {
       try {
-        const response = await axios.get(`https://onlinepayment.famewheels.com/postimages`, {
+        const response = await axios.get(`${BASE_URL}/postimages`, {
         params: {
           post_id:token,
         },
         });
-  
-        console.log("imgs ============== ", response?.data);
-        return response?.data;
+          return response?.data;
       } catch (error) {
         console.log(error);
       }
@@ -93,9 +91,6 @@ useEffect(()=>{
     const { data:post, error, isLoading } = useQuery(
       `newCarDetails_${id}`,
       getPostDetil,
-      // {
-      //   enabled: !!509, // Set enabled to false initially
-      // }
     );
  
     const {
@@ -104,6 +99,7 @@ useEffect(()=>{
       isLoading: imgLoading,
     } = useQuery(`newCarImgs${token}`, getPostImages);
 
+
   return (
     <Container fluid>
 
@@ -111,7 +107,7 @@ useEffect(()=>{
 { isLoading || imgLoading ? <Loading/> :
       <div>
         <Row>
-          <ImageSlider />
+          <ImageSlider images={images} token={token} imagePath={imagePath}/>
           <ProductDetails post={post}/>
           {/* <BrandDetail /> */}
         </Row>

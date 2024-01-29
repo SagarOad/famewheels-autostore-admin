@@ -1,10 +1,9 @@
 
 export const ProductColor = ({color}:{color:string}) => {
+  
   return (
     <>
-      <ul className="product-color mt-2 mb-2 mb-2">
-        <li style={{backgroundColor:color ? color : "white"}}></li>
-      </ul>
+      <p className="mt-2"> <span className="fw-bold fs-6">Color :</span> {color}</p>
       <hr />
     </>
   );

@@ -139,6 +139,7 @@ const InspectedRequests = () => {
           >
             <li className="edit">
               <button
+              title="Forward"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleApprove(row?.postId)}
               >
@@ -147,30 +148,33 @@ const InspectedRequests = () => {
             </li>
             <li className="delete">
               <button
+              title="Reject"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleReject(row?.postId)}
               >
-                <i className="icon-trash" />
+                <i className="icofont icofont-close"></i>
               </button>
             </li>
 
-            <li className="delete">
+            <li>
               <button
+              title="Normal"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleNormal(row?.postId)}
               >
-                <i className="icon-trash" />
-                normal
+                 <i className="icofont icofont-magic txt-primary"></i>
+                {/* normal */}
               </button>
             </li>
 
-            <li className="delete">
+            <li>
               <button
+              title="Sale Through Famewheels"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleThrough(row?.postId)}
               >
-                <i className="icon-trash" />
-                through
+              <i className="icofont icofont-car text-danger"></i>
+                {/* through */}
               </button>
             </li>
 

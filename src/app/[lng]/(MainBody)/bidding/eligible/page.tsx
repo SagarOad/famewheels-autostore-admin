@@ -139,15 +139,17 @@ const EligiblRequests = () => {
           >
             <li className="delete">
               <button
+              title="Reject"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleReject(row?.postId)}
               >
-                <i className="icon-trash" />
+               <i className="icofont icofont-close"></i>
               </button>
             </li>
 
             <li className="view">
               <button
+              title="Details"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
                   detailsToggle(row?.postId);

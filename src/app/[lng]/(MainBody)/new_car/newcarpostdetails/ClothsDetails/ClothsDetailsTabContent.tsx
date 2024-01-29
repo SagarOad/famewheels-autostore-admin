@@ -14,18 +14,6 @@ const ClothsDetailsTabContent :React.FC<ClothsDetailsTabContentProp> = ({ active
   info,
   comfort }) => {
 
-
-
-
-
-
-
-
-
-
-
-
-
   return (
     <TabContent activeTab={activeTab}>
       <TabPane tabId={1}>

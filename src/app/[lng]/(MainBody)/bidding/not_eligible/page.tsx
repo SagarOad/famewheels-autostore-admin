@@ -140,6 +140,8 @@ const NotEligibleRequests = () => {
           >
             <li className="edit">
               <button
+              title="Forward"
+
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleApprove(row?.postId)}
               >
@@ -149,6 +151,7 @@ const NotEligibleRequests = () => {
 
             <li className="view">
               <button
+              title="Details"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
                   detailsToggle(row?.postId);
