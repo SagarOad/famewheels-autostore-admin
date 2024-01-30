@@ -168,11 +168,6 @@ export const NewCarFormFields = () => {
 
   // Function to generate a 12-digit token
 
-
-
-
-
-
   const [varient, setVarient] = useState("");
   const [bodyType, setBodytype] = useState("");
   const [exFactoryPrice, setExfactoryPrice] = useState<number>();
@@ -350,7 +345,9 @@ export const NewCarFormFields = () => {
   const [assembly, setAssembly] = useState("Local");
 
   const [uploadedImages, setUploadedImages] = useState([]);
+  const [newFiles, setNewFiles] = useState([]);
   const [files, setFiles] = useState<any[]>([]);
+  const [moreImages, setMoreImages] = useState<any[]>([]);
   const [id, setId] = useState <string | null>(null);
 
 // for parsing data
@@ -418,7 +415,9 @@ export const NewCarFormFields = () => {
       if (response?.data) {
         const newFiles = response?.data?.map((img: any) => img.filename);
         console.log("newFiles === ", newFiles);
-        setFiles(response?.data);
+        // setFiles(response?.data);
+        setUploadedImages(response?.data)
+        setMoreImages(response?.data)
         
       }
   
@@ -445,7 +444,6 @@ export const NewCarFormFields = () => {
   } = useQuery(`getCarImgs`, getPostImages,{
     enabled: !!updateToken
   });
-
 
 
 
@@ -826,16 +824,24 @@ setPassengerSeatElectricAdjustment(comfort?.passengerSeatElectricAdjustment)
 
 
   const updateFiles = async (incomingFiles: any) => {
-
+setFiles(incomingFiles)
+setMoreImages(incomingFiles)
       try {
       const formData:any = new FormData();
       formData.append("imagesList", null);
-      formData.append(`post_token`, postToken);
+      formData.append(`post_token`, updateToken ? updateToken : postToken);
 
       files.forEach((image:any) => {
         formData.append(`file[]`, image.file);
         console.log("images",image)
       });
+
+
+
+      // moreImages.forEach((image:any) => {
+      //   formData.append(`file[]`, image.file);
+      //   console.log("images",image)
+      // });
 
       if (incomingFiles?.length > 0) {
         incomingFiles.forEach((image: any) => {
@@ -852,9 +858,11 @@ setPassengerSeatElectricAdjustment(comfort?.passengerSeatElectricAdjustment)
 
       console.log('data',response?.data)
 
-if (response?.data) { 
-  setFiles([...files,...response?.data])
-}
+// if (response?.data) { 
+//   setUploadedImages([...uploadedImages,...response?.data])
+// }
+// setMoreImages(response?.data?.adds)
+setNewFiles(response?.data?.adds)
 
       setImageApi(true);
     } catch (error) {
@@ -863,12 +871,29 @@ if (response?.data) {
   };
 
   const removeFile = async (name: string,index:number) => {
-    const formData = new FormData()
-    formData.append("post_id",updateToken ? updateToken : postToken)
-    formData.append("filename",name)
+    setFiles(files.filter((x: ExtFile) => x.id !== id));
+
+    // const formData = new FormData()
+    // formData.append("post_id",updateToken ? updateToken : postToken)
+    // formData.append("filename",name)
 
 files.splice(index,1)
     setFiles([...files])
+
+
+
+    uploadedImages.splice(index,1)
+    setUploadedImages([...uploadedImages])
+
+    moreImages.splice(index,1)
+    setMoreImages([...moreImages])
+
+
+    newFiles.splice(index,1)
+    setNewFiles([...newFiles])
+
+
+
 // try {
 //   const response = await axios.post(`${BASE_URL}/deleteImages`,formData, {
 //     // params:{
@@ -1018,6 +1043,26 @@ files.splice(index,1)
       title: "15",
       value: "15",
     },
+    {
+      title: "16",
+      value: "16",
+    },
+    {
+      title: "17",
+      value: "17",
+    },
+    {
+      title: "18",
+      value: "18",
+    },
+    {
+      title: "19",
+      value: "19",
+    },
+    {
+      title: "20",
+      value: "20",
+    },
   ];
 
 
@@ -1043,9 +1088,8 @@ const handleSubmit = async (e:FormEvent)=>{
   e.preventDefault()
   const formData = new FormData();
 
-  if (files.length === 0) {
-    toast.error("Images Required");
-  } else {
+  if (files.length !==0 || uploadedImages.length !== 0) {
+  
     // prevImg.forEach((file) => {
     //   formData.append("imageFiles", file);
     // });
@@ -1074,11 +1118,25 @@ const handleSubmit = async (e:FormEvent)=>{
     formData.append(`newcarpost_variants`, `${varient}`);
     formData.append(`newcarpost_overview`, `${description}`);
     formData.append(`bodytype_id`, `${bodyType}`);
-    formData.append(`newcarpost_id`, `${id}`);
+    if (id) { 
+      formData.append(`newcarpost_id`, `${id}`);
+    }
 
-    files.forEach((image : any) => {
-      formData.append(`imageFiles[]`, image.file);
+
+if (uploadedImages.length !== 0) {
+  moreImages.forEach((image : any) => {
+    formData.append(`imageFiles[]`, image.filename);
+  });
+}
+
+if(files.length !==0){
+
+newFiles.forEach((image : any) => {
+      formData.append(`imageFiles[]`, image);
     });
+
+} 
+
     setSubmitting(true);
     try {
       const response = await axios.post(
@@ -1098,6 +1156,8 @@ const handleSubmit = async (e:FormEvent)=>{
     } finally {
       setSubmitting(false);
     }
+  }else{
+    toast.error("Images Required");
   }
 }
 
@@ -1128,17 +1188,25 @@ console.log("file it is === ",files)
                 </h6>
               </div>
             )}
+
+{files?.map((file:ImageData,ind) =>{ 
+            return (
+              <FileMosaic key={file.id} {...file} onDelete={removeFile} preview/>
+            //   <div className=" position-relative d-flex w-25" key={file}>
+            //   <img src={`${BASE_URL}/public/posts/${updateToken ? updateToken : postToken}/${file.filename}`} className="img-fluid object-fit-contain rounded-4 " alt={file.filename} />
+            //  <i className="icofont icofont-close-circled rounded-pill bg-primary fs-6 position-absolute top-0 z-3 m-1" style={{right:"0%",cursor:"pointer"}} onClick={()=>removeFile(file.filename,ind)}></i>
+            //   </div>
+            )})}
           </Dropzone>
 
           {files?.length !== 0 && <h4 className="faq-title">Previous Images</h4>}
 
           <div className="d-flex flex-wrap w-100 justify-content-center gap-2 border-1 mt-4 align-items-center ">
-          {files?.map((file:ImageData,ind) =>{ 
+          {uploadedImages?.map((file:ImageData,ind) =>{ 
             return (
               // <FileMosaic key={file.id} {...file} onDelete={removeFile} preview/>
-              
-              <div className=" position-relative d-flex w-25" key={file.filename}>
-              <img src={`${BASE_URL}/public/posts/${updateToken ? updateToken : postToken}/${file.filename}`} className="img-fluid object-fit-contain rounded-4 " alt={file.id} />
+              <div className=" position-relative d-flex w-25" key={ind}>
+              <img src={`${BASE_URL}/public/posts/${updateToken ? updateToken : postToken}/${file.filename}`} className="img-fluid object-fit-contain rounded-4 " alt={file.filename} />
              <i className="icofont icofont-close-circled rounded-pill bg-primary fs-6 position-absolute top-0 z-3 m-1" style={{right:"0%",cursor:"pointer"}} onClick={()=>removeFile(file.filename,ind)}></i>
               </div>
             )})}

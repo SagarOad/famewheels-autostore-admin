@@ -91,13 +91,16 @@ setImagePath(response?.data?.image_path)
     const { data:post, error, isLoading } = useQuery(
       `newCarDetails_${id}`,
       getPostDetil,
+
     );
  
     const {
       data: images,
       error: imgError,
       isLoading: imgLoading,
-    } = useQuery(`newCarImgs${token}`, getPostImages);
+    } = useQuery(`newCarImgs${token}`, getPostImages,{
+      enabled:!!token
+    });
 
 
   return (
