@@ -137,47 +137,6 @@ const InspectedRequests = () => {
             className="action simple-list d-flex flex-row gap-2"
             key={row?.postId}
           >
-            <li className="edit">
-              <button
-              title="Forward"
-                className="p-0 border-0 bg-transparent"
-                onClick={() => handleApprove(row?.postId)}
-              >
-                <i className="icofont icofont-check"></i>
-              </button>
-            </li>
-            <li className="delete">
-              <button
-              title="Reject"
-                className="p-0 border-0 bg-transparent"
-                onClick={() => handleReject(row?.postId)}
-              >
-                <i className="icofont icofont-close"></i>
-              </button>
-            </li>
-
-            <li>
-              <button
-              title="Normal"
-                className="p-0 border-0 bg-transparent"
-                onClick={() => handleNormal(row?.postId)}
-              >
-                 <i className="icofont icofont-magic txt-primary"></i>
-                {/* normal */}
-              </button>
-            </li>
-
-            <li>
-              <button
-              title="Sale Through Famewheels"
-                className="p-0 border-0 bg-transparent"
-                onClick={() => handleThrough(row?.postId)}
-              >
-              <i className="icofont icofont-car text-danger"></i>
-                {/* through */}
-              </button>
-            </li>
-
             <li className="view">
               <button
                 className="p-0 border-0 bg-transparent"
