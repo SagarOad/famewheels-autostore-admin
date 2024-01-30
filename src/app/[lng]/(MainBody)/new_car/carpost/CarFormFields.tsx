@@ -1,5 +1,5 @@
 import { Field, ErrorMessage,useFormikContext } from "formik";
-import { Col, FormGroup, Label, Row,Input } from "reactstrap";
+import { Col, FormGroup, Label, Row,Input, Button } from "reactstrap";
 import { Dropzone, ExtFile, FileMosaic } from "@dropzone-ui/react";
 import { UploadProjectFiles } from "@/Constant";
 import {
@@ -147,6 +147,7 @@ import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import Loading from "@/app/loading";
 import { parseISO, format } from 'date-fns';
+import CommonModal from "@/Components/UiKits/Modal/Common/CommonModal";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
@@ -306,7 +307,7 @@ export const NewCarFormFields = () => {
   const [makeName, setMakeName] = useState("");
   const [vehicleColour, setVehicleColour] = useState("");
   const [startingAmount, setStartingAmount] = useState("");
-  const [prevImg, setPrevImg] = useState<File[]>([]);
+  const [prevImg, setPrevImg] = useState('');
   const [imageApi, setImageApi] = useState(true);
   const postDisabled = imageApi === false;
   const [imageErrorMessage, setImageErrorMessage] = useState("");
@@ -1081,6 +1082,15 @@ files.splice(index,1)
   const coverChange = (e: any) => {
     const file = e.target.files[0];
     setCoverImage(file);
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const imageSrc = reader.result
+      setPrevImg(imageSrc)
+    };
+    reader.readAsDataURL(file);
+
   };
 
 
@@ -1163,6 +1173,14 @@ newFiles.forEach((image : any) => {
 
 console.log("file it is === ",files)
 
+const [centred, setCentered] = useState(false);
+
+const centeredToggle = () => {
+  return setCentered(!centred);
+};
+
+console.log(coverImage)
+
 
   return (
     <>
@@ -1192,10 +1210,6 @@ console.log("file it is === ",files)
 {files?.map((file:ImageData,ind) =>{ 
             return (
               <FileMosaic key={file.id} {...file} onDelete={removeFile} preview/>
-            //   <div className=" position-relative d-flex w-25" key={file}>
-            //   <img src={`${BASE_URL}/public/posts/${updateToken ? updateToken : postToken}/${file.filename}`} className="img-fluid object-fit-contain rounded-4 " alt={file.filename} />
-            //  <i className="icofont icofont-close-circled rounded-pill bg-primary fs-6 position-absolute top-0 z-3 m-1" style={{right:"0%",cursor:"pointer"}} onClick={()=>removeFile(file.filename,ind)}></i>
-            //   </div>
             )})}
           </Dropzone>
 
@@ -1216,10 +1230,38 @@ console.log("file it is === ",files)
     </Row>
 
 
+
+    <CommonModal centered isOpen={centred} toggle={centeredToggle} size="md">
+        <div className="modal-toggle-wrapper">
+
+
+{updateToken ? 
+  <img src={`${BASE_URL}/public/posts/${updateToken}/${carData?.newcarpost_cover}`} alt="cover-image" className="img-fluid"/>
+:
+<img src={prevImg} alt="cover-image" className="img-fluid"/>
+}
+
+
+          <Button
+          type="button"
+            color="secondary"
+            className="d-flex m-auto"
+            onClick={centeredToggle}
+          >
+            Close
+          </Button>
+        </div>
+      </CommonModal>
+
+
+
+
+
       <Row>
         <Col lg="3" md="6">
           <FormGroup>
             <Label check>{CoverImage}</Label>
+            <div className="d-flex gap-1 align-items-center ">
             <Input
             required
               name="coverImage"
@@ -1228,6 +1270,8 @@ console.log("file it is === ",files)
               onChange={coverChange}
               placeholder="Cover Image"
             />
+            {coverImage && <p className="py-1 px-3 bg-primary rounded" style={{cursor:"pointer"}} onClick={()=>setCentered(true)}><i className="icofont icofont-eye-alt"></i></p>}
+            </div>
             {/* <ErrorMessage
               name="coverImage"
               component="span"
