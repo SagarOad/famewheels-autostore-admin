@@ -137,20 +137,18 @@ const RejectedRequests = () => {
             className="action simple-list d-flex flex-row gap-2"
             key={row?.postId}
           >
-            {/* <li className="edit">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>handleApprove(row?.postId)}>
-            <i className="icofont icofont-check"></i>
-            </button>
-          </li>
-          <li className="delete">
-            <button className="p-0 border-0 bg-transparent" onClick={()=>handleReject(row?.postId)}>
-              <i className="icon-trash" />
-            </button>
-          </li> */}
+            <li className="Pending">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => handleApprove(row?.postId)}
+              >
+                <i className="icofont icofont-check"></i>
+              </button>
+            </li>
 
             <li className="delete">
               <button
-              title="Normal"
+                title="Normal"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleNormal(row?.postId)}
               >
@@ -161,18 +159,18 @@ const RejectedRequests = () => {
 
             <li className="delete">
               <button
-              title="Sale Through famewheels"
+                title="Sale Through famewheels"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleThrough(row?.postId)}
               >
-              <i className="icofont icofont-car text-danger"></i>
+                <i className="icofont icofont-car text-danger"></i>
                 {/* through */}
               </button>
             </li>
 
             <li className="view">
               <button
-              title="Details"
+                title="Details"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
                   detailsToggle(row?.postId);
@@ -188,6 +186,24 @@ const RejectedRequests = () => {
     },
   ];
 
+  const handleApprove = async (id: number) => {
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
+        params: {
+          post_id: id,
+          auctionpoststatus_id: 1,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      toast.success(response?.data?.message || "Rejected Succeffully");
+      setGetUpdate(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleNormal = async (id: number) => {
     try {
       const token = localStorage.getItem("authToken");
@@ -202,7 +218,6 @@ const RejectedRequests = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
@@ -221,7 +236,6 @@ const RejectedRequests = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
