@@ -348,7 +348,7 @@ export const NewCarFormFields = () => {
   const [sunRoof, setSunRoof] = useState("false");
   const [usb, setUSB] = useState("false");
   const [alloyRims, setAlloyRims] = useState("false");
-  const [assembly, setAssembly] = useState("Local");
+  const [getUpdate, setGetUpdate] = useState(false);
 
   const [uploadedImages, setUploadedImages] = useState([]);
   const [newFiles, setNewFiles] = useState([]);
@@ -384,7 +384,6 @@ export const NewCarFormFields = () => {
         },
       });
 
-      console.log("res ==", response?.data?.data);
       setUpdateToken(response?.data?.data?.newcarpost_token);
       setDimensionsObj(JSON.parse(response?.data?.data?.newcarpost_dimensions));
       setEngineMotor(JSON.parse(response?.data?.data?.newcarpost_enginemotor));
@@ -412,6 +411,13 @@ export const NewCarFormFields = () => {
       console.log(error);
     }
   };
+  const {
+    data: carData,
+    error: carError,
+    isLoading: carLoading,
+  } = useQuery(`getCarData${id}`, getPostDetil, {
+    enabled: !!id, // Set enabled to false initially
+  });
 
   const getPostImages = async () => {
     try {
@@ -421,11 +427,8 @@ export const NewCarFormFields = () => {
         },
       });
 
-      console.log("response === ", response?.data);
-
       if (response?.data) {
         const newFiles = response?.data?.map((img: any) => img.filename);
-        console.log("newFiles === ", newFiles);
         // setFiles(response?.data);
         setUploadedImages(response?.data);
         setMoreImages(response?.data);
@@ -438,18 +441,10 @@ export const NewCarFormFields = () => {
   };
 
   const {
-    data: carData,
-    error: carError,
-    isLoading: carLoading,
-  } = useQuery(`getCarData${id}`, getPostDetil, {
-    enabled: !!id, // Set enabled to false initially
-  });
-
-  const {
     data: newImages,
     error: imgError,
     isLoading: imgLoading,
-  } = useQuery(`getCarImgs`, getPostImages, {
+  } = useQuery(`getCarImgs_${getUpdate}`, getPostImages, {
     enabled: !!updateToken,
   });
 
@@ -493,8 +488,6 @@ export const NewCarFormFields = () => {
     setBodytype(carData?.newcarpost_bodytype);
     setDescription(carData?.newcarpost_overview);
     setExfactoryPrice(carData?.newcarpost_price);
-
-    console.log("date ===== ", formatDate(carData?.newcarpost_date));
 
     formatDate(carData?.newcarpost_date);
 
@@ -830,7 +823,6 @@ export const NewCarFormFields = () => {
 
       files.forEach((image: any) => {
         formData.append(`file[]`, image.file);
-        console.log("images", image);
       });
 
       // moreImages.forEach((image:any) => {
@@ -850,8 +842,6 @@ export const NewCarFormFields = () => {
           "Content-Type": "multipart/form-data",
         },
       });
-
-      console.log("data", response?.data);
 
       // if (response?.data) {
       //   setUploadedImages([...uploadedImages,...response?.data])
@@ -884,22 +874,23 @@ export const NewCarFormFields = () => {
     newFiles.splice(index, 1);
     setNewFiles([...newFiles]);
 
-    // try {
-    //   const response = await axios.get(`${BASE_URL}/deleteImages`, {
-    //     params: {
-    //       post_id: updateToken ? updateToken : postToken,
-    //       filename: name,
-    //     },
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   });
-    //   console.log(response?.data);
-    //   setFiles(files.splice(0, index));
-    // } catch (error) {
-    //   console.error("image delete Error:", error);
-    // }
+    try {
+      const response = await axios.get(`${BASE_URL}/deleteImages`, {
+        params: {
+          post_id: updateToken ? updateToken : postToken,
+          filename: name,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      setGetUpdate(!getUpdate);
+      console.log(response?.data);
+      setFiles(files.splice(0, index));
+    } catch (error) {
+      console.error("image delete Error:", error);
+    }
   };
 
   const token = localStorage.getItem("authToken");
@@ -1160,8 +1151,6 @@ export const NewCarFormFields = () => {
       toast.error("Images Required");
     }
   };
-
-  console.log("file it is === ", files);
 
   const [centred, setCentered] = useState(false);
 
