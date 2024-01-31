@@ -875,8 +875,8 @@ export const NewCarFormFields = () => {
     files.splice(index, 1);
     setFiles([...files]);
 
-    uploadedImages.splice(index, 1);
-    setUploadedImages([...uploadedImages]);
+    // uploadedImages.splice(index, 1);
+    // setUploadedImages([...uploadedImages]);
 
     moreImages.splice(index, 1);
     setMoreImages([...moreImages]);
@@ -884,22 +884,22 @@ export const NewCarFormFields = () => {
     newFiles.splice(index, 1);
     setNewFiles([...newFiles]);
 
-    try {
-      const response = await axios.get(`${BASE_URL}/deleteImages`, {
-        params: {
-          post_id: updateToken ? updateToken : postToken,
-          filename: name,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(response?.data);
-      setFiles(files.splice(0, index));
-    } catch (error) {
-      console.error("image delete Error:", error);
-    }
+    // try {
+    //   const response = await axios.get(`${BASE_URL}/deleteImages`, {
+    //     params: {
+    //       post_id: updateToken ? updateToken : postToken,
+    //       filename: name,
+    //     },
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   });
+    //   console.log(response?.data);
+    //   setFiles(files.splice(0, index));
+    // } catch (error) {
+    //   console.error("image delete Error:", error);
+    // }
   };
 
   const token = localStorage.getItem("authToken");
@@ -1209,7 +1209,7 @@ export const NewCarFormFields = () => {
                       <FileMosaic
                         key={file.id}
                         {...file}
-                        onDelete={removeFile}
+                        onDelete={()=>removeFile(file,ind)}
                         preview
                       />
                     );
@@ -1279,7 +1279,7 @@ export const NewCarFormFields = () => {
                 <Label check>{CoverImage}</Label>
                 <div className="d-flex gap-1 align-items-center ">
                   <Input
-                    required
+                    required={coverImage ? false : true}
                     name="coverImage"
                     type="file"
                     className="form-control"
