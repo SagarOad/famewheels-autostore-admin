@@ -383,6 +383,7 @@ export const NewCarFormFields = () => {
           newcarpost_id: id,
         },
       });
+setMakeName(response?.data?.data?.make)
 
       setUpdateToken(response?.data?.data?.newcarpost_token);
       setDimensionsObj(JSON.parse(response?.data?.data?.newcarpost_dimensions));
@@ -405,12 +406,17 @@ export const NewCarFormFields = () => {
       setComfort(
         JSON.parse(response?.data?.data?.newcarpost_comfortconvenience)
       );
-      setImagePath;
+
+      setModelName(response?.data?.data?.model_id)
+setYearName(response?.data?.data?.year)
       return response?.data?.data;
     } catch (error) {
       console.log(error);
     }
   };
+
+
+  console.log(modelName,yearName)
   const {
     data: carData,
     error: carError,
@@ -935,8 +941,8 @@ export const NewCarFormFields = () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    setModelName("")
-    setYearName("")
+    // setModelName("")
+    // setYearName("")
 
     return res.data;
   };
