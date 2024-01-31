@@ -8,7 +8,7 @@ import DashboardCommonHeader from "../common/DashboardCommonHeader";
 
 const SalesStatistic = () => {
   return (
-    <Col  xl="6" className="box-col-12 proorder-xl-8 proorder-md-9">
+    <Col  xxl="6" className="box-col-12 proorder-xl-8 proorder-md-9">
       <Card>
         <DashboardCommonHeader title={SalesStatistics} />
         <CardBody className="sale-statistic">

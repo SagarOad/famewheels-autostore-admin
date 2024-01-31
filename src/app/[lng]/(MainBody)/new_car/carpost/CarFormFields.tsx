@@ -944,6 +944,9 @@ export const NewCarFormFields = () => {
         Authorization: `Bearer ${token}`,
       },
     });
+    setModelName("")
+    setYearName("")
+
     return res.data;
   };
 
@@ -971,6 +974,42 @@ export const NewCarFormFields = () => {
   } = useQuery(`myYear_${modelName}`, fetchModelYear, {
     enabled: !!modelName, // Set enabled to false initially
   });
+
+
+
+
+
+  const fetchVariant = async () => {
+    try {
+      const response = await axios.get(`${BASE_URL}/getVarientList`, {
+        params: {
+          modelId: modelName,
+          yearId: yearName,
+        },
+      });
+      console.log("veriants",response?.data)
+
+      // setVariantList(response.data);
+      return response?.data
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+
+
+  const {
+    data: variants,
+    error: variantError,
+    isLoading: variantLoading,
+  } = useQuery(`myVariants_${modelName}${makeName}${yearName}`, fetchVariant, {
+    enabled: !!yearName, // Set enabled to false initially
+  });
+
+
+
+
+
 
   const seats = [
     {
@@ -1378,10 +1417,45 @@ export const NewCarFormFields = () => {
               </FormGroup>
             </Col>
 
-            <Col lg="3" md="6">
+
+
+
+
+          {yearName &&  <Col lg="3" md="6">
               <FormGroup>
                 <Label check>{Varient}</Label>
-                <Input
+   {variants?.length > 0 &&             <Input
+                  required
+                  name="varient"
+                  type="select"
+                  disabled={variants?.length > 0 ? false : true}
+                  placeholder={`Select ${modelName} Varient`}
+                  className="form-control form-select"
+                  onChange={(e: any) => setVarient(e.target.value)}
+                  value={varient}
+                >
+ <option value="" disabled selected>
+                    Select {modelName} Variant
+                  </option>
+                {variants &&
+                            variants.map((item : any) => (
+                              <option
+                                key={item.featuresId}
+                                value={item.featuresId}
+                              >
+                                {item.featureName}
+                              </option>
+                            ))}
+
+</Input>}
+
+
+
+
+
+                { modelName &&
+                      yearName !== " " &&
+                      variants?.length === 0 && <Input
                   required
                   name="varient"
                   type="text"
@@ -1389,9 +1463,9 @@ export const NewCarFormFields = () => {
                   placeholder="Varient"
                   onChange={(e: any) => setVarient(e.target.value)}
                   value={varient}
-                />
+                />}
               </FormGroup>
-            </Col>
+            </Col>}
 
             <Col lg="3" md="6">
               <FormGroup>

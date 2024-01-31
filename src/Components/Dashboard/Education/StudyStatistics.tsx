@@ -1,3 +1,4 @@
+"use client"
 import { Card, CardBody, Col } from "reactstrap";
 import { Illustrations, StudyStatistic, UXDesign } from "@/Constant";
 import ReactApexChart from "react-apexcharts";

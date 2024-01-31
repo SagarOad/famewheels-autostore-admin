@@ -11,26 +11,41 @@ import ActiveMembers from "./ActiveMembers";
 import SalesStatistic from "./SalesStatistic";
 import SalesByProduct from "./SalesByProduct";
 import UserByContinent from "./UserByContinent/page";
+import TotalStudents from "../Education/TotalStudents";
+import StudyStatistics from "../Education/StudyStatistics";
 
 const DefaultDashboardContainer = () => {
   return (
+    <>
     <Container fluid className="default-dashboard">
       <Row className="widget-grid">
         <UserInfo />
         <OpeningOfLeaflets />
         <ShiftsOverview />
+      </Row>
+    </Container>
+    <Container fluid className="dashboard-4">
+
         {/* <ProjectsTable /> */}
         {/* <CustomerTransaction /> */}
         {/* <UserNotifications /> */}
         {/* <UpcomingAppointments /> */}
         {/* <ActiveMembers /> */}
-        
-        <SalesStatistic />
-          <UserByContinent/>
+        <Row>
+<TotalStudents/>
+<StudyStatistics />
+        </Row>
         {/* <SalesStatistic /> */}
         {/* <SalesByProduct /> */}
+    </Container>
+
+    <Container fluid className="default-dashboard">
+      <Row className="widget-grid">
+     
+        <SalesStatistic />
       </Row>
     </Container>
+    </>
   );
 };
 
