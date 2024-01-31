@@ -312,7 +312,7 @@ export const NewCarFormFields = () => {
   const [makeName, setMakeName] = useState("");
   const [vehicleColour, setVehicleColour] = useState("");
   const [startingAmount, setStartingAmount] = useState("");
-  const [prevImg, setPrevImg] = useState("");
+  const [prevImg, setPrevImg] = useState<any>("");
   const [imageApi, setImageApi] = useState(true);
   const postDisabled = imageApi === false;
   const [imageErrorMessage, setImageErrorMessage] = useState("");
@@ -865,7 +865,7 @@ export const NewCarFormFields = () => {
     }
   };
 
-  const removeFile = async (name: string, index: number) => {
+  const removeFile = async (name: any, index: number) => {
     setFiles(files.filter((x: ExtFile) => x.id !== id));
 
     // const formData = new FormData()
@@ -1209,7 +1209,7 @@ export const NewCarFormFields = () => {
                       <FileMosaic
                         key={file.id}
                         {...file}
-                        onDelete={()=>removeFile(file,ind)}
+                        onDelete={() => removeFile(file, ind)}
                         preview
                       />
                     );
