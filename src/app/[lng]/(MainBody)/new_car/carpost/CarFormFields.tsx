@@ -148,6 +148,8 @@ import { v4 as uuidv4 } from "uuid";
 import Loading from "@/app/loading";
 import { parseISO, format } from "date-fns";
 import CommonModal from "@/Components/UiKits/Modal/Common/CommonModal";
+import { useAppSelector } from "@/Redux/Hooks";
+import { useRouter } from "next/navigation";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
@@ -158,6 +160,9 @@ interface ImageData {
 }
 
 export const NewCarFormFields = () => {
+  const router = useRouter();
+  const { i18LangStatus } = useAppSelector((state) => state.langSlice);
+
   const [submitting, setSubmitting] = useState(false);
 
   const [updateToken, setUpdateToken] = useState("");
@@ -879,22 +884,22 @@ export const NewCarFormFields = () => {
     newFiles.splice(index, 1);
     setNewFiles([...newFiles]);
 
-    // try {
-    //   const response = await axios.post(`${BASE_URL}/deleteImages`,formData, {
-    //     // params:{
-    //     //   post_id:updateToken ? updateToken : postToken,
-    //     //   filename:name
-    //     // },
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   });
-    //   console.log(response?.data)
-    //  setFiles(files.splice(0,index))
-    // } catch (error) {
-    //   console.error("image delete Error:", error);
-    // }
+    try {
+      const response = await axios.get(`${BASE_URL}/deleteImages`, {
+        params: {
+          post_id: updateToken ? updateToken : postToken,
+          filename: name,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response?.data);
+      setFiles(files.splice(0, index));
+    } catch (error) {
+      console.error("image delete Error:", error);
+    }
   };
 
   const token = localStorage.getItem("authToken");
@@ -1145,6 +1150,7 @@ export const NewCarFormFields = () => {
         );
 
         toast.success(response?.data?.message);
+        router.push(`/${i18LangStatus}/new_car/carpostlist`);
       } catch (error) {
         console.log(error);
       } finally {
@@ -1162,8 +1168,6 @@ export const NewCarFormFields = () => {
   const centeredToggle = () => {
     return setCentered(!centred);
   };
-
-  console.log(coverImage);
 
   return (
     <>
@@ -1212,7 +1216,7 @@ export const NewCarFormFields = () => {
                   })}
                 </Dropzone>
 
-                {files?.length !== 0 && (
+                {uploadedImages?.length !== 0 && (
                   <h4 className="faq-title">Previous Images</h4>
                 )}
 
