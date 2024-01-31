@@ -169,7 +169,7 @@ const PendingRequests = () => {
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleReject(row?.postId)}
               >
-              <i className="icofont icofont-close"></i>
+                <i className="icofont icofont-close"></i>
               </button>
             </li>
 
@@ -179,7 +179,7 @@ const PendingRequests = () => {
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleNormal(row?.postId)}
               >
-               <i className="icofont icofont-magic txt-primary"></i>
+                <i className="icofont icofont-magic txt-primary"></i>
                 {/* normal */}
               </button>
             </li>
@@ -230,7 +230,6 @@ const PendingRequests = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
@@ -249,7 +248,6 @@ const PendingRequests = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
@@ -268,7 +266,6 @@ const PendingRequests = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
@@ -292,7 +289,8 @@ const PendingRequests = () => {
     }
   };
 
-  const formSubmitHandle = async () => {
+  const formSubmitHandle = async (e: any) => {
+    e.preventDefault();
     try {
       const response = await axios.get(`${BASE_URL}/moveauctionpost`, {
         params: {
