@@ -53,7 +53,28 @@ export const MenuList: MenuItem[] | undefined = [
         type: "sub",
         lanClass: "lan-6",
         active: false,
-        path: "/inspection/inspectionlist",
+        children: [
+          {
+            path: "/inspection/inspectionlist",
+            title: "Inspection List",
+            type: "link",
+          },
+          {
+            path: "/inspection/pendinginspection",
+            title: "Pending Inspection",
+            type: "link",
+          },
+          {
+            path: "/inspection/rejectedinspection",
+            title: "Rejected Inspection",
+            type: "link",
+          },
+          {
+            path: "/inspection/approvedinspection",
+            title: "Approved Inspection",
+            type: "link",
+          },
+        ],        
       },
     ],
   },

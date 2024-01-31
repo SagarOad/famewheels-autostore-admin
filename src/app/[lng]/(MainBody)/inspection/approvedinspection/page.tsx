@@ -22,7 +22,7 @@ import {
   SomethingWentWrong,
   VerticallyCentered,
 } from "@/Constant";
-import { Posts } from "@/Types/TableType";
+import { Inspection, Posts } from "@/Types/TableType";
 import SinglePost from "@/Components/SinglePost/SinglePost";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
@@ -39,23 +39,15 @@ const HtmlSourcedData = () => {
     return setCentered(!centred);
   };
 
-
-
-
   const closeToggle = () => {
-   centeredToggle(postId)
+    centeredToggle(postId)
   };
-
-
 
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.get(`${BASE_URL}/statuswisepostlist`, {
-        params: {
-          status_id: 2,
-          page: page,
-        },
+      const response = await axios.get(`${BASE_URL}/inspectionlist`, {
+        params: {},
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -97,86 +89,75 @@ const HtmlSourcedData = () => {
     );
   }, [filterText]);
 
-  const PostsColumn: TableColumn<Posts>[] = [
-    {
-      name: "S.no",
-      selector: (row) => row.postId,
-      sortable: true,
-    },
-    {
-      name: "Title",
-      selector: (row) => row.title,
-      sortable: true,
-    },
-
-    {
-      name: "Vehicle Condition",
-      selector: (row) => row.vehicleCondition,
-      sortable: true,
-    },
-    {
-      name: "Price",
-      selector: (row) => row.price,
-      sortable: true,
-    },
-    {
-      name: "City Name",
-      selector: (row) => row.cityName,
-      sortable: true,
-    },
-
+  const PostsColumn: TableColumn<Inspection>[] = [
     {
       name: "Make",
-      selector: (row) => row.makeName,
+      selector: (row) => row.make_name,
       sortable: true,
     },
 
     {
       name: "Model",
-      selector: (row) => row.modelName,
+      selector: (row) => row.model_name,
+      sortable: true,
+    },
+    {
+      name: "City",
+      selector: (row) => row.city_name,
+      sortable: true,
+    },
+    {
+      name: "City Name",
+      selector: (row) => row.address,
       sortable: true,
     },
 
     {
-      name: "Year",
-      selector: (row) => row.yearName,
+      name: "Make",
+      selector: (row) => row.phone,
       sortable: true,
     },
 
     {
-      name: "Action",
-      // cell: (row) => <ActionDataSourcePosts id={row.postId} />,
-      cell: (row) => {
-        return (
-          <ul
-            className="action simple-list d-flex flex-row gap-2"
-            key={row?.postId}
-          >
-            <li className="edit">
-              <button className="p-0 border-0 bg-transparent">
-                <i className="icon-pencil-alt" />
-              </button>
-            </li>
-            <li className="delete">
-              <button className="p-0 border-0 bg-transparent">
-                <i className="icon-trash" />
-              </button>
-            </li>
-            <li className="view">
-              <button
-                className="p-0 border-0 bg-transparent"
-                onClick={() => {
-                  centeredToggle(row?.postId);
-                }}
-              >
-                <i className="icon-eye link-primary" />
-              </button>
-            </li>
-          </ul>
-        );
-      },
+      name: "Model",
+      selector: (row) => row.inspection_slot,
       sortable: true,
     },
+
+    // {
+    //   name: "Action",
+    //   // cell: (row) => <ActionDataSourcePosts id={row.postId} />,
+    //   cell: (row) => {
+    //     return (
+    //       <ul
+    //         className="action simple-list d-flex flex-row gap-2"
+    //         key={row?.postId}
+    //       >
+    //         <li className="edit">
+    //           <button className="p-0 border-0 bg-transparent">
+    //             <i className="icon-pencil-alt" />
+    //           </button>
+    //         </li>
+    //         <li className="delete">
+    //           <button className="p-0 border-0 bg-transparent">
+    //             <i className="icon-trash" />
+    //           </button>
+    //         </li>
+    //         <li className="view">
+    //           <button
+    //             className="p-0 border-0 bg-transparent"
+    //             onClick={() => {
+    //               centeredToggle(row?.postId);
+    //             }}
+    //           >
+    //             <i className="icon-eye link-primary" />
+    //           </button>
+    //         </li>
+    //       </ul>
+    //     );
+    //   },
+    //   sortable: true,
+    // },
   ];
 
   return (

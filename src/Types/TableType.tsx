@@ -189,6 +189,17 @@ export interface Posts {
   yearName: number;
 }
 
+export interface Inspection {
+  make_name: string;
+  model_name: string;
+  city_name: string;
+  address: string;
+  name:string;
+  phone: number;
+  inspection_slot: number;
+}
+
+
 
 export interface NewCarList {
   newcarpost_id: number;

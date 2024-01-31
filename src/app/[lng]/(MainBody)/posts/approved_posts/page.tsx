@@ -28,6 +28,9 @@ import { toast } from "react-toastify";
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const HtmlSourcedData = () => {
+
+  const token = localStorage.getItem("authToken");
+
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(30);
@@ -41,6 +44,13 @@ const HtmlSourcedData = () => {
     setPostId(id);
     return setCentered(!centred);
   };
+
+
+  const closeToggle = () => {
+    centeredToggle(postId)
+  };
+
+
 
   const fetchData = async () => {
     try {
@@ -221,14 +231,14 @@ const HtmlSourcedData = () => {
           </CardBody>
         )}
       </Card>
-      <CommonModal centered isOpen={centred} toggle={centeredToggle} size="xl">
+      <CommonModal centered isOpen={centred} toggle={closeToggle} size="xl">
         <div className="modal-toggle-wrapper">
           <SinglePost id={postId} />
 
           <Button
             color="secondary"
             className="d-flex m-auto"
-            onClick={centeredToggle}
+            onClick={closeToggle}
           >
             {Close}
           </Button>
