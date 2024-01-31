@@ -4,14 +4,16 @@ import LayoutSlice from "./Reducers/LayoutSlice";
 import ThemeCustomizerSlice from "./Reducers/ThemeCustomizerSlice";
 import LanguageSlice from "./Reducers/LanguageSlice";
 import ProductSlice from "./Reducers/ProductSlice";
+import UserSlice from "./Reducers/UserSlice";
 
 const Store = configureStore({
   reducer: {
     layout: LayoutSlice,
-    headerBookMark:HeaderBookmarkSlice,
+    headerBookMark: HeaderBookmarkSlice,
     themeCustomizer: ThemeCustomizerSlice,
     langSlice: LanguageSlice,
-    product:ProductSlice,
+    product: ProductSlice,
+    user: UserSlice,
   },
 });
 
