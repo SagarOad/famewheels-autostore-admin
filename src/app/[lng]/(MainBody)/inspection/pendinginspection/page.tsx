@@ -40,16 +40,17 @@ const HtmlSourcedData = () => {
     return setCentered(!centred);
   };
 
-  const closeToggle= () => {
-    centeredToggle(postId)    
+  const closeToggle = () => {
+    centeredToggle(postId);
   };
-
 
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.get(`${BASE_URL}/inspectionlist`, {
-        params: {},
+      const response = await axios.get(`${BASE_URL}/statuswiseinspectionlist`, {
+        params: {
+          inspectionstatus_id: 1,
+        },
         headers: {
           Authorization: `Bearer ${token}`,
         },
