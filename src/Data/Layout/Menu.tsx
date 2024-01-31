@@ -17,7 +17,6 @@ export const MenuList: MenuItem[] | undefined = [
     ],
   },
 
-
   // {
   //   title: "General",
   //   lanClass: "lan-1",
@@ -91,7 +90,7 @@ export const MenuList: MenuItem[] | undefined = [
             title: "Approved Inspection",
             type: "link",
           },
-        ],        
+        ],
       },
     ],
   },
@@ -287,15 +286,13 @@ export const MenuList: MenuItem[] | undefined = [
     ],
   },
 
-
-
   {
-    title: "New Car",
+    title: "Vehicles",
     lanClass: "lan-8",
     menucontent: "Dashboards,Widgets",
     Items: [
       {
-        title: "New Car Post",
+        title: "New Vehicles",
         id: 7,
         icon: "widget",
         type: "sub",
@@ -304,18 +301,16 @@ export const MenuList: MenuItem[] | undefined = [
         children: [
           {
             path: "/new_car/carpost",
-            title: "New Car Post",
+            title: "Ad New Vehicles",
             type: "link",
           },
           {
             path: "/new_car/carpostlist",
-            title: "New Car List",
+            title: "New Vehicles List",
             type: "link",
           },
- 
         ],
       },
     ],
   },
-
 ];
