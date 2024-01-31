@@ -383,7 +383,7 @@ export const NewCarFormFields = () => {
           newcarpost_id: id,
         },
       });
-setMakeName(response?.data?.data?.make)
+      setMakeName(response?.data?.data?.make);
 
       setUpdateToken(response?.data?.data?.newcarpost_token);
       setDimensionsObj(JSON.parse(response?.data?.data?.newcarpost_dimensions));
@@ -407,16 +407,15 @@ setMakeName(response?.data?.data?.make)
         JSON.parse(response?.data?.data?.newcarpost_comfortconvenience)
       );
 
-      setModelName(response?.data?.data?.model_id)
-setYearName(response?.data?.data?.year)
+      setModelName(response?.data?.data?.model_id);
+      setYearName(response?.data?.data?.year_id);
       return response?.data?.data;
     } catch (error) {
       console.log(error);
     }
   };
 
-
-  console.log(modelName,yearName)
+  console.log(modelName, yearName);
   const {
     data: carData,
     error: carError,
@@ -972,10 +971,6 @@ setYearName(response?.data?.data?.year)
     enabled: !!modelName, // Set enabled to false initially
   });
 
-
-
-
-
   const fetchVariant = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/getVarientList`, {
@@ -984,16 +979,14 @@ setYearName(response?.data?.data?.year)
           yearId: yearName,
         },
       });
-      console.log("veriants",response?.data)
+      console.log("veriants", response?.data);
 
       // setVariantList(response.data);
-      return response?.data
+      return response?.data;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
-
 
   const {
     data: variants,
@@ -1002,11 +995,6 @@ setYearName(response?.data?.data?.year)
   } = useQuery(`myVariants_${modelName}${makeName}${yearName}`, fetchVariant, {
     enabled: !!yearName, // Set enabled to false initially
   });
-
-
-
-
-
 
   const seats = [
     {
@@ -1412,55 +1400,47 @@ setYearName(response?.data?.data?.year)
               </FormGroup>
             </Col>
 
+            {yearName && (
+              <Col lg="3" md="6">
+                <FormGroup>
+                  <Label check>{Varient}</Label>
+                  {variants?.length > 0 && (
+                    <Input
+                      required
+                      name="varient"
+                      type="select"
+                      disabled={variants?.length > 0 ? false : true}
+                      placeholder={`Select ${modelName} Varient`}
+                      className="form-control form-select"
+                      onChange={(e: any) => setVarient(e.target.value)}
+                      value={varient}
+                    >
+                      <option value="" disabled selected>
+                        Select {modelName} Variant
+                      </option>
+                      {variants &&
+                        variants.map((item: any) => (
+                          <option key={item.featuresId} value={item.featuresId}>
+                            {item.featureName}
+                          </option>
+                        ))}
+                    </Input>
+                  )}
 
-
-
-
-          {yearName &&  <Col lg="3" md="6">
-              <FormGroup>
-                <Label check>{Varient}</Label>
-   {variants?.length > 0 &&             <Input
-                  required
-                  name="varient"
-                  type="select"
-                  disabled={variants?.length > 0 ? false : true}
-                  placeholder={`Select ${modelName} Varient`}
-                  className="form-control form-select"
-                  onChange={(e: any) => setVarient(e.target.value)}
-                  value={varient}
-                >
- <option value="" disabled selected>
-                    Select {modelName} Variant
-                  </option>
-                {variants &&
-                            variants.map((item : any) => (
-                              <option
-                                key={item.featuresId}
-                                value={item.featuresId}
-                              >
-                                {item.featureName}
-                              </option>
-                            ))}
-
-</Input>}
-
-
-
-
-
-                { modelName &&
-                      yearName !== " " &&
-                      variants?.length === 0 && <Input
-                  required
-                  name="varient"
-                  type="text"
-                  className="form-control"
-                  placeholder="Varient"
-                  onChange={(e: any) => setVarient(e.target.value)}
-                  value={varient}
-                />}
-              </FormGroup>
-            </Col>}
+                  {modelName && yearName !== " " && variants?.length === 0 && (
+                    <Input
+                      required
+                      name="varient"
+                      type="text"
+                      className="form-control"
+                      placeholder="Varient"
+                      onChange={(e: any) => setVarient(e.target.value)}
+                      value={varient}
+                    />
+                  )}
+                </FormGroup>
+              </Col>
+            )}
 
             <Col lg="3" md="6">
               <FormGroup>
