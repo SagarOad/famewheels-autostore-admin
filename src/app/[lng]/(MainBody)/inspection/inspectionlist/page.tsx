@@ -47,7 +47,7 @@ const AllInspection = () => {
   const fetchData = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/statuswiseinspectionlist`, {
-        params: {inspectionstatus_id:1},
+        params: {inspectionstatus_id:3},
         headers: {
           Authorization: `Bearer ${token}`,
         },
