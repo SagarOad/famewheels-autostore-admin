@@ -15,7 +15,7 @@ import { useMemo, useState } from "react";
 import PaginationDynamic from "@/utils/Paginations";
 import Loading from "@/app/loading";
 
-const HtmlSourcedData = () => {
+const CarTransfer = () => {
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(30);
@@ -101,4 +101,4 @@ const HtmlSourcedData = () => {
   );
 };
 
-export default HtmlSourcedData;
+export default CarTransfer;

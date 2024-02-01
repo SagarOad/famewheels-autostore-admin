@@ -16,7 +16,9 @@ import PaginationDynamic from "@/utils/Paginations";
 import Loading from "@/app/loading";
 import { Payment } from "@/Types/TableType";
 
-const HtmlSourcedData = () => {
+const ActivePayment = () => {
+  const token = localStorage.getItem("authToken");
+
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(30);
@@ -175,4 +177,4 @@ const HtmlSourcedData = () => {
   );
 };
 
-export default HtmlSourcedData;
+export default ActivePayment;

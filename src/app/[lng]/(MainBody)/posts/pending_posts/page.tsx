@@ -28,7 +28,7 @@ import { toast } from "react-toastify";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
-const HtmlSourcedData = () => {
+const PendingPosts = () => {
 
   const token = localStorage.getItem("authToken");
 
@@ -267,4 +267,4 @@ const HtmlSourcedData = () => {
   );
 };
 
-export default HtmlSourcedData;
+export default PendingPosts;
