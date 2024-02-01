@@ -60,7 +60,6 @@ const PendingPosts = () => {
       });
       // setPage(response?.data?.data?.current_page);
       setTotal(response?.data?.data?.last_page);
-      console.log(response?.data);
       return response?.data?.data?.data;
     } catch (error) {
       console.log(error);
@@ -196,7 +195,6 @@ const PendingPosts = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }

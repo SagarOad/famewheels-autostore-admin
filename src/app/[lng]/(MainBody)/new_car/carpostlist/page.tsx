@@ -62,7 +62,6 @@ const CarPostList = () => {
         },
       });
       setTotal(response?.data?.last_page);
-      console.log(response?.data);
       return response?.data?.data;
     } catch (error) {
       console.log(error);

@@ -84,7 +84,6 @@ const PendingRequests = () => {
         }
       );
       setTotal(response?.data?.data?.last_page);
-      console.log(response?.data);
       return response?.data?.data?.data;
     } catch (error) {
       console.log(error);

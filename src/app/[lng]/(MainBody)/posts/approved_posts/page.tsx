@@ -60,7 +60,6 @@ const ApprovedPosts = () => {
       });
       // setPage(response?.data?.data?.current_page);
       setTotal(response?.data?.data?.last_page);
-      console.log(response?.data);
       return response?.data?.data?.data;
     } catch (error) {
       console.log(error);
@@ -193,7 +192,6 @@ const ApprovedPosts = () => {
       });
       toast.success(response?.data?.message || "Rejected Succefully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }

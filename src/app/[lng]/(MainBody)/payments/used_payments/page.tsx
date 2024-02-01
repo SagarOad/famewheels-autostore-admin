@@ -40,7 +40,6 @@ const UsedPayment = () => {
       });
       // setPage(response?.data?.data?.current_page);
       setTotal(response?.data?.data?.last_page);
-      console.log(response?.data);
       return response?.data?.data?.data;
     } catch (error) {
       console.log(error);
@@ -130,7 +129,6 @@ const UsedPayment = () => {
   ];
 
   const handleApprove = async (id: any) => {
-    console.log(id);
     try {
       const response = await axios.get(
         `${BASE_URL}/famepayment/inquirypayment?orderId=${id}`,
@@ -140,7 +138,6 @@ const UsedPayment = () => {
           },
         }
       );
-      console.log(response);
     } catch (error) {
       console.log(error);
     }

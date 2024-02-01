@@ -39,7 +39,6 @@ const RejectedRefund = () => {
       });
       // setPage(response?.data?.data?.current_page);
       setTotal(response?.data?.data?.last_page);
-      console.log(response?.data);
       return response?.data?.data?.data;
     } catch (error) {
       console.log(error);
