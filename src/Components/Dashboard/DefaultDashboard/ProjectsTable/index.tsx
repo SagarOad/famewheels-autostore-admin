@@ -21,18 +21,25 @@ const ProjectsTable = () => {
   }, [currentPage]);
 
   return (
-    <Col xl="7" className="proorder-xl-5 box-col-7 proorder-md-5">
+    <Col xl="6" className="proorder-xl-5 box-col-7 proorder-md-5">
       <Card>
         <DashboardCommonHeader title={Projects} />
         <CardBody className="pt-0 projects px-0">
           <div className="dataTables_wrapper">
             <div className="table-responsive theme-scrollbar">
-              <Table className="display w-100 top-border dataTable" id="selling-product">
+              <Table
+                className="display w-100 top-border dataTable"
+                id="selling-product"
+              >
                 <ProjectsTableHead />
                 <ProjectsTableBody currentItems={currentItems} />
               </Table>
             </div>
-            <PaginationDynamic totalPages={totalPages} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <PaginationDynamic
+              totalPages={totalPages}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
           </div>
         </CardBody>
       </Card>

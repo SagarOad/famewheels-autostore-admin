@@ -15,6 +15,15 @@ import SalesByProduct from "./SalesByProduct";
 import UserByContinent from "./UserByContinent/page";
 import TotalStudents from "../Education/TotalStudents";
 import StudyStatistics from "../Education/StudyStatistics";
+import TotalSells from "../Ecommerce/TotalSells";
+import MonthlyAttendance from "../Education/MonthlyAttendance";
+import TopSeller from "../Ecommerce/TopSeller/TopSeller";
+import RecentProjects from "../Project/RecentProjects";
+import ProjectStatus from "../Project/ProjectStatus";
+import TotalProject from "../Project/TotalProject";
+import ProjectsOverview from "../Project/ProjectsOverview";
+import ClientActivity from "../Project/ClientActivity";
+import WebsiteDesign from "../Project/WebsiteDesign";
 
 const DefaultDashboardContainer = () => {
   return (
@@ -36,32 +45,33 @@ const DefaultDashboardContainer = () => {
           <ShiftsOverview />
         </Row>
       </Container>
-      <Container fluid className="dashboard-4">
-        {/* <ProjectsTable /> */}
-        {/* <CustomerTransaction /> */}
-        {/* <UserNotifications /> */}
-        {/* <UpcomingAppointments /> */}
-        {/* <ActiveMembers /> */}
-        <Row>
-          <TotalStudents />
-          <StudyStatistics />
-        </Row>
-        {/* <SalesByProduct /> */}
-      </Container>
-
       <Container fluid className="default-dashboard">
         <Row className="widget-grid">
           <SalesStatistic />
         </Row>
       </Container>
-      <Container fluid className="dashboard-4">
-        <ProjectsTable />
-        <CustomerTransaction />
-        <UserNotifications />
-        <UpcomingAppointments />
-        <ActiveMembers />
+      <Container fluid className="default-dashboard">
+        <Row>
+          <TotalSells />
+        </Row>
+      </Container>
 
-        <SalesByProduct />
+      <Container fluid className="dashboard-4">
+        <Row>
+          <TotalStudents />
+          <StudyStatistics />
+        </Row>
+      </Container>
+
+      <Container fluid className="dashboard-2">
+        <Row>
+          <ProjectStatus />
+          <RecentProjects />
+          <TotalProject />
+          <WebsiteDesign />
+          <ProjectsOverview />
+          <ClientActivity />
+        </Row>
       </Container>
     </>
   );
