@@ -46,7 +46,7 @@ const RejectedInspection = () => {
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("authToken");
-      const response = await axios.get(`${BASE_URL}//statuswiseinspectionlist`, {
+      const response = await axios.get(`${BASE_URL}/statuswiseinspectionlist`, {
         params: {
           inspectionstatus_id: 4,
         },
