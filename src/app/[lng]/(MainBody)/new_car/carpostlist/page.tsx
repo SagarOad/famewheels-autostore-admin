@@ -53,7 +53,7 @@ const CarPostList = () => {
   };
   const fetchData = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/newcarpostlilst`, {
+      const response = await axios.get(`${BASE_URL}/adminnewcarpostlilst`, {
         params: {
           page,
         },
