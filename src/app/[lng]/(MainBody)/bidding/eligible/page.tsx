@@ -7,9 +7,7 @@ import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
-
   HtmlData,
-  DealerColumn,
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
 import { useMemo, useState } from "react";
 import PaginationDynamic from "@/utils/Paginations";
@@ -139,17 +137,17 @@ const EligiblRequests = () => {
           >
             <li className="delete">
               <button
-              title="Reject"
+                title="Reject"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleReject(row?.postId)}
               >
-               <i className="icofont icofont-close"></i>
+                <i className="icofont icofont-close"></i>
               </button>
             </li>
 
             <li className="view">
               <button
-              title="Details"
+                title="Details"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
                   detailsToggle(row?.postId);

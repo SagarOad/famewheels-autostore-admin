@@ -8,6 +8,7 @@ import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
   HtmlData,
+  UserColumn,
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
 import { useMemo, useState } from "react";
 import PaginationDynamic from "@/utils/Paginations";
@@ -82,7 +83,7 @@ const Management = () => {
               <DataTable
                 className="theme-scrollbar"
                 data={users}
-                columns={HtmlColumn}
+                columns={UserColumn}
                 striped
                 highlightOnHover
                 subHeader

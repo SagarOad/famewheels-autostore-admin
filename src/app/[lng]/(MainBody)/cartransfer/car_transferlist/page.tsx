@@ -7,8 +7,7 @@ import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
-  HtmlData,
-  DealerColumn,
+  CarImportColumn,
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
 import { useMemo, useState } from "react";
 import PaginationDynamic from "@/utils/Paginations";
@@ -81,7 +80,7 @@ const CarTransfer = () => {
               <DataTable
                 className="theme-scrollbar"
                 data={users}
-                columns={DealerColumn}
+                columns={CarImportColumn}
                 striped
                 highlightOnHover
                 subHeader

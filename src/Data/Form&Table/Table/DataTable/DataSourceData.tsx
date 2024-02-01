@@ -1375,7 +1375,7 @@ const ScrollImage: React.FC<ScrollImageType> = ({ image, title }) => {
   );
 };
 
-export const DealerColumn: TableColumn<User>[] = [
+export const UserColumn: TableColumn<User>[] = [
   {
     name: "Name",
     cell: (row) => (
