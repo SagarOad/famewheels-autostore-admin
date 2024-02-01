@@ -18,7 +18,7 @@ import Loading from "@/app/loading";
 import { toast } from "react-toastify";
 import { Refund } from "@/Types/TableType";
 
-const HtmlSourcedData = () => {
+const RejectedRefund = () => {
   const token = localStorage.getItem("authToken");
 
   const [filterText, setFilterText] = useState("");
@@ -177,4 +177,4 @@ const HtmlSourcedData = () => {
   );
 };
 
-export default HtmlSourcedData;
+export default RejectedRefund;

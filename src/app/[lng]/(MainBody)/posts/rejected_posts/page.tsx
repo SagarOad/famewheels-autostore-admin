@@ -28,7 +28,7 @@ import { toast } from "react-toastify";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
-const HtmlSourcedData = () => {
+const RejectedPosts = () => {
   const token = localStorage.getItem("authToken");
 
   const [filterText, setFilterText] = useState("");
@@ -251,4 +251,4 @@ const HtmlSourcedData = () => {
   );
 };
 
-export default HtmlSourcedData;
+export default RejectedPosts;

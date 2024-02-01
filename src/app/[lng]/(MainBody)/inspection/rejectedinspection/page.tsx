@@ -27,7 +27,7 @@ import SinglePost from "@/Components/SinglePost/SinglePost";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
-const HtmlSourcedData = () => {
+const RejectedInspection = () => {
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(30);
@@ -62,10 +62,10 @@ const HtmlSourcedData = () => {
   };
 
   const {
-    data: users,
+    data: inspectionData,
     error,
     isLoading,
-  } = useQuery(`all_post_${page}`, fetchData);
+  } = useQuery(`rejected_inspection${page}`, fetchData);
 
   const filteredItems = HtmlColumnData.filter(
     (item: any) =>
@@ -107,7 +107,7 @@ const HtmlSourcedData = () => {
       sortable: true,
     },
     {
-      name: "City Name",
+      name: "Address",
       selector: (row) => row.address,
       sortable: true,
     },
@@ -170,7 +170,7 @@ const HtmlSourcedData = () => {
             <div className="table-responsive">
               <DataTable
                 className="theme-scrollbar"
-                data={users}
+                data={inspectionData}
                 columns={PostsColumn}
                 striped
                 highlightOnHover
@@ -216,4 +216,4 @@ const HtmlSourcedData = () => {
   );
 };
 
-export default HtmlSourcedData;
+export default RejectedInspection;
