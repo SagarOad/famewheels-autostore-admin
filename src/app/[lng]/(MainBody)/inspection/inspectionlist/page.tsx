@@ -7,7 +7,6 @@ import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
-  HtmlColumn,
   HtmlData,
   DealerColumn,
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
@@ -41,13 +40,13 @@ const AllInspection = () => {
     return setCentered(!centred);
   };
   const closeToggle = () => {
-    centeredToggle(postId)
+    centeredToggle(postId);
   };
 
   const fetchData = async () => {
     try {
       const response = await axios.get(`${BASE_URL}/statuswiseinspectionlist`, {
-        params: {inspectionstatus_id:3},
+        params: { inspectionstatus_id: 3 },
         headers: {
           Authorization: `Bearer ${token}`,
         },

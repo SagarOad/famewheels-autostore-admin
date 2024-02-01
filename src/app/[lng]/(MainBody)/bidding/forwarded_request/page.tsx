@@ -7,7 +7,6 @@ import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
-  HtmlColumn,
   HtmlData,
   DealerColumn,
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
@@ -164,7 +163,7 @@ const ForwardedRequests = () => {
 
             <li className="view">
               <button
-              title="Details"
+                title="Details"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
                   detailsToggle(row?.postId);

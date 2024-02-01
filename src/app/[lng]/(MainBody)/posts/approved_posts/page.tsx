@@ -7,7 +7,6 @@ import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
-  HtmlColumn,
   HtmlData,
   DealerColumn,
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
@@ -28,7 +27,6 @@ import { toast } from "react-toastify";
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const ApprovedPosts = () => {
-
   const token = localStorage.getItem("authToken");
 
   const [filterText, setFilterText] = useState("");
@@ -45,12 +43,9 @@ const ApprovedPosts = () => {
     return setCentered(!centred);
   };
 
-
   const closeToggle = () => {
-    centeredToggle(postId)
+    centeredToggle(postId);
   };
-
-
 
   const fetchData = async () => {
     try {

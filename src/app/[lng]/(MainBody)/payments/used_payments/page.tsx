@@ -7,7 +7,6 @@ import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
-  HtmlColumn,
   HtmlData,
   DealerColumn,
   PostsColumn,

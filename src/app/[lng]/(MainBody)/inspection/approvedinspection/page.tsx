@@ -7,7 +7,6 @@ import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
-  HtmlColumn,
   HtmlData,
   DealerColumn,
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
@@ -40,7 +39,7 @@ const ApprovedInspection = () => {
   };
 
   const closeToggle = () => {
-    centeredToggle(postId)
+    centeredToggle(postId);
   };
 
   const fetchData = async () => {

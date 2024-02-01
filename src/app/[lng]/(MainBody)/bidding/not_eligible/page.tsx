@@ -7,7 +7,6 @@ import { HtmlTableTittle, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
-  HtmlColumn,
   HtmlData,
   DealerColumn,
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
@@ -140,8 +139,7 @@ const NotEligibleRequests = () => {
           >
             <li className="edit">
               <button
-              title="Forward"
-
+                title="Forward"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => handleApprove(row?.postId)}
               >
@@ -151,7 +149,7 @@ const NotEligibleRequests = () => {
 
             <li className="view">
               <button
-              title="Details"
+                title="Details"
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
                   detailsToggle(row?.postId);
