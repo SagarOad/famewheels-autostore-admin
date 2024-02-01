@@ -40,7 +40,7 @@ export const SideBar = () => {
           <ul className="sidebar-links custom-scrollbar" id="simple-bar">
             <SimpleBar style={{ width: "80px", height: "350px" }}>
               <li className="back-btn">
-                <Link href={`/${i18LangStatus}/sample_page`}>
+                <Link href={`/${i18LangStatus}/dashboard/default_dashboard`}>
                   <img
                     className="img-fluid"
                     src={`${ImagePath}/logo/logo-icon.png`}

@@ -12,12 +12,22 @@ export const HeaderLogo = () => {
   return (
     <Col className="header-logo-wrapper p-0">
       <div className="logo-wrapper">
-        <Link href={`/${i18LangStatus}/sample_page`}>
-          <img className="img-fluid" src={`${ImagePath}/logo/logo.png`} alt="" />
+        <Link href={`/${i18LangStatus}/dashboard/default_dashboard`}>
+          <img
+            className="img-fluid"
+            src={`${ImagePath}/logo/logo.png`}
+            alt=""
+          />
         </Link>
       </div>
-      <div className="toggle-sidebar" onClick={()=>dispatch(handleResponsiveToggle())}>
-        <SVG className="stroke-icon sidebar-toggle status_toggle middle" iconId="toggle-icon" />
+      <div
+        className="toggle-sidebar"
+        onClick={() => dispatch(handleResponsiveToggle())}
+      >
+        <SVG
+          className="stroke-icon sidebar-toggle status_toggle middle"
+          iconId="toggle-icon"
+        />
       </div>
     </Col>
   );

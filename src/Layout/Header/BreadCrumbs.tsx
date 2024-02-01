@@ -15,7 +15,7 @@ export const BreadCrumbs = () => {
       <h4 className="f-w-700 text-capitalize">{thirdPart ? thirdPart : secondPart || firstPart}</h4>
       <nav>
         <Breadcrumb className="justify-content-sm-start align-items-center">
-          <BreadcrumbItem><Link href={`/${i18LangStatus}/sample_page`}><Home /></Link></BreadcrumbItem>
+          <BreadcrumbItem><Link href={`/${i18LangStatus}/dashboard/default_dashboard`}><Home /></Link></BreadcrumbItem>
           {firstPart && <BreadcrumbItem className={`f-w-400 text-capitalize`}>{firstPart}</BreadcrumbItem>}
           {secondPart && <BreadcrumbItem className={`f-w-400 ${!thirdPart ? "active" : ""}`}>{secondPart}</BreadcrumbItem>}
           {thirdPart && <BreadcrumbItem className={`f-w-400 active`}>{thirdPart}</BreadcrumbItem>}

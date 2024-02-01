@@ -42,7 +42,7 @@ export const UserForm = () => {
       const token = await response?.data?.token;
       localStorage.setItem("authToken", response?.data?.token);
       Cookies.set("mofi_token", JSON.stringify(true));
-      router.push(`/en/sample_page`);
+      router.push(`/en/dashboard/default_dashboard`);
 
       if (response?.data?.token) {
         toast.success("Successfully Loggedin");
@@ -58,7 +58,10 @@ export const UserForm = () => {
   return (
     <div>
       <div>
-        <Link className="logo" href={`/${i18LangStatus}/sample_page`}>
+        <Link
+          className="logo"
+          href={`/${i18LangStatus}/dashboard/default_dashboard`}
+        >
           <img
             className="img-fluid for-light"
             src={imageOne.src}

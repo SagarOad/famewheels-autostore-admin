@@ -17,7 +17,7 @@ export const LogoWrapper = () => {
   return (
     <>
       <div className="logo-wrapper">
-        <Link href={`/${i18LangStatus}/sample_page`}>
+        <Link href={`/${i18LangStatus}/dashboard/default_dashboard`}>
           <img
             className="img-fluid"
             src={`${ImagePath}/logo/logo-white.png`}
@@ -43,7 +43,7 @@ export const LogoWrapper = () => {
         </div>
       </div>
       <div className="logo-icon-wrapper">
-        <Link href={`/${i18LangStatus}/sample_page`}>
+        <Link href={`/${i18LangStatus}/dashboard/default_dashboard`}>
           <img
             className="img-fluid"
             src={`${ImagePath}/logo/fame-wheels-icon.png`}
