@@ -79,8 +79,8 @@ export interface ScrollImageType {
 }
 
 export interface ScrollVerticalType {
-  name:string;
-  title:string
+  name: string;
+  title: string;
   position: string;
   office: string;
   age: string;
@@ -133,7 +133,7 @@ export interface CustomExpandableComponentProp {
 
 export interface DeleteRowData {
   name: string;
-  id:number,
+  id: number;
   job: string;
   companyName: string;
   invoiceNumber: string;
@@ -149,7 +149,7 @@ export interface DeleteRowDataProp {
   position: string;
   office: string;
   age: number;
-  startDate: string;  
+  startDate: string;
   salary: string;
 }
 
@@ -168,7 +168,7 @@ export interface User {
   cnic: number;
   name: string;
   position: string;
-  role:string;
+  role: string;
   salary: string;
   office: string;
   cv: JSX.Element;
@@ -184,38 +184,33 @@ export interface Posts {
   vehicleCondition: string;
   price: number;
   cityName: string;
-  makeName:string;
+  makeName: string;
   modelName: string;
   yearName: number;
 }
 
 export interface Inspection {
+  inspection_id: number;
   make_name: string;
   model_name: string;
   city_name: string;
   address: string;
-  name:string;
+  name: string;
   phone: number;
   inspection_slot: number;
 }
-
-
 
 export interface NewCarList {
   newcarpost_id: number;
   make: string;
   model_name: string;
   year: string;
-  newcarpost_price:number;
-  newcarpost_cover:string;
+  newcarpost_price: number;
+  newcarpost_cover: string;
   modelName: string;
   newcarpost_token: string;
-  newcarpost_variants:string
-  
+  newcarpost_variants: string;
 }
-
-
-
 
 export interface Payment {
   order_id: number;
@@ -232,12 +227,11 @@ export interface Refund {
   refund_date: string;
 }
 
-
 export interface CarImport {
   id: number;
   city: string;
   make: string;
-  model:string;
+  model: string;
   model_name: string;
   year: number;
 }
