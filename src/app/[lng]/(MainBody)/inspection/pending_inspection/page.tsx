@@ -55,7 +55,7 @@ const PendingInspection = () => {
       });
       // setPage(response?.data?.data?.current_page);
       setTotal(response?.data?.data?.last_page);
-      return response?.data?.data?.data;
+      return response?.data?.data;
     } catch (error) {
       console.log(error);
     }
@@ -67,9 +67,10 @@ const PendingInspection = () => {
     isLoading,
   } = useQuery(`pending_inspection_${page}`, fetchData);
 
-  const filteredItems = HtmlColumnData.filter(
+  const filteredItems = inspectionData?.filter(
     (item: any) =>
-      item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
+      item?.model_name &&
+      item?.model_name.toLowerCase().includes(filterText.toLowerCase())
   );
   const subHeaderComponentMemo = useMemo(() => {
     return (
@@ -93,71 +94,63 @@ const PendingInspection = () => {
     {
       name: "Make",
       selector: (row) => row.make_name,
-      sortable: true,
     },
 
     {
       name: "Model",
       selector: (row) => row.model_name,
-      sortable: true,
     },
     {
       name: "City",
       selector: (row) => row.city_name,
-      sortable: true,
     },
     {
       name: "Address",
       selector: (row) => row.address,
-      sortable: true,
     },
 
     {
       name: "Make",
       selector: (row) => row.phone,
-      sortable: true,
     },
 
     {
       name: "Model",
       selector: (row) => row.inspection_slot,
-      sortable: true,
     },
 
-    // {
-    //   name: "Action",
-    //   // cell: (row) => <ActionDataSourcePosts id={row.postId} />,
-    //   cell: (row) => {
-    //     return (
-    //       <ul
-    //         className="action simple-list d-flex flex-row gap-2"
-    //         key={row?.postId}
-    //       >
-    //         <li className="edit">
-    //           <button className="p-0 border-0 bg-transparent">
-    //             <i className="icon-pencil-alt" />
-    //           </button>
-    //         </li>
-    //         <li className="delete">
-    //           <button className="p-0 border-0 bg-transparent">
-    //             <i className="icon-trash" />
-    //           </button>
-    //         </li>
-    //         <li className="view">
-    //           <button
-    //             className="p-0 border-0 bg-transparent"
-    //             onClick={() => {
-    //               centeredToggle(row?.postId);
-    //             }}
-    //           >
-    //             <i className="icon-eye link-primary" />
-    //           </button>
-    //         </li>
-    //       </ul>
-    //     );
-    //   },
-    //   sortable: true,
-    // },
+    {
+      name: "Action",
+      cell: (row) => {
+        return (
+          <ul
+            className="action simple-list d-flex flex-row gap-2"
+            key={row?.inspection_id}
+          >
+            <li className="edit">
+              <button className="p-0 border-0 bg-transparent">
+                <i className="icon-pencil-alt" />
+              </button>
+            </li>
+            <li className="delete">
+              <button className="p-0 border-0 bg-transparent">
+                <i className="icon-trash" />
+              </button>
+            </li>
+            <li className="view">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => {
+                  centeredToggle(row?.inspection_id);
+                }}
+              >
+                <i className="icon-eye link-primary" />
+              </button>
+            </li>
+          </ul>
+        );
+      },
+    },
   ];
 
   return (
@@ -170,7 +163,7 @@ const PendingInspection = () => {
             <div className="table-responsive">
               <DataTable
                 className="theme-scrollbar"
-                data={inspectionData}
+                data={filteredItems}
                 columns={PostsColumn}
                 striped
                 highlightOnHover

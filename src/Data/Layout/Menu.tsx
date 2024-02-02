@@ -76,17 +76,17 @@ export const MenuList: MenuItem[] | undefined = [
             type: "link",
           },
           {
-            path: "/inspection/pendinginspection",
+            path: "/inspection/pending_inspection",
             title: "Pending Inspection",
             type: "link",
           },
           {
-            path: "/inspection/rejectedinspection",
+            path: "/inspection/rejected_inspection",
             title: "Rejected Inspection",
             type: "link",
           },
           {
-            path: "/inspection/approvedinspection",
+            path: "/inspection/approved_inspection",
             title: "Approved Inspection",
             type: "link",
           },
