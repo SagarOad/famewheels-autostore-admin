@@ -283,7 +283,7 @@ const CreateNewCarForm = () => {
   const [passengerSeatElectricAdjustment, setPassengerSeatElectricAdjustment] =
     useState("false");
 
-  const [coverImage, setCoverImage] = useState("");
+  const [coverImage, setCoverImage] = useState("-");
   const [color, setColor] = useState("");
   const [makeId, setMakeId] = useState("");
   const [modelName, setModelName] = useState("");
@@ -473,7 +473,6 @@ const CreateNewCarForm = () => {
   }
 
   useEffect(() => {
-    setCoverImage(carData?.newcarpost_cover);
     setMakeId(carData?.make_id);
     setModelName(carData?.model_id);
     setYearName(carData?.year_id);
