@@ -86,7 +86,7 @@ export const UserForm = () => {
               type="email"
               defaultValue={email}
               onChange={(event) => setEmail(event.target.value)}
-              placeholder="test123@gmail.com"
+              placeholder="test@gmail.com"
             />
           </FormGroup>
           <FormGroup>
