@@ -85,7 +85,7 @@ const ProductPageContainer = () => {
           post_id: token,
         },
       });
-      return response?.data;
+      return response?.data?.images;
     } catch (error) {
       console.log(error);
     }

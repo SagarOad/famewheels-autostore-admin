@@ -48,7 +48,7 @@ const SinglePost = ({ id }: { id: number }) => {
         },
       });
 
-      return response?.data;
+      return response?.data?.images;
     } catch (error) {
       console.log(error);
     }
