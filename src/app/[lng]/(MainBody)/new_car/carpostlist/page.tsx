@@ -235,7 +235,7 @@ const CarPostList = () => {
       >
         <div className="modal-toggle-wrapper">
           <NewCarDetials id={postId} />
-          <div className=" d-flex align-items-center">
+          <div className=" d-flex align-items-center pt-2">
             <Button
               color="secondary"
               className="d-flex m-auto"
