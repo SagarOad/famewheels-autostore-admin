@@ -340,6 +340,7 @@ const CreateNewCarForm = () => {
   const [alloyRims, setAlloyRims] = useState("false");
   const [getUpdate, setGetUpdate] = useState(false);
 
+  const [imagesPath, setImagesPath] = useState("");
   const [uploadedImages, setUploadedImages] = useState([]);
   const [newFiles, setNewFiles] = useState([]);
   const [files, setFiles] = useState<any[]>([]);
@@ -417,16 +418,13 @@ const CreateNewCarForm = () => {
     try {
       const response = await axios.get(`${BASE_URL}/postimages`, {
         params: {
-          post_id: updateToken ? updateToken : postToken,
+          post_id: updateToken || postToken,
         },
       });
 
-      if (response?.data) {
-        const newFiles = response?.data?.map((img: any) => img.filename);
-        // setFiles(response?.data);
-        setUploadedImages(response?.data);
-        setMoreImages(response?.data);
-      }
+      setUploadedImages(response?.data?.images);
+      setMoreImages(response?.data?.images);
+      setImagesPath(response?.data?.imagepath);
 
       return response?.data;
     } catch (error) {
@@ -1234,9 +1232,9 @@ const CreateNewCarForm = () => {
                       // <FileMosaic key={file.id} {...file} onDelete={removeFile} preview/>
                       <div className=" position-relative d-flex w-25" key={ind}>
                         <img
-                          src={`${BASE_URL}/public/posts/${
-                            updateToken ? updateToken : postToken
-                          }/${file.filename}`}
+                          src={`${imagesPath}/${updateToken || postToken}/${
+                            file?.filename
+                          }`}
                           className="img-fluid object-fit-contain rounded-4 "
                           alt={file.filename}
                         />
