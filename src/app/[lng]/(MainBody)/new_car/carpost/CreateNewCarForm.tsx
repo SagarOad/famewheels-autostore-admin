@@ -175,6 +175,10 @@ const CreateNewCarForm = () => {
   const [seatingCapacity, setSeatingCapacity] = useState<number | undefined>();
   const [engineType, setEngineType] = useState("");
   const [turboCharger, setTurboCharger] = useState("");
+  const [batteryType, setBatteryType] = useState("");
+  const [batteryCapacity, setBatteryCapacity] = useState("");
+  const [chargingtime, setChargingtime] = useState("");
+  const [range, setRange] = useState("");
   const [displacement, setDisplacement] = useState<number | undefined>();
   const [noOfCylinders, setNoOfCylinders] = useState<number | undefined>();
   const [horsePower, setHorsePower] = useState<number | undefined>();
@@ -658,6 +662,11 @@ const CreateNewCarForm = () => {
   const EngineMotor = {
     engineType,
     turboCharger,
+    batteryType,
+    batteryCapacity,
+    chargingtime,
+    range,
+
     displacement,
     noOfCylinders,
     horsePower,
@@ -1682,54 +1691,147 @@ const CreateNewCarForm = () => {
                 </Input>
               </FormGroup>
             </Col>
+            {engineType === "Electric" && (
+              <>
+                <Col lg="3" md="6">
+                  <FormGroup>
+                    <Label>Battery type</Label>
+                    <Input
+                      required
+                      name="battery_type"
+                      type="number"
+                      className="form-control"
+                      placeholder={"Battery type"}
+                      onChange={(e: any) => setBatteryType(e.target.value)}
+                      value={batteryType}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="3" md="6">
+                  <FormGroup>
+                    <Label>Battery Capacity</Label>
+                    <Input
+                      required
+                      name="battery_capacity"
+                      type="number"
+                      className="form-control"
+                      placeholder={"Battery Capacity (kWh)"}
+                      onChange={(e: any) => setBatteryCapacity(e.target.value)}
+                      value={batteryCapacity}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="3" md="6">
+                  <FormGroup>
+                    <Label>Charging time</Label>
+                    <Input
+                      required
+                      name="charging_time"
+                      type="number"
+                      className="form-control"
+                      placeholder={"Charging time (Hours)"}
+                      onChange={(e: any) => setChargingtime(e.target.value)}
+                      value={chargingtime}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="3" md="6">
+                  <FormGroup>
+                    <Label>Range</Label>
+                    <Input
+                      required
+                      name="range"
+                      type="number"
+                      className="form-control"
+                      placeholder={"Range (km)"}
+                      onChange={(e: any) => setRange(e.target.value)}
+                      value={range}
+                    />
+                  </FormGroup>
+                </Col>
+              </>
+            )}
+            {engineType !== "Electric" && (
+              <>
+                <Col lg="3" md="6">
+                  <FormGroup>
+                    <Label>{TurboCharger}</Label>
+                    <Input
+                      required
+                      name="ElectricMotorPower"
+                      type="select"
+                      placeholder={TurboCharger}
+                      className="form-control form-select"
+                      onChange={(e: any) => setTurboCharger(e.target.value)}
+                      value={turboCharger}
+                    >
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </Input>
+                  </FormGroup>
+                </Col>
+                <Col lg="3" md="6">
+                  <FormGroup>
+                    <Label check>{Displacement}</Label>
+                    <Input
+                      required
+                      name="Displacement"
+                      type="number"
+                      className="form-control"
+                      placeholder={"Engine Size (CC)"}
+                      onChange={(e: any) => setDisplacement(e.target.value)}
+                      value={displacement}
+                    />
+                  </FormGroup>
+                </Col>
 
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label>{TurboCharger}</Label>
-                <Input
-                  required
-                  name="turboCharger"
-                  type="select"
-                  placeholder={TurboCharger}
-                  className="form-control form-select"
-                  onChange={(e: any) => setTurboCharger(e.target.value)}
-                  value={turboCharger}
-                >
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-                </Input>
-              </FormGroup>
-            </Col>
+                <Col lg="3" md="6">
+                  <FormGroup>
+                    <Label check>{NoOfCylinders}</Label>
+                    <Input
+                      required
+                      name="noOfCylinders"
+                      type="number"
+                      className="form-control"
+                      placeholder={NoOfCylinders}
+                      onChange={(e: any) => setNoOfCylinders(e.target.value)}
+                      value={noOfCylinders}
+                    />
+                  </FormGroup>
+                </Col>
+                <Col lg="3" md="6">
+                  <FormGroup>
+                    <Label check>{ValvesPerCylinder}</Label>
+                    <Input
+                      required
+                      name="valvesPerCylinder"
+                      type="number"
+                      className="form-control"
+                      placeholder={ValvesPerCylinder}
+                      onChange={(e: any) =>
+                        setValvesPerCylinder(e.target.value)
+                      }
+                      value={valvesPerCylinder}
+                    />
+                  </FormGroup>
+                </Col>
 
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label check>{Displacement}</Label>
-                <Input
-                  required
-                  name="Displacement"
-                  type="number"
-                  className="form-control"
-                  placeholder={"Engine Size (CC)"}
-                  onChange={(e: any) => setDisplacement(e.target.value)}
-                  value={displacement}
-                />
-              </FormGroup>
-            </Col>
-
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label check>{NoOfCylinders}</Label>
-                <Input
-                  required
-                  name="noOfCylinders"
-                  type="number"
-                  className="form-control"
-                  placeholder={NoOfCylinders}
-                  onChange={(e: any) => setNoOfCylinders(e.target.value)}
-                  value={noOfCylinders}
-                />
-              </FormGroup>
-            </Col>
+                <Col lg="3" md="6">
+                  <FormGroup>
+                    <Label check>{FuelSystem}</Label>
+                    <Input
+                      required
+                      name="fuelSystem"
+                      type="text"
+                      className="form-control"
+                      placeholder={FuelSystem}
+                      onChange={(e: any) => setFuelSystem(e.target.value)}
+                      value={fuelSystem}
+                    />
+                  </FormGroup>
+                </Col>
+              </>
+            )}
 
             <Col lg="3" md="6">
               <FormGroup>
@@ -1744,46 +1846,18 @@ const CreateNewCarForm = () => {
                     onChange={(e: any) => setHorsePower(e.target.value)}
                     value={horsePower}
                   />
-                  <Input
-                    required
-                    name="rpmHorsePower"
-                    type="number"
-                    className="form-control"
-                    placeholder={"RPM"}
-                    onChange={(e: any) => setRPM(e.target.value)}
-                    value={rpm}
-                  />
+                  {engineType !== "Electric" && (
+                    <Input
+                      required
+                      name="rpmHorsePower"
+                      type="number"
+                      className="form-control"
+                      placeholder={"RPM"}
+                      onChange={(e: any) => setRPM(e.target.value)}
+                      value={rpm}
+                    />
+                  )}
                 </div>
-              </FormGroup>
-            </Col>
-
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label check>{ValvesPerCylinder}</Label>
-                <Input
-                  required
-                  name="valvesPerCylinder"
-                  type="number"
-                  className="form-control"
-                  placeholder={ValvesPerCylinder}
-                  onChange={(e: any) => setValvesPerCylinder(e.target.value)}
-                  value={valvesPerCylinder}
-                />
-              </FormGroup>
-            </Col>
-
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label check>{FuelSystem}</Label>
-                <Input
-                  required
-                  name="fuelSystem"
-                  type="text"
-                  className="form-control"
-                  placeholder={FuelSystem}
-                  onChange={(e: any) => setFuelSystem(e.target.value)}
-                  value={fuelSystem}
-                />
               </FormGroup>
             </Col>
 
