@@ -2797,20 +2797,16 @@ const CreateNewCarForm = () => {
             <Col lg="3" md="6">
               <FormGroup>
                 <Label>{InformationCluster}</Label>
+
                 <Input
                   required
                   name="informationCluster"
-                  type="select"
-                  className="form-control form-select"
+                  type="text"
+                  className="form-control"
+                  placeholder={"Information Cluster"}
                   onChange={(e: any) => setInfoCluster(e.target.value)}
                   value={infoCluster}
-                >
-                  {featureSelection.map((feature, index) => (
-                    <option key={index} value={feature.value}>
-                      {feature.title}
-                    </option>
-                  ))}
-                </Input>
+                />
               </FormGroup>
             </Col>
           </Row>
@@ -2896,15 +2892,21 @@ const CreateNewCarForm = () => {
             <Col lg="3" md="6">
               <FormGroup>
                 <Label check>{NoOfSpeakers}</Label>
+
                 <Input
                   required
                   name="noOfSpeakers"
-                  type="number"
-                  className="form-control"
-                  placeholder={NoOfSpeakers}
+                  type="select"
+                  className="form-control form-select"
                   onChange={(e: any) => setNoOfSpeakers(e.target.value)}
                   value={noOfSpeakers}
-                />
+                >
+                  {seats.map((seat, index) => (
+                    <option key={index} value={seat.value}>
+                      {seat.title}
+                    </option>
+                  ))}
+                </Input>
               </FormGroup>
             </Col>
 
@@ -3602,20 +3604,16 @@ const CreateNewCarForm = () => {
             <Col lg="3" md="6">
               <FormGroup>
                 <Label>{RearHeadrest}</Label>
+
                 <Input
                   required
                   name="rearHeadrest"
-                  type="select"
-                  className="form-control form-select"
+                  type="number"
+                  className="form-control"
+                  placeholder={"Rear Headrest"}
+                  onChange={(e: any) => setRearHeadRest(e.target.value)}
                   value={rearHeadRest}
-                  onChange={(e) => setRearHeadRest(e.target.value)}
-                >
-                  {featureSelection.map((feature, index) => (
-                    <option key={index} value={feature.value}>
-                      {feature.title}
-                    </option>
-                  ))}
-                </Input>
+                />
               </FormGroup>
             </Col>
 
