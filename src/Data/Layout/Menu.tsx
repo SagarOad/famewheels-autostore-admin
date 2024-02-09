@@ -75,21 +75,21 @@ export const MenuList: MenuItem[] | undefined = [
             title: "Inspection List",
             type: "link",
           },
-          {
-            path: "/inspection/pending_inspection",
-            title: "Pending Inspection",
-            type: "link",
-          },
-          {
-            path: "/inspection/rejected_inspection",
-            title: "Rejected Inspection",
-            type: "link",
-          },
-          {
-            path: "/inspection/approved_inspection",
-            title: "Approved Inspection",
-            type: "link",
-          },
+          // {
+          //   path: "/inspection/pending_inspection",
+          //   title: "Pending Inspection",
+          //   type: "link",
+          // },
+          // {
+          //   path: "/inspection/rejected_inspection",
+          //   title: "Rejected Inspection",
+          //   type: "link",
+          // },
+          // {
+          //   path: "/inspection/approved_inspection",
+          //   title: "Approved Inspection",
+          //   type: "link",
+          // },
         ],
       },
     ],
