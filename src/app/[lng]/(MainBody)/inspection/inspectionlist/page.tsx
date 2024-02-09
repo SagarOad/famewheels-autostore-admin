@@ -1,5 +1,5 @@
 "use client";
-import { Button, Card, CardBody, Col, Input, Label } from "reactstrap";
+import { Button, Card, CardBody, Col, FormGroup, Input, Label, Row } from "reactstrap";
 import DataTable, { TableColumn } from "react-data-table-component";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -25,34 +25,38 @@ import SinglePost from "@/Components/SinglePost/SinglePost";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
-const AllInspection = () => {
-  const token = localStorage.getItem("authToken");
-
+const InspectionList = () => {
   const [filterText, setFilterText] = useState("");
+  const [status, setStatus] = useState <number | any>(1);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(30);
   const [total, setTotal] = useState(0);
   const [postId, setPostId] = useState<any>(null);
   const [centred, setCentered] = useState(false);
+
   const centeredToggle = (id: number) => {
     setPostId(id);
     return setCentered(!centred);
   };
+
   const closeToggle = () => {
     centeredToggle(postId);
   };
 
   const fetchData = async () => {
     try {
+      const token = localStorage.getItem("authToken");
       const response = await axios.get(`${BASE_URL}/statuswiseinspectionlist`, {
-        params: { inspectionstatus_id: 3 },
+        params: {
+          inspectionstatus_id: status,
+        },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       // setPage(response?.data?.data?.current_page);
       setTotal(response?.data?.data?.last_page);
-      return response?.data?.data?.data;
+      return response?.data?.data;
     } catch (error) {
       console.log(error);
     }
@@ -62,11 +66,12 @@ const AllInspection = () => {
     data: inspectionData,
     error,
     isLoading,
-  } = useQuery(`all_inspection_${page}`, fetchData);
+  } = useQuery(`pending_inspection_${page}${status}`, fetchData);
 
-  const filteredItems = HtmlColumnData.filter(
+  const filteredItems = inspectionData?.filter(
     (item: any) =>
-      item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
+      item?.model_name &&
+      item?.model_name.toLowerCase().includes(filterText.toLowerCase())
   );
   const subHeaderComponentMemo = useMemo(() => {
     return (
@@ -90,72 +95,78 @@ const AllInspection = () => {
     {
       name: "Make",
       selector: (row) => row.make_name,
-      sortable: true,
     },
 
     {
       name: "Model",
       selector: (row) => row.model_name,
-      sortable: true,
     },
     {
       name: "City",
       selector: (row) => row.city_name,
-      sortable: true,
     },
     {
       name: "Address",
       selector: (row) => row.address,
-      sortable: true,
     },
 
     {
-      name: "Make",
+      name: "Phone",
       selector: (row) => row.phone,
-      sortable: true,
     },
 
     {
-      name: "Model",
+      name: "Slot",
       selector: (row) => row.inspection_slot,
-      sortable: true,
     },
 
-    // {
-    //   name: "Action",
-    //   // cell: (row) => <ActionDataSourcePosts id={row.postId} />,
-    //   cell: (row) => {
-    //     return (
-    //       <ul
-    //         className="action simple-list d-flex flex-row gap-2"
-    //         key={row?.postId}
-    //       >
-    //         <li className="edit">
-    //           <button className="p-0 border-0 bg-transparent">
-    //             <i className="icon-pencil-alt" />
-    //           </button>
-    //         </li>
-    //         <li className="delete">
-    //           <button className="p-0 border-0 bg-transparent">
-    //             <i className="icon-trash" />
-    //           </button>
-    //         </li>
-    //         <li className="view">
-    //           <button
-    //             className="p-0 border-0 bg-transparent"
-    //             onClick={() => {
-    //               centeredToggle(row?.postId);
-    //             }}
-    //           >
-    //             <i className="icon-eye link-primary" />
-    //           </button>
-    //         </li>
-    //       </ul>
-    //     );
-    //   },
-    //   sortable: true,
-    // },
+    {
+      name: "Action",
+      cell: (row) => {
+        return (
+          <ul
+            className="action simple-list d-flex flex-row gap-2"
+            key={row?.inspection_id}
+          >
+            <li className="edit">
+              <button className="p-0 border-0 bg-transparent">
+                <i className="icofont icofont-check" />
+              </button>
+            </li>
+            <li className="delete">
+              <button className="p-0 border-0 bg-transparent">
+              <i className="icofont icofont-close"></i>
+              </button>
+            </li>
+            <li className="view">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => {
+                  centeredToggle(row?.inspection_id);
+                }}
+              >
+                <i className="icon-eye link-primary" />
+              </button>
+            </li>
+          </ul>
+        );
+      },
+    },
   ];
+
+const statusArray = [
+  {value:1,name:"Pending"},
+  {value:2,name:"Start"},
+  {value:3,name:"Complete"},
+  {value:4,name:"Rejected"},
+  {value:5,name:"Approved"},
+
+]
+
+
+
+
+
 
   return (
     <Col sm="12">
@@ -164,10 +175,41 @@ const AllInspection = () => {
           <Loading />
         ) : (
           <CardBody>
+<Row>
+  <Col md="3" xs="8">
+
+              <FormGroup>
+                <Input
+                  required
+                  name="make"
+                  type="select"
+                  placeholder={"Inspection Status"}
+                  className="form-control form-select"
+                value={status}
+                onChange={(e)=>setStatus(e.target.value)}
+                  >
+                  <option value="" disabled selected>
+                    Select Inspection Status
+                  </option>
+                  {statusArray?.map((item)=>(
+<option value={item.value}>{item.name}</option>
+
+                  ))}
+                  
+                </Input>
+              </FormGroup>
+
+                    </Col>
+
+                  </Row>
+
+
+
+
             <div className="table-responsive">
               <DataTable
                 className="theme-scrollbar"
-                data={inspectionData}
+                data={filteredItems}
                 columns={PostsColumn}
                 striped
                 highlightOnHover
@@ -213,4 +255,4 @@ const AllInspection = () => {
   );
 };
 
-export default AllInspection;
+export default InspectionList;
