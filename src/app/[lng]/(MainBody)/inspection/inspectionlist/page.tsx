@@ -1,5 +1,14 @@
 "use client";
-import { Button, Card, CardBody, Col, FormGroup, Input, Label, Row } from "reactstrap";
+import {
+  Button,
+  Card,
+  CardBody,
+  Col,
+  FormGroup,
+  Input,
+  Label,
+  Row,
+} from "reactstrap";
 import DataTable, { TableColumn } from "react-data-table-component";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -27,7 +36,7 @@ const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const InspectionList = () => {
   const [filterText, setFilterText] = useState("");
-  const [status, setStatus] = useState <number | any>(1);
+  const [status, setStatus] = useState<number | any>(1);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(30);
   const [total, setTotal] = useState(0);
@@ -73,23 +82,6 @@ const InspectionList = () => {
       item?.model_name &&
       item?.model_name.toLowerCase().includes(filterText.toLowerCase())
   );
-  const subHeaderComponentMemo = useMemo(() => {
-    return (
-      <div
-        id="basic-1_filter"
-        className="dataTables_filter d-flex align-items-center"
-      >
-        <Label className="me-1">{SearchTableButton}:</Label>
-        <Input
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-            setFilterText(e.target.value)
-          }
-          type="search"
-          value={filterText}
-        />
-      </div>
-    );
-  }, [filterText]);
 
   const PostsColumn: TableColumn<Inspection>[] = [
     {
@@ -120,53 +112,85 @@ const InspectionList = () => {
       selector: (row) => row.inspection_slot,
     },
 
-    {
-      name: "Action",
-      cell: (row) => {
-        return (
-          <ul
-            className="action simple-list d-flex flex-row gap-2"
-            key={row?.inspection_id}
-          >
-            <li className="edit">
-              <button className="p-0 border-0 bg-transparent">
-                <i className="icofont icofont-check" />
-              </button>
-            </li>
-            <li className="delete">
-              <button className="p-0 border-0 bg-transparent">
-              <i className="icofont icofont-close"></i>
-              </button>
-            </li>
-            <li className="view">
-              <button
-                className="p-0 border-0 bg-transparent"
-                onClick={() => {
-                  centeredToggle(row?.inspection_id);
-                }}
-              >
-                <i className="icon-eye link-primary" />
-              </button>
-            </li>
-          </ul>
-        );
-      },
-    },
+    // {
+    //   name: "Action",
+    //   cell: (row) => {
+    //     return (
+    //       <ul
+    //         className="action simple-list d-flex flex-row gap-2"
+    //         key={row?.inspection_id}
+    //       >
+    //         <li className="edit">
+    //           <button className="p-0 border-0 bg-transparent">
+    //             <i className="icofont icofont-check" />
+    //           </button>
+    //         </li>
+    //         <li className="delete">
+    //           <button className="p-0 border-0 bg-transparent">
+    //             <i className="icofont icofont-close"></i>
+    //           </button>
+    //         </li>
+    //         <li className="view">
+    //           <button
+    //             className="p-0 border-0 bg-transparent"
+    //             onClick={() => {
+    //               centeredToggle(row?.inspection_id);
+    //             }}
+    //           >
+    //             <i className="icon-eye link-primary" />
+    //           </button>
+    //         </li>
+    //       </ul>
+    //     );
+    //   },
+    // },
   ];
 
-const statusArray = [
-  {value:1,name:"Pending"},
-  {value:2,name:"Start"},
-  {value:3,name:"Complete"},
-  {value:4,name:"Rejected"},
-  {value:5,name:"Approved"},
+  const statusArray = [
+    { value: 1, name: "Pending" },
+    { value: 2, name: "Start" },
+    { value: 3, name: "Complete" },
+    { value: 4, name: "Rejected" },
+    { value: 5, name: "Approved" },
+  ];
 
-]
+  const subHeaderComponentMemo = useMemo(() => {
+    return (
+      <div
+        id="basic-1_filter"
+        className="dataTables_filter d-flex align-items-center gap-3"
+      >
+        <div className="d-flex align-items-center">
+          <Label className="me-1">{SearchTableButton}:</Label>
+          <Input
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setFilterText(e.target.value)
+            }
+            type="search"
+            value={filterText}
+          />
+        </div>
 
-
-
-
-
+        <FormGroup className="mt-3">
+          <Input
+            name="status"
+            type="select"
+            placeholder={"Inspection Status"}
+            className="form-control form-select"
+            value={status}
+            onChange={(e) => setStatus(e.target.value)}
+          >
+            <option value="" disabled selected>
+              Select Inspection Status
+            </option>
+            {statusArray?.map((item) => (
+              <option value={item.value}>{item.name}</option>
+            ))}
+          </Input>
+        </FormGroup>
+      </div>
+    );
+  }, [filterText, status]);
 
   return (
     <Col sm="12">
@@ -175,36 +199,9 @@ const statusArray = [
           <Loading />
         ) : (
           <CardBody>
-<Row>
-  <Col md="3" xs="8">
-
-              <FormGroup>
-                <Input
-                  required
-                  name="make"
-                  type="select"
-                  placeholder={"Inspection Status"}
-                  className="form-control form-select"
-                value={status}
-                onChange={(e)=>setStatus(e.target.value)}
-                  >
-                  <option value="" disabled selected>
-                    Select Inspection Status
-                  </option>
-                  {statusArray?.map((item)=>(
-<option value={item.value}>{item.name}</option>
-
-                  ))}
-                  
-                </Input>
-              </FormGroup>
-
-                    </Col>
-
-                  </Row>
-
-
-
+            <Row>
+              <Col md="3" xs="8"></Col>
+            </Row>
 
             <div className="table-responsive">
               <DataTable
