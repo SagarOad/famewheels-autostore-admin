@@ -30,7 +30,13 @@ const ClothsDetails = ({
   info: object;
   comfort: object;
 }) => {
-  const ClothsDetailsData: string[] = ["Dimensions / Transmission","Engine / Steering / Fuel","Brakes / Tyres / Instrumentstion","Exterior / infotainment","Safety / Comfort"];
+  const ClothsDetailsData: string[] = [
+    "Dimensions / Transmission",
+    "Engine / Steering / Fuel",
+    "Brakes / Tyres / Instrumentstion",
+    "Exterior / infotainment",
+    "Safety / Comfort",
+  ];
 
   const [activeTab, setActiveTab] = useState(1);
 
@@ -49,18 +55,21 @@ const ClothsDetails = ({
           </NavItem>
         ))}
       </Nav>
-      <ClothsDetailsTabContent activeTab={activeTab}  dimensions={dimensions}
-engineMotor={engineMotor}
-transmission={transmission}
-steering={steering}
-suspension={suspension}
-wheelTyre={wheelTyre}
-fuelEconomy={fuelEconomy}
-safety={safety}
-exterior={exterior}
-instrument={instrument}
-info={info}
-comfort={comfort}/>
+      <ClothsDetailsTabContent
+        activeTab={activeTab}
+        dimensions={dimensions}
+        engineMotor={engineMotor}
+        transmission={transmission}
+        steering={steering}
+        suspension={suspension}
+        wheelTyre={wheelTyre}
+        fuelEconomy={fuelEconomy}
+        safety={safety}
+        exterior={exterior}
+        instrument={instrument}
+        info={info}
+        comfort={comfort}
+      />
     </Col>
   );
 };
