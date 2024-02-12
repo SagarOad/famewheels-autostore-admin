@@ -1699,7 +1699,7 @@ const CreateNewCarForm = () => {
                     <Input
                       required
                       name="battery_type"
-                      type="number"
+                      type="text"
                       className="form-control"
                       placeholder={"Battery type"}
                       onChange={(e: any) => setBatteryType(e.target.value)}
