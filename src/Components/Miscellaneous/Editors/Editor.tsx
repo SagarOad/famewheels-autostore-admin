@@ -11,12 +11,8 @@ interface EditorProps {
 }
 
 const Editor = ({ placeholder, onEditorDataChange }: EditorProps) => {
-  const [editorData, setEditorData] = useState(placeholder);
-
   const handleEditorDataChange = (event: any, editor: any) => {
     const returndata = editor.getData();
-
-    setEditorData(returndata);
     onEditorDataChange(returndata);
   };
 
@@ -27,7 +23,7 @@ const Editor = ({ placeholder, onEditorDataChange }: EditorProps) => {
         <CardBody>
           <CKEditor
             editor={ClassicEditor}
-            data={editorData}
+            data={placeholder}
             onChange={handleEditorDataChange}
           />
         </CardBody>
