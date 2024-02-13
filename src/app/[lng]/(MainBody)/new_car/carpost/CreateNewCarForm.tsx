@@ -143,6 +143,7 @@ import Loading from "@/app/loading";
 import CommonModal from "@/Components/UiKits/Modal/Common/CommonModal";
 import { useAppSelector } from "@/Redux/Hooks";
 import { useRouter } from "next/navigation";
+import Editor from "@/Components/Miscellaneous/Editors/Editor";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
@@ -1184,6 +1185,10 @@ const CreateNewCarForm = () => {
     return setCentered(!centred);
   };
 
+  const handleEditorDataChange = (data: string) => {
+    setDescription(data);
+  };
+
   return (
     <>
       {submitting ? (
@@ -1518,7 +1523,7 @@ const CreateNewCarForm = () => {
             <Col>
               <FormGroup>
                 <Label check>{Description}</Label>
-                <Input
+                {/* <Input
                   required
                   name="description"
                   type="textarea"
@@ -1527,6 +1532,10 @@ const CreateNewCarForm = () => {
                   placeholder={"Detailed Overview"}
                   onChange={(e: any) => setDescription(e.target.value)}
                   value={description}
+                /> */}
+                <Editor
+                  placeholder={description}
+                  onEditorDataChange={handleEditorDataChange}
                 />
               </FormGroup>
             </Col>
