@@ -28,7 +28,7 @@ const MemberRequests = () => {
       const token = localStorage.getItem("authToken");
       const response = await axios.get(`${BASE_URL}/memberrequest`, {
         params: {
-          is_verified: 3,
+          is_verified: 2,
           page: page,
         },
         headers: {
