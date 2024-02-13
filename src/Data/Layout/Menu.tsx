@@ -52,6 +52,11 @@ export const MenuList: MenuItem[] | undefined = [
           { path: "/users/dealers", title: "Dealers", type: "link" },
           { path: "/users/inspectors", title: "Inspectors", type: "link" },
           { path: "/users/userslist", title: "Users List", type: "link" },
+          {
+            path: "/users/membersrequests",
+            title: "Member Requests",
+            type: "link",
+          },
         ],
       },
     ],
