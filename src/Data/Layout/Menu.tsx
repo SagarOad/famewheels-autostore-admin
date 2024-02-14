@@ -57,6 +57,11 @@ export const MenuList: MenuItem[] | undefined = [
             title: "Member Requests",
             type: "link",
           },
+          {
+            path: "/users/rejected-members-requests",
+            title: "Rejected Requests",
+            type: "link",
+          },
         ],
       },
     ],
