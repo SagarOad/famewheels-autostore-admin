@@ -323,4 +323,34 @@ export const MenuList: MenuItem[] | undefined = [
       },
     ],
   },
+
+
+  {
+    title: "Auction",
+    lanClass: "lan-8",
+    menucontent: "Dashboards,Widgets",
+    Items: [
+      {
+        title: "Auction Cars",
+        id: 7,
+        icon: "widget",
+        type: "sub",
+        lanClass: "lan-8",
+        active: false,
+        children: [
+          {
+            path: "/auction/auction_cars",
+            title: "Auction Cars List",
+            type: "link",
+          },
+          
+        ],
+      },
+    ],
+  },
+
+
+
+
+
 ];
