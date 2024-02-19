@@ -501,6 +501,10 @@ const CreateNewCarForm = () => {
     // engine / motor
 
     setEngineType(engineMotor?.engineType);
+    setBatteryType(engineMotor?.batteryType);
+    setBatteryCapacity(engineMotor?.batteryCapacity);
+    setChargingtime(engineMotor?.chargingtime);
+    setRange(engineMotor?.range);
     setTurboCharger(engineMotor?.turboCharger);
     setDisplacement(engineMotor?.displacement);
     setNoOfCylinders(engineMotor?.noOfCylinders);
@@ -991,6 +995,10 @@ const CreateNewCarForm = () => {
   });
 
   const seats = [
+    {
+      title: "0",
+      value: "0",
+    },
     {
       title: "1",
       value: "1",
