@@ -52,6 +52,10 @@ const AuctionCarsList = () => {
   const [tooltip3, settooltip3] = useState(false);
   const toggle3 = () => settooltip3(!tooltip3);
 
+  
+  const [tooltip4, settooltip4] = useState(false);
+  const toggle4 = () => settooltip3(!tooltip4);
+
 
   const centeredToggle = (id: number) => {
     setPostId(id);
@@ -192,6 +196,24 @@ const AuctionCarsList = () => {
             Delivery Receipt
           </Tooltip>
             </Link>
+
+
+
+
+            <li>
+              <button
+              id="Tooltip-4"
+                className="p-0 border-0 bg-transparent"
+              >
+                <i className="icon-eye  fs-5 "></i>
+              </button>
+              <Tooltip target={"Tooltip-4"} placement="top" isOpen={tooltip4} toggle={toggle4}>
+            Details
+          </Tooltip>
+            </li>
+
+
+
           </ul>
         );
       },

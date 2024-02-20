@@ -1,27 +1,10 @@
-import { ImagePath } from "@/Constant";
-import { Table } from "reactstrap";
-import InvoiceAddress from "./InvoiceAddress";
-import InvoiceDetail from "./InvoiceDetail";
-import InvoiceRightSide from "./InvoiceRightSide";
+import TopBarInvoice from "../Common/topBar";
 
 const InvoiceFiveHeader = () => {
   return (
     <>
    
-    <Table className="table-responsive" style={{ width: "100%" }} borderless>
-      <tbody>
-        <tr style={{ padding: "28px 0 5px", display: "flex", justifyContent: "space-between", alignItems: "center",width:"100%" }} className="flex-column">
-          <td className="w-100">
-            <InvoiceRightSide />
-          </td>
-          <td className="w-25">
-            <img className="img-fluid for-light" src={`${ImagePath}/logo/fame-wheels-logo.png`} alt="logo" />
-            <img className="img-fluid for-dark" src={`${ImagePath}/logo/fame-wheels-logo.png`} alt="logo" />
-          </td>
-        </tr>
-       
-      </tbody>
-    </Table>
+   <TopBarInvoice/>
          
 <h4 className="text-center my-4 fs-4 fw-bolder" style={{color:"#7d0202"}}>Vehicle Sale and Purchase
 Agreement Through Bidding</h4>
