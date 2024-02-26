@@ -1,5 +1,5 @@
 "use client";
-import { Badge, Card, CardBody, Col, Input, Label } from "reactstrap";
+import { Badge, Button, Card, CardBody, Col, Input, Label } from "reactstrap";
 import DataTable, { TableColumn } from "react-data-table-component";
 import axios from "axios";
 import { useQuery } from "react-query";
@@ -15,12 +15,10 @@ import Loading from "@/app/loading";
 import { CustomCellInterFaces, ScrollImageType, User } from "@/Types/TableType";
 import { toast } from "react-toastify";
 import { useAppSelector } from "@/Redux/Hooks";
+import CommonModal from "@/Components/UiKits/Modal/Common/CommonModal";
+import UserRequest from "@/Components/UserRequest/UserRequest";
 
-interface ActionDataSourceProp {
-  row: {
-    id: number;
-  };
-}
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const MemberRequests = () => {
   const { user } = useAppSelector((state) => state.user);
@@ -33,8 +31,16 @@ const MemberRequests = () => {
   const [total, setTotal] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [getUpdate, setGetUpdate] = useState(false);
-
-  const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
+  const [userId, setUserId] = useState<any>(null);
+  const [detailModal, setDetailModal] = useState(false);
+  const detailsToggle = (id: number) => {
+    setUserId(id);
+    return setDetailModal(!detailModal);
+    // router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${id}`);
+  };
+  const closeDetailModal = () => {
+    detailsToggle(userId); // Call forwardToggle with the necessary argument (userId)
+  };
 
   const fetchData = async () => {
     try {
@@ -91,6 +97,7 @@ const MemberRequests = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
+      setDetailModal(false);
     } catch (error) {
       console.log(error);
     }
@@ -192,16 +199,16 @@ const MemberRequests = () => {
                 <i className="icon-trash" />
               </button>
             </li>
-            {/* <li className="view">
+            <li className="view">
               <button
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
-                  centeredToggle(row?.id);
+                  detailsToggle(row?.id);
                 }}
               >
                 <i className="icon-eye link-primary" />
               </button>
-            </li> */}
+            </li>
           </ul>
         );
       },
@@ -252,6 +259,39 @@ const MemberRequests = () => {
           </CardBody>
         )}
       </Card>
+      <CommonModal
+        centered
+        isOpen={detailModal}
+        toggle={closeDetailModal}
+        size="lg"
+      >
+        <div className="modal-toggle-wrapper">
+          <UserRequest id={userId} />
+          <div className=" d-flex align-items-center pt-3">
+            {/* <Button
+              color="secondary"
+              className="d-flex m-auto"
+              onClick={closeDetailModal}
+            >
+              Close
+            </Button> */}
+            <Button
+              color="danger"
+              className="d-flex m-auto"
+              onClick={() => handleReject(userId)}
+            >
+              Reject
+            </Button>
+            <Button
+              color="success"
+              className="d-flex m-auto"
+              onClick={() => handleApprove(userId)}
+            >
+              Approve
+            </Button>
+          </div>
+        </div>
+      </CommonModal>
     </Col>
   );
 };
