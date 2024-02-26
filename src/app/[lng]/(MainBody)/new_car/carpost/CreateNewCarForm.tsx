@@ -380,6 +380,7 @@ const CreateNewCarForm = () => {
         },
       });
       setMakeName(response?.data?.data?.make);
+      setDescription(response?.data?.data?.newcarpost_overview);
 
       setUpdateToken(response?.data?.data?.newcarpost_token);
       setDimensionsObj(JSON.parse(response?.data?.data?.newcarpost_dimensions));
@@ -482,7 +483,7 @@ const CreateNewCarForm = () => {
     setVarient(carData?.newcarpost_variants);
     setColor(carData?.newcarpost_color);
     setBodytype(carData?.newcarpost_bodytype);
-    setDescription(carData?.newcarpost_overview);
+    // setDescription(carData?.newcarpost_overview);
     setExfactoryPrice(carData?.newcarpost_price);
 
     formatDate(carData?.newcarpost_date);
@@ -1505,24 +1506,24 @@ const CreateNewCarForm = () => {
             <Col lg="3" md="6">
               <FormGroup className="d-flex flex-column align-items-stretch">
                 <Label check>{LaunchDate}</Label>
-                {/* <Input
-              required
-                name="launchDate"
-                type="date"
-                className="form-control"
-                placeholder={LaunchDate}
-  value={launchDate}
-  onChange={(e)=>setLaunchDate(e.target.value)}
-              /> */}
-                <DatePicker
+                <Input
+                  required
+                  name="launchDate"
+                  type="month"
+                  className="form-control"
+                  placeholder={LaunchDate}
+                  value={launchDate}
+                  onChange={(e) => setLaunchDate(e.target.value)}
+                />
+                {/* <DatePicker
                   className="datepicker-here form-control"
                   selected={launchDate}
-                  dateFormat="yyyy-MM-dd"
+                  dateFormat="yyyy-MM"
                   onChange={(date: any) => {
                     setLaunchDate(date);
                     // formatDate(date)
                   }}
-                />
+                /> */}
               </FormGroup>
             </Col>
           </Row>
