@@ -290,6 +290,7 @@ const CreateNewCarForm = () => {
 
   const [coverImage, setCoverImage] = useState("-");
   const [color, setColor] = useState("");
+  const [colorCodes, setColorCodes] = useState("");
   const [makeId, setMakeId] = useState("");
   const [modelName, setModelName] = useState("");
   const [yearName, setYearName] = useState("");
@@ -482,6 +483,7 @@ const CreateNewCarForm = () => {
     setYearName(carData?.year_id);
     setVarient(carData?.newcarpost_variants);
     setColor(carData?.newcarpost_color);
+    setColorCodes(carData?.color_codes);
     setBodytype(carData?.newcarpost_bodytype);
     // setDescription(carData?.newcarpost_overview);
     setExfactoryPrice(carData?.newcarpost_price);
@@ -1141,6 +1143,7 @@ const CreateNewCarForm = () => {
       formData.append(`year_id`, yearName);
       formData.append(`newcarpost_price`, `${exFactoryPrice}`);
       formData.append(`newcarpost_color`, `${color}`);
+      formData.append(`color_codes`, `${colorCodes}`);
       formData.append(`newcarpost_bodytype`, `${bodyType}`);
       formData.append(`newcarpost_variants`, `${varient}`);
       formData.append(`newcarpost_overview`, `${description}`);
@@ -1487,6 +1490,28 @@ const CreateNewCarForm = () => {
                 />
               </FormGroup>
             </Col>
+
+
+
+            <Col lg="3" md="6">
+              <FormGroup>
+                <Label check>Color Codes</Label>
+                <Input
+                  required
+                  name="color_codes"
+                  type="text"
+                  className="form-control"
+                  placeholder="Color Code eg: #fff210"
+                  onChange={(e: any) => setColorCodes(e.target.value)}
+                  value={colorCodes}
+                />
+              </FormGroup>
+            </Col>
+
+
+
+
+
 
             <Col lg="3" md="6">
               <FormGroup>
