@@ -211,7 +211,14 @@ export interface NewCarList {
   newcarpost_token: string;
   newcarpost_variants: string;
 }
-
+export interface ShowroomList {
+  showroom_id: number;
+  showroom_name: string;
+  showroom_no:string;
+  showroom_address:string;
+  showroom_logo:string;
+  showroom_cover:string
+}
 export interface Payment {
   order_id: number;
   payment_method: string;

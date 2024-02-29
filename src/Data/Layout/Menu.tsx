@@ -350,7 +350,34 @@ export const MenuList: MenuItem[] | undefined = [
   },
 
 
-
+  {
+    title: "Dealer",
+    lanClass: "lan-8",
+    menucontent: "Dashboards,Widgets",
+    Items: [
+      {
+        title: "Dealer Info",
+        id: 7,
+        icon: "widget",
+        type: "sub",
+        lanClass: "lan-8",
+        active: false,
+        children: [
+          {
+            path: "/dealer/add_dealer",
+            title: "Add Dealer",
+            type: "link",
+          },
+          {
+            path: "/dealer/dealerslist",
+            title: "Dealers List",
+            type: "link",
+          },
+          
+        ],
+      },
+    ],
+  },
 
 
 ];
