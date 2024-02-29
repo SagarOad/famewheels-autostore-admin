@@ -8,6 +8,7 @@ import {
   Input,
   Label,
   Row,
+  Tooltip,
 } from "reactstrap";
 import DataTable, { TableColumn } from "react-data-table-component";
 import axios from "axios";
@@ -42,6 +43,9 @@ const InspectionList = () => {
   const [total, setTotal] = useState(0);
   const [postId, setPostId] = useState<any>(null);
   const [centred, setCentered] = useState(false);
+
+  const [tooltip2, settooltip2] = useState(false);
+  const toggle2 = () => settooltip2(!tooltip2);
 
   const centeredToggle = (id: number) => {
     setPostId(id);
@@ -98,6 +102,10 @@ const InspectionList = () => {
       selector: (row) => row.city_name,
     },
     {
+      name: "Payment Status",
+      selector: (row) => row.payment_status,
+    },
+    {
       name: "Address",
       selector: (row) => row.address,
     },
@@ -112,38 +120,48 @@ const InspectionList = () => {
       selector: (row) => row.inspection_slot,
     },
 
-    // {
-    //   name: "Action",
-    //   cell: (row) => {
-    //     return (
-    //       <ul
-    //         className="action simple-list d-flex flex-row gap-2"
-    //         key={row?.inspection_id}
-    //       >
-    //         <li className="edit">
-    //           <button className="p-0 border-0 bg-transparent">
-    //             <i className="icofont icofont-check" />
-    //           </button>
-    //         </li>
-    //         <li className="delete">
-    //           <button className="p-0 border-0 bg-transparent">
-    //             <i className="icofont icofont-close"></i>
-    //           </button>
-    //         </li>
-    //         <li className="view">
-    //           <button
-    //             className="p-0 border-0 bg-transparent"
-    //             onClick={() => {
-    //               centeredToggle(row?.inspection_id);
-    //             }}
-    //           >
-    //             <i className="icon-eye link-primary" />
-    //           </button>
-    //         </li>
-    //       </ul>
-    //     );
-    //   },
-    // },
+    {
+      name: "Action",
+      cell: (row) => {
+        return (
+          <ul
+            className="action simple-list d-flex flex-row gap-2"
+            key={row?.inspection_id}
+          >
+            {row?.inspectionstatus_id === 1 && (
+              <li className="edit">
+                <button className="p-0 border-0 bg-transparent" id="Tooltip-2">
+                  <i className="icofont icofont-law-document fs-4"></i>
+                </button>
+                <Tooltip
+                  target={"Tooltip-2"}
+                  placement="top"
+                  isOpen={tooltip2}
+                  toggle={toggle2}
+                >
+                  Paid
+                </Tooltip>
+              </li>
+            )}
+            {/* <li className="delete">
+              <button className="p-0 border-0 bg-transparent">
+                <i className="icofont icofont-close"></i>
+              </button>
+            </li> */}
+            {/* <li className="view">
+              <button
+                className="p-0 border-0 bg-transparent"
+                onClick={() => {
+                  centeredToggle(row?.inspection_id);
+                }}
+              >
+                <i className="icon-eye link-primary" />
+              </button>
+            </li> */}
+          </ul>
+        );
+      },
+    },
   ];
 
   const statusArray = [
