@@ -13,13 +13,13 @@ import {
 import DataTable, { TableColumn } from "react-data-table-component";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { HtmlTableTittle, SearchTableButton } from "@/Constant";
+import { HtmlTableTittle, PaymentStatus, SearchTableButton } from "@/Constant";
 import CommonCardHeader from "@/CommonComponent/CommonCardHeader";
 import {
   HtmlColumnData as HtmlColumnData,
   HtmlData,
 } from "@/Data/Form&Table/Table/DataTable/DataSourceData";
-import { useMemo, useState } from "react";
+import { FormEvent, useMemo, useState } from "react";
 import PaginationDynamic from "@/utils/Paginations";
 import Loading from "@/app/loading";
 import CommonModal from "@/Components/UiKits/Modal/Common/CommonModal";
@@ -32,23 +32,31 @@ import {
 } from "@/Constant";
 import { Inspection, Posts } from "@/Types/TableType";
 import SinglePost from "@/Components/SinglePost/SinglePost";
+import { toast } from "react-toastify";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const InspectionList = () => {
   const [filterText, setFilterText] = useState("");
   const [status, setStatus] = useState<number | any>(1);
+  const [update, setUpdate] = useState<boolean>(false);
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(30);
   const [total, setTotal] = useState(0);
   const [postId, setPostId] = useState<any>(null);
   const [centred, setCentered] = useState(false);
 
+
+  const [paymentMethod ,setPaymentMethod] = useState("");
+  const [securityDeposit, setSecurityDeposit] = useState();
+  const [inspectionId, setInspectionId] = useState<any>();
+  const [paymentToken, setPaymentToken] = useState();
+
   const [tooltip2, settooltip2] = useState(false);
   const toggle2 = () => settooltip2(!tooltip2);
 
   const centeredToggle = (id: number) => {
-    setPostId(id);
+    setInspectionId(id)
     return setCentered(!centred);
   };
 
@@ -79,7 +87,7 @@ const InspectionList = () => {
     data: inspectionData,
     error,
     isLoading,
-  } = useQuery(`pending_inspection_${page}${status}`, fetchData);
+  } = useQuery(`pending_inspection_${page}${status}${update}`, fetchData);
 
   const filteredItems = inspectionData?.filter(
     (item: any) =>
@@ -130,7 +138,8 @@ const InspectionList = () => {
           >
             {row?.inspectionstatus_id === 1 && (
               <li className="edit">
-                <button className="p-0 border-0 bg-transparent" id="Tooltip-2">
+                <button className="p-0 border-0 bg-transparent" id="Tooltip-2" onClick={()=>centeredToggle(row?.inspection_id)
+                }>
                   <i className="icofont icofont-law-document fs-4"></i>
                 </button>
                 <Tooltip
@@ -210,6 +219,38 @@ const InspectionList = () => {
     );
   }, [filterText, status]);
 
+
+const paymentMethodArr = [
+"JazzCash",
+"Payfast"
+]
+
+
+
+const handleSubmit = async (e:FormEvent)=>{
+  e.preventDefault()
+  try {
+    const response = await axios.get(`${BASE_URL}/statuswiseinspectionlistupdate`,{
+      params:{
+        payment_method:paymentMethod,
+        security_deposit:securityDeposit,
+        payment_token:paymentToken,
+        inspection_id:inspectionId,
+        payment_status:1
+      }
+    })
+
+toast.success(response?.data?.message)
+setCentered(false)
+setUpdate(true)
+    console.log(response?.data)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
   return (
     <Col sm="12">
       <Card className="basic-data-table">
@@ -243,27 +284,104 @@ const InspectionList = () => {
 
       <CommonModal centered isOpen={centred} toggle={closeToggle} size="xl">
         <div className="modal-toggle-wrapper">
-          {/* <ul className="modal-img">
-            <li className="text-center">
-              <img src={`${ImagePath}/gif/danger.gif`} alt="error" />
-            </li>
-          </ul>
-          <h4 className="text-center pb-2">{SomethingWentWrong}</h4>
-          <p className="text-center">
-            Attackers on malicious activity may trick you into doing something
-            dangerous like installing software or revealing your personal
-            informations.
-          </p> */}
 
-          <SinglePost id={postId} />
+<h4 className="my-3 faq-title">Payment Info</h4>
 
-          <Button
+<form onSubmit={handleSubmit}>
+
+
+        <Row>
+           <Col lg="6" md="6">
+              <FormGroup>
+                <Label>Payment Method</Label>
+                <Input
+                  required
+                  name="bodyType"
+                  type="select"
+                  placeholder={"Payment Method"}
+                  className="form-control form-select"
+                  value={paymentMethod}
+                  onChange={(e: any) => setPaymentMethod(e.target.value)}
+                >
+                  <option value="" disabled>
+                    Select Dealer City
+                  </option>
+                  {paymentMethodArr?.map((method: any,index) => (
+                    <option key={index} value={method}>
+                      {method}
+                    </option>
+                  ))}
+                </Input>
+              </FormGroup>
+            </Col>
+
+            <Col lg="6" md="6">
+              <FormGroup>
+                <Label check>Security Deposit</Label>
+                <Input
+                  required
+                  name="color"
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Security Deposit"
+                  value={securityDeposit}
+                  onChange={(e: any) => setSecurityDeposit(e.target.value)}
+                />
+              </FormGroup>
+            </Col>
+
+            <Col lg="6" md="6">
+              <FormGroup>
+                <Label check>Transaction Id</Label>
+                <Input
+                  required
+                  name="color"
+                  type="text"
+                  className="form-control"
+                  placeholder="Enter Transaction Id"
+                  value={paymentToken}
+                  onChange={(e: any) => setPaymentToken(e.target.value)}
+                />
+              </FormGroup>
+            </Col>
+
+
+            <Col lg="6" md="6">
+              <FormGroup>
+                <Label check>Inspection Token</Label>
+                <Input
+                  required
+                  name="color"
+                  type="number"
+                  className="form-control"
+                  placeholder="Enter Inspection Token"
+                  value={inspectionId}
+                />
+              </FormGroup>
+            </Col>
+
+
+           
+
+        
+          </Row>
+
+          <div className="d-flex justify-content-end align-items-center gap-3">
+<Button color="primary" type="submit">Submit</Button>
+
+<Button
             color="secondary"
-            className="d-flex m-auto"
+            type="button"
             onClick={closeToggle}
           >
             {Close}
           </Button>
+</div>
+
+
+</form>
+
+          
         </div>
       </CommonModal>
     </Col>
