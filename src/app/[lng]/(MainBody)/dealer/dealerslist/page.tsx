@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { useAppSelector } from "@/Redux/Hooks";
 import NewCarDetials from "@/Components/SinglePost/NewCar";
+import DealerDetail from "@/Components/SinglePost/DealerDetail";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
@@ -145,7 +146,7 @@ const DealersList = () => {
             <li className="edit">
               <button
                 className="p-0 border-0 bg-transparent"
-                onClick={() => handleEdit(row?.showroom_id)}
+                // onClick={() => handleEdit(row?.showroom_id)}
               >
                 <i className="icon-pencil" />
               </button>
@@ -154,7 +155,7 @@ const DealersList = () => {
             <li className="delete">
               <button
                 className="p-0 border-0 bg-transparent"
-                onClick={() => handleDelete(row?.showroom_id)}
+                onClick={() => handleDelete(row?.user_id)}
               >
                 <i className="icon-trash" />
               </button>
@@ -164,7 +165,7 @@ const DealersList = () => {
               <button
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
-                  detailsToggle(row?.showroom_id);
+                  // detailsToggle(row?.showroom_id);
                 }}
               >
                 <i className="icon-eye link-primary" />
@@ -178,15 +179,15 @@ const DealersList = () => {
 
   const handleDelete = async (id: number) => {
     try {
-      const response = await axios.get(`${BASE_URL}/savenewcarpostdelete`, {
+      const response = await axios.get(`${BASE_URL}/deletedealer`, {
         params: {
-          newcarpost_id: id,
+          user_id : id,
         },
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      toast.success(response?.data?.message || "Deleted Succeffully");
+      toast.success(response?.data?.message || "Dealer Deleted Succeffully");
       setGetUpdate(true);
     } catch (error) {
       console.log(error);
@@ -229,7 +230,7 @@ const DealersList = () => {
         size="lg"
       >
         <div className="modal-toggle-wrapper">
-          <NewCarDetials id={postId} />
+          <DealerDetail id={postId} />
           <div className=" d-flex align-items-center pt-2">
             <Button
               color="secondary"
