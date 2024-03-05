@@ -1,3 +1,4 @@
+import { Admin, Hr } from "@/Constant";
 import { MenuItem } from "@/Types/LayoutTypes";
 
 export const MenuList: MenuItem[] | undefined = [
@@ -15,23 +16,8 @@ export const MenuList: MenuItem[] | undefined = [
         path: "/dashboard/default_dashboard",
       },
     ],
+    role:[Admin,Hr]
   },
-
-  // {
-  //   title: "General",
-  //   lanClass: "lan-1",
-  //   menucontent: "Dashboards,Widgets",
-  //   Items: [
-  //     {
-  //       title: "Ecom",
-  //       id: 1,
-  //       icon: "home",
-  //       type: "sub",
-  //       lanClass: "lan-3",
-  //       path: "/dashboard/default_dashboard/ecommerce",
-  //     },
-  //   ],
-  // },
 
   {
     title: "Users",
@@ -64,7 +50,9 @@ export const MenuList: MenuItem[] | undefined = [
           },
         ],
       },
+      
     ],
+    role:[Admin,Hr]
   },
 
   {
@@ -103,6 +91,8 @@ export const MenuList: MenuItem[] | undefined = [
         ],
       },
     ],
+    role:[Admin,Hr]
+
   },
 
   {
@@ -136,6 +126,8 @@ export const MenuList: MenuItem[] | undefined = [
         ],
       },
     ],
+    role:[Admin,Hr]
+
   },
 
   {
@@ -170,6 +162,8 @@ export const MenuList: MenuItem[] | undefined = [
         ],
       },
     ],
+    role:[Admin,Hr]
+
   },
 
   {
@@ -203,6 +197,8 @@ export const MenuList: MenuItem[] | undefined = [
         ],
       },
     ],
+    role:[Admin,Hr]
+
   },
 
   {
@@ -236,6 +232,8 @@ export const MenuList: MenuItem[] | undefined = [
         ],
       },
     ],
+    role:[Admin,Hr]
+
   },
 
   {
@@ -294,6 +292,8 @@ export const MenuList: MenuItem[] | undefined = [
         ],
       },
     ],
+    role:[Admin,Hr]
+
   },
 
   {
@@ -322,6 +322,8 @@ export const MenuList: MenuItem[] | undefined = [
         ],
       },
     ],
+    role:[Admin,Hr]
+
   },
 
 
@@ -347,6 +349,8 @@ export const MenuList: MenuItem[] | undefined = [
         ],
       },
     ],
+    role:[Admin,Hr]
+
   },
 
 
@@ -377,6 +381,8 @@ export const MenuList: MenuItem[] | undefined = [
         ],
       },
     ],
+    role:[Admin,Hr]
+
   },
 
 

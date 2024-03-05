@@ -4,6 +4,15 @@ export const SvgPath = "/assets/svg";
 export const StarColor = "var(--theme-default)";
 export const StarColorTwo = "#D77748";
 
+//Roles
+
+export const Admin: string = "ROLE_ADMIN";
+export const Account: string = "ROLE_ACCOUNT";
+export const Hr: string = "ROLE_HR";
+export const Sales: string = "ROLE_SALES";
+export const DataEntry: string = "ROLE_DATA_ENTRY";
+export const USER: string = "ROLE_USER";
+
 //Layout
 export const Loading: string = "Loading...";
 export const SearchMofi: string = "Search Mofi ..";

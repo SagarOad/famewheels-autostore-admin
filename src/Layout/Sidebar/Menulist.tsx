@@ -6,6 +6,7 @@ import { useTranslation } from "@/app/i18n/client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
+import { Admin,Account,Hr,Sales,DataEntry } from "@/Constant"
 
 const Menulist: React.FC<MenuListType> = ({ menu, setActiveMenu, activeMenu, level, className }) => {
   const { pinedMenu } = useAppSelector((state) => state.layout);

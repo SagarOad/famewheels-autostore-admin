@@ -67,6 +67,7 @@ export interface MenuItem {
   children?: MenuItem[];
   path?: string;
   mainTitle?: string;
+  role?:any
 }
 
 export interface SearchSuggestionListType {
