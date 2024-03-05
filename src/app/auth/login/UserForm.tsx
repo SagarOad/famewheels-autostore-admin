@@ -26,8 +26,8 @@ export const UserForm = () => {
 
   const { i18LangStatus } = useAppSelector((store) => store.langSlice);
   const [show, setShow] = useState(false);
-  const [email, setEmail] = useState("test123@gmail.com");
-  const [password, setPassword] = useState("Test@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
 
   const formSubmitHandle = async () => {
@@ -104,12 +104,6 @@ export const UserForm = () => {
             </div>
           </FormGroup>
           <FormGroup className="mb-0">
-            <div className="checkbox p-0">
-              <Input id="checkbox1" type="checkbox" />
-              <Label className="text-muted" htmlFor="checkbox1">
-                {RememberPassword}
-              </Label>
-            </div>
             <div className="text-end mt-3">
               <Button
                 color="primary"
@@ -121,14 +115,6 @@ export const UserForm = () => {
               </Button>
             </div>
           </FormGroup>
-          <h6 className="text-muted mt-4 or">{OrSignInWith}</h6>
-          <UserSocialApp />
-          <p className="mt-4 mb-0 text-center">
-            {DontHaveAccount}
-            <Link className="ms-2" href={Href}>
-              {CreateAccount}
-            </Link>
-          </p>
         </Form>
       </div>
     </div>
