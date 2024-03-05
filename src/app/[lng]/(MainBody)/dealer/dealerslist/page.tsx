@@ -50,7 +50,7 @@ const DealersList = () => {
   };
 
   const openDetails = () => {
-    router.push(`/${i18LangStatus}/new_car/newcarpostdetails?id=${postId}`);
+    router.push(`/${i18LangStatus}/dealer/singleDealer?id=${postId}`);
   };
   const fetchData = async () => {
     try {
@@ -165,7 +165,7 @@ const DealersList = () => {
               <button
                 className="p-0 border-0 bg-transparent"
                 onClick={() => {
-                  // detailsToggle(row?.showroom_id);
+                  detailsToggle(row?.showroom_id);
                 }}
               >
                 <i className="icon-eye link-primary" />

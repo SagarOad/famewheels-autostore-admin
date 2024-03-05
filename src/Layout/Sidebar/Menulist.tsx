@@ -9,6 +9,11 @@ import { useEffect } from "react";
 import { Admin,Account,Hr,Sales,DataEntry } from "@/Constant"
 
 const Menulist: React.FC<MenuListType> = ({ menu, setActiveMenu, activeMenu, level, className }) => {
+
+  const { user } = useAppSelector((state) => state.user);
+
+  const userRole = user?.role_name;
+
   const { pinedMenu } = useAppSelector((state) => state.layout);
   const { i18LangStatus } = useAppSelector((state) => state.langSlice);
   const { t } = useTranslation(i18LangStatus);
@@ -62,7 +67,7 @@ const Menulist: React.FC<MenuListType> = ({ menu, setActiveMenu, activeMenu, lev
           </Link>
           {item.children && (
             <ul className={`${level !== 0  ? "nav-sub-childmenu submenu-content" : "sidebar-submenu "}`}>
-              <Menulist menu={item.children} activeMenu={activeMenu} setActiveMenu={setActiveMenu} level={level + 1} className="sidebar-submenu" />
+              <Menulist menu={item.children.filter(menu => menu.role && menu.role.includes(userRole))} activeMenu={activeMenu} setActiveMenu={setActiveMenu} level={level + 1} className="sidebar-submenu" />
             </ul>
           )}
         </li>

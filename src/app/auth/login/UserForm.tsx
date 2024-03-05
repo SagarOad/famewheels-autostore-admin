@@ -37,11 +37,12 @@ export const UserForm = () => {
         email: email,
         password: password,
       };
-      const response = await axios.post(`${BASE_URL}/adminlogin`, params);
+      const response = await axios.post(`${BASE_URL}/login`, params);
 
       const token = await response?.data?.token;
       localStorage.setItem("authToken", response?.data?.token);
       Cookies.set("mofi_token", JSON.stringify(true));
+      Cookies.set("role_name", JSON.stringify("Admin"));
       router.push(`/en/dashboard/default_dashboard`);
 
       if (response?.data?.token) {

@@ -6,12 +6,12 @@ export const StarColorTwo = "#D77748";
 
 //Roles
 
-export const Admin: string = "ROLE_ADMIN";
+export const Admin: string = "Admin";
 export const Account: string = "ROLE_ACCOUNT";
 export const Hr: string = "ROLE_HR";
 export const Sales: string = "ROLE_SALES";
 export const DataEntry: string = "ROLE_DATA_ENTRY";
-export const USER: string = "ROLE_USER";
+export const USER: string = "User";
 
 //Layout
 export const Loading: string = "Loading...";

@@ -18,7 +18,7 @@ console.log(user)
   const shouldHideMenu = (mainMenu: MenuItem) => {return mainMenu?.Items?.map((data) => data.title).every((titles) =>pinedMenu.includes(titles || ""));};
 
 console.log(MenuList)
-const userRole = user?.role;
+const userRole = user?.role_name;
 
 
 const filteredList = MenuList?.filter(menu => menu.role && menu.role.includes(userRole));

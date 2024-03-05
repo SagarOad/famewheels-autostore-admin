@@ -1,19 +1,27 @@
+"use client"
 import axios from "axios";
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { Col, Row } from "reactstrap";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const DealerDetail = ({ id }: { id: number }) => {
+  const token = localStorage.getItem("authToken");
+  const [imagePath,setImagePath] = useState(null)
+
   const getPostDetil = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/newcarpostdetails`, {
+      const response = await axios.get(`${BASE_URL}/dealerdetails`, {
         params: {
-          newcarpost_id: id,
+          showroom_id : id,
         },
+        headers:{
+          Authorization: `Bearer ${token}`
+        }
       });
-      return response?.data?.data;
+      setImagePath(response?.data?.imagepath)
+      return response?.data?.details;
     } catch (error) {
       console.log(error);
     }
@@ -23,7 +31,7 @@ const DealerDetail = ({ id }: { id: number }) => {
     error,
     isLoading,
   } = useQuery(
-    `postDetails_${id}`,
+    `dealerDetails_${id}`,
     getPostDetil
     // {
     //   enabled: !!509, // Set enabled to false initially
@@ -44,50 +52,48 @@ const DealerDetail = ({ id }: { id: number }) => {
         <Col lg="6">
           <img
             style={{ height: "200px" }}
-            src={`https://onlinepayment.famewheels.com/public/posts/${post?.newcarpost_token}/${post?.newcarpost_cover}`}
-            alt="drawing-room"
+            src={`${imagePath}/${post?.user_id}/${post?.showroom_logo}`}
+            alt="showroom-logo"
             className="d-block w-100 img-responsive img-fluid object-fit-contain p-0"
           />
         </Col>
 
         <Col lg="6">
           <Row className="mt-3">
-            <Col xs="6">
-              <p className="card-title mb-1 txt-dark">Variant :</p>
-              <p className="card-title mb-1 txt-dark">Body Type :</p>
-              <p className="card-title mb-1 txt-dark">Fuel Type :</p>
-              <p className="card-title mb-1 txt-dark">Transmission :</p>
+            <Col xs="3">
+              <p className="card-title mb-1 txt-dark">Name :</p>
+              <p className="card-title mb-1 txt-dark">Email :</p>
+              <p className="card-title mb-1 txt-dark">Phone :</p>
+              <p className="card-title mb-1 txt-dark">Address :</p>
+              <p className="card-title mb-1 txt-dark">City :</p>
             </Col>
 
-            <Col xs="6">
+            <Col xs="9">
               <p className="card-title mb-1 txt-danger">
-                {post?.newcarpost_variants}
+                {post?.name}
               </p>
               <p className="card-title mb-1 txt-danger">
-                {post?.bodytype_name}
+                {post?.email}
               </p>
               <p className="card-title mb-1 txt-danger">
                 {" "}
-                {post && JSON.parse(post?.newcarpost_enginemotor)?.fuelSystem}
+                {post?.phone}
               </p>
               <p className="card-title mb-1 txt-danger">
-                {post &&
-                  JSON.parse(post?.newcarpost_transmission)?.transmission}
+                {post?.showroom_address}
               </p>
               <p className="card-title mb-1 txt-danger">{post?.modelName}</p>
+              <p className="card-title mb-1 txt-danger">{post?.city_name}</p>
             </Col>
 
-            <Col xs="6">
-              <p className="card-title mb-1 txt-dark">Engine Capacity(Cc) :</p>
-            </Col>
 
             <Col xs="6">
               <p className="card-title mb-1 txt-danger">
                 {post?.vehicle_colour}
               </p>
               <p className="card-title mb-1 txt-danger">
-                {post && JSON.parse(post?.newcarpost_enginemotor)?.displacement}
-                cc
+                {/* {post && JSON.parse(post?.newcarpost_enginemotor)?.displacement} */}
+                
               </p>
               <p className="card-title mb-1 txt-danger">{post?.makeName}</p>
             </Col>
