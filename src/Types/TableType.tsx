@@ -219,7 +219,8 @@ export interface ShowroomList {
   showroom_no:string;
   showroom_address:string;
   showroom_logo:string;
-  showroom_cover:string
+  showroom_cover:string;
+  user_id:number
 }
 export interface Payment {
   order_id: number;
