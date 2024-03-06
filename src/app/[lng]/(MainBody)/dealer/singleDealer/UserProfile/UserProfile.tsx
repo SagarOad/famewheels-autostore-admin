@@ -10,7 +10,7 @@ const UserProfile :React.FC<SocialAppCallBackType> = ({ callback,dealerData,imag
     <Row>
       <Col sm="12" className="box-col-12">
         <Card className="hovercard text-center">
-          <div className="cardheader socialheader" style={{backgroundImage:`url(${imagepath}/${dealerData?.user_id}/${dealerData?.showroom_cover})`,backgroundRepeat:"no-repeat"}}/>
+          <div className="cardheader socialheader"/>
           <div className="user-image">
             <div className="avatar">
               <img alt="Avatar" className="object-fit-contain" style={{backgroundColor:"white"}} src={`${imagepath}/${dealerData?.user_id}/${dealerData?.showroom_logo}`} />
