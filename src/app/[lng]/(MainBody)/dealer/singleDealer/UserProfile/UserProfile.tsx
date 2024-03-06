@@ -10,10 +10,10 @@ const UserProfile :React.FC<SocialAppCallBackType> = ({ callback,dealerData,imag
     <Row>
       <Col sm="12" className="box-col-12">
         <Card className="hovercard text-center">
-          <div className="cardheader socialheader" style={{background:`url(${imagepath}/${dealerData?.user_id}/${dealerData?.showroom_cover})`,backgroundRepeat:"no-repeat",backgroundSize:"contain"}}/>
+          <div className="cardheader socialheader" style={{backgroundImage:`url(${imagepath}/${dealerData?.user_id}/${dealerData?.showroom_cover})`,backgroundRepeat:"no-repeat"}}/>
           <div className="user-image">
             <div className="avatar">
-              <img alt="Avatar" style={{backgroundColor:"white"}} src={`${imagepath}/${dealerData?.user_id}/${dealerData?.showroom_logo}`} />
+              <img alt="Avatar" className="object-fit-contain" style={{backgroundColor:"white"}} src={`${imagepath}/${dealerData?.user_id}/${dealerData?.showroom_logo}`} />
             </div>
             {/* <div className="icon-wrapper">
               <Link href={Href}><i className="icofont icofont-pencil-alt-5" /></Link>

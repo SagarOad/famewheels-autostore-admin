@@ -37,7 +37,7 @@ export const UserForm = () => {
         email: email,
         password: password,
       };
-      const response = await axios.post(`${BASE_URL}/login`, params);
+      const response = await axios.post(`${BASE_URL}/adminlogin`, params);
 
       const token = await response?.data?.token;
       localStorage.setItem("authToken", response?.data?.token);
