@@ -16,7 +16,7 @@ export interface HeaderWithIconPropsTypes {
 }
 
 export interface MyProfileClassCollapseProp {
-  isFilter: boolean;
+  isFilter: any;
   dealer:any
 }
 

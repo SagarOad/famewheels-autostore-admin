@@ -10,7 +10,7 @@ const MutualFriends = () => {
   return (
     <Card>
       <HeaderWithIcon Heading={MutualFriend} isOpen={isOpen} setIsOpen={setIsOpen}/>
-      <MutualFriendsCollapse isFilter={isOpen} />
+      <MutualFriendsCollapse isFilter={isOpen} dealer={undefined} />
     </Card>
   );
 };
