@@ -1,7 +1,7 @@
 export interface SocialAppCallBackType {
   callback: (tab: number) => void;
-  dealerData:any,
-  imagepath:string
+  dealerData?:any,
+  imagepath?:any
 }
 
 export interface SocialAppTabContentProp {

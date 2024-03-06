@@ -156,7 +156,7 @@ interface ImageData {
 const AddDealerForm = () => {
   const router = useRouter();
 
-  const { user } : any = useAppSelector((state) => state.user);
+  const { user }: any = useAppSelector((state) => state.user);
 
   const { i18LangStatus } = useAppSelector((state) => state.langSlice);
 
@@ -165,6 +165,7 @@ const AddDealerForm = () => {
   const [updateToken, setUpdateToken] = useState("");
 
   const [postToken, setPostToken] = useState("");
+  const [imagePath, setImagePath] = useState("");
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -173,29 +174,22 @@ const AddDealerForm = () => {
   const [showRoomName, setShowRoomName] = useState("");
   const [showRoomPhone, setShowRoomPhone] = useState<any>();
   const [address, setAddress] = useState("");
-  const [logo, setLogo] = useState("-");
+  const [logo, setLogo] = useState("");
 
   // features
 
-
-  const [coverImage, setCoverImage] = useState("-");
-  const [modelName, setModelName] = useState("");
-  const [yearName, setYearName] = useState("");
+  const [coverImage, setCoverImage] = useState("");
 
 
-  const [description, setDescription] = useState("");
-  const [launchDate, setLaunchDate] = useState<any>(new Date());
-  const [makeName, setMakeName] = useState("");
-
+  
   const [prevImg, setPrevImg] = useState<any>("");
+  const [prevLogo, setPrevLogo] = useState<any>("");
   const [imageApi, setImageApi] = useState(true);
   const postDisabled = imageApi === false;
-  const [imageErrorMessage, setImageErrorMessage] = useState("");
   const [open, setOpen] = useState(false);
 
   // features
 
-  
   const [getUpdate, setGetUpdate] = useState(false);
 
   const [imagesPath, setImagesPath] = useState("");
@@ -205,99 +199,61 @@ const AddDealerForm = () => {
   const [moreImages, setMoreImages] = useState<any[]>([]);
   const [id, setId] = useState<string | null>(null);
 
-  // for parsing data
-
-  const [dimensionsObj, setDimensionsObj] = useState<object | any>({});
-  const [engineMotor, setEngineMotor] = useState<object | any>({});
-  const [transmissionObj, setTransmissionObj] = useState<object | any>({});
-  const [steering, setSteering] = useState<object | any>({});
-  const [suspension, setsuspension] = useState<object | any>({});
-  const [wheelTyre, setWheelTyre] = useState<object | any>({});
-  const [fuelEconomy, setFuelEconomy] = useState<object | any>({});
-  const [safety, setSafety] = useState<object | any>({});
-  const [exterior, setExterior] = useState<object | any>({});
-  const [instrument, setInstrument] = useState<object | any>({});
-  const [info, setInfo] = useState<object | any>({});
-  const [comfort, setComfort] = useState<object | any>({});
-
   const generateToken = () => {
     const newToken = uuidv4().replace(/-/g, "").slice(0, 12);
     setPostToken(newToken);
   };
 
-  const getPostDetil = async () => {
+  const getDealerDetail = async () => {
     try {
-      const response = await axios.get(`${BASE_URL}/newcarpostdetails`, {
+      const response = await axios.get(`${BASE_URL}/dealerdetails`, {
         params: {
-          newcarpost_id: id,
+          showroom_id: id,
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
         },
       });
-      setMakeName(response?.data?.data?.make);
-      setDescription(response?.data?.data?.newcarpost_overview);
-
-      setUpdateToken(response?.data?.data?.newcarpost_token);
-      setDimensionsObj(JSON.parse(response?.data?.data?.newcarpost_dimensions));
-      setEngineMotor(JSON.parse(response?.data?.data?.newcarpost_enginemotor));
-      setTransmissionObj(
-        JSON.parse(response?.data?.data?.newcarpost_transmission)
-      );
-      setSteering(JSON.parse(response?.data?.data?.newcarpost_steering));
-      setsuspension(
-        JSON.parse(response?.data?.data?.newcarpost_suspensionbrakes)
-      );
-      setWheelTyre(JSON.parse(response?.data?.data?.newcarpost_wheeltyres));
-      setFuelEconomy(JSON.parse(response?.data?.data?.newcarpost_fueleconomy));
-      setSafety(JSON.parse(response?.data?.data?.newcarpost_safety));
-      setExterior(JSON.parse(response?.data?.data?.newcarpost_exterior));
-      setInstrument(
-        JSON.parse(response?.data?.data?.newcarpost_instrumentation)
-      );
-      setInfo(JSON.parse(response?.data?.data?.newcarpost_Infotainment));
-      setComfort(
-        JSON.parse(response?.data?.data?.newcarpost_comfortconvenience)
-      );
-
-      setModelName(response?.data?.data?.model_id);
-      setYearName(response?.data?.data?.year_id);
-      return response?.data?.data;
+      setImagesPath(response?.data?.imagepath)
+      return response?.data?.details;
     } catch (error) {
       console.log(error);
     }
   };
 
   const {
-    data: carData,
+    data: dealerData,
     error: carError,
     isLoading: carLoading,
-  } = useQuery(`getCarData${id}`, getPostDetil, {
+  } = useQuery(`getDealerData${id}`, getDealerDetail, {
     enabled: !!id, // Set enabled to false initially
   });
 
-  const getPostImages = async () => {
-    try {
-      const response = await axios.get(`${BASE_URL}/postimages`, {
-        params: {
-          post_id: updateToken || postToken,
-        },
-      });
+  // const getPostImages = async () => {
+  //   try {
+  //     const response = await axios.get(`${BASE_URL}/postimages`, {
+  //       params: {
+  //         post_id: updateToken || postToken,
+  //       },
+  //     });
 
-      setUploadedImages(response?.data?.images);
-      setMoreImages(response?.data?.images);
-      setImagesPath(response?.data?.imagepath);
+  //     setUploadedImages(response?.data?.images);
+  //     // setMoreImages(response?.data?.images);
+  //     setImagesPath(response?.data?.imagepath);
 
-      return response?.data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  //     return response?.data;
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  const {
-    data: newImages,
-    error: imgError,
-    isLoading: imgLoading,
-  } = useQuery(`getCarImgs_${getUpdate}`, getPostImages, {
-    enabled: !!updateToken,
-  });
+  // const {
+  //   data: newImages,
+  //   error: imgError,
+  //   isLoading: imgLoading,
+  // } = useQuery(`getCarImgs_${getUpdate}`, getPostImages, {
+  //   enabled: !!updateToken,
+  // });
 
   const extractTokenFromUrl = (url: string, paramName: string) => {
     const urlSearchParams = new URLSearchParams(url);
@@ -314,12 +270,17 @@ const AddDealerForm = () => {
     }
   }, []);
 
-
-
-  // useEffect(() => {
-  
-  // }, [carData]);
-
+  useEffect(() => {
+    setName(dealerData?.name);
+    setEmail(dealerData?.email);
+    setPhone(dealerData?.phone);
+    setCity(dealerData?.city_id);
+    setShowRoomName(dealerData?.showroom_name);
+    setShowRoomPhone(parseInt(dealerData?.showroom_no));
+    setCoverImage(dealerData?.showroom_cover)
+    setAddress(dealerData?.showroom_address);
+    setLogo(dealerData?.showroom_logo);
+  }, [dealerData]);
 
   const updateFiles = async (incomingFiles: any) => {
     setFiles(incomingFiles);
@@ -431,38 +392,43 @@ const AddDealerForm = () => {
 
     reader.onload = () => {
       const imageSrc = reader.result;
-      setPrevImg(imageSrc);
+      setPrevLogo(imageSrc);
     };
     reader.readAsDataURL(file);
   };
-
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const formData = new FormData();
 
     // if (files.length !== 0 || uploadedImages.length !== 0) {
-      // prevImg.forEach((file) => {
-      //   formData.append("imageFiles", file);
-      // });
-
+    // prevImg.forEach((file) => {
+    //   formData.append("imageFiles", file);
+    // });
+    if (!id) {
       formData.append("email", email);
-      formData.append("user_name", name);
       formData.append("phone", phone);
-      formData.append("showroom_name", showRoomName);
-      formData.append("showroom_no", showRoomPhone);
-      formData.append("showroom_address", address);
-      formData.append("city_id", city);
-      formData.append("showroom_cover", coverImage);
-      formData.append("showroom_logo", logo);
-      formData.append("user_id", user?.id);
+    }
 
-     
+
+if (id) {
+  formData.append("showroom_id", id);
+}
+
+    formData.append("user_name", name);
+    formData.append("showroom_name", showRoomName);
+    formData.append("showroom_no", showRoomPhone);
+    formData.append("showroom_address", address);
+    formData.append("city_id", city);
+    formData.append("showroom_cover", coverImage);
+    formData.append("showroom_logo", logo);
+    formData.append("user_id", user?.id);
+
     //   formData.append(
     //     `newcarpost_token`,
     //     updateToken ? updateToken : postToken
     //   );
-  
+
     //   if (uploadedImages.length !== 0) {
     //     moreImages.forEach((image: any) => {
     //       formData.append(`imageFiles[]`, image.filename);
@@ -475,30 +441,29 @@ const AddDealerForm = () => {
     //     });
     //   }
 
-      setSubmitting(true);
-      try {
-        const response = await axios.post(
-          `${BASE_URL}/${
-            // updateToken ? "savenewcarpostupdate" : "savenewcarpost"
-            "adddealer"
-          }`,
-          formData,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "multipart/form-data",
-            },
-          }
-        );
+    setSubmitting(true);
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/${
+          id ? "updatedealer" : "adddealer"
+          // "adddealer"
+        }`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-        toast.success(response?.data?.success);
-        // router.push(`/${i18LangStatus}/new_car/carpostlist`);
-
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setSubmitting(false);
-      }
+      toast.success(response?.data?.success);
+      // router.push(`/${i18LangStatus}/new_car/carpostlist`);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setSubmitting(false);
+    }
     // } else {
     //   toast.error("Images Required");
     // }
@@ -513,6 +478,9 @@ const AddDealerForm = () => {
   const logoToggle = () => {
     return setLgoModal(!logoModal);
   };
+
+
+console.log(imagesPath)
 
   return (
     <>
@@ -554,7 +522,6 @@ const AddDealerForm = () => {
                         {...file}
                         onDelete={() => removeFile(file, ind)}
                         preview
-                        
                       />
                     );
                   })}
@@ -598,15 +565,16 @@ const AddDealerForm = () => {
             size="md"
           >
             <div className="modal-toggle-wrapper">
-              {updateToken ? (
+              {id && !prevImg ? (
+                // {imagepath}/${dealerData?.user_id}/${dealerData?.showroom_cover}
                 <img
-                  src={`${BASE_URL}/public/posts/${updateToken}/${carData?.newcarpost_cover}`}
-                  alt="cover-image"
+                  src={`${imagesPath}/${dealerData?.user_id}/${coverImage}`}
+                  alt={coverImage}
                   className="img-fluid"
                 />
-              ) : (
+              ) : prevImg ? (
                 <img src={prevImg} alt="cover-image" className="img-fluid" />
-              )}
+              ):null}
 
               <Button
                 type="button"
@@ -622,25 +590,26 @@ const AddDealerForm = () => {
           <CommonModal
             centered
             isOpen={logoModal}
-            toggle={centeredToggle}
+            toggle={logoToggle}
             size="md"
           >
             <div className="modal-toggle-wrapper">
-              {updateToken ? (
+              {id && !prevLogo ? (
+                // {imagepath}/${dealerData?.user_id}/${dealerData?.showroom_cover}
                 <img
-                  src={`${BASE_URL}/public/posts/${updateToken}/${carData?.newcarpost_cover}`}
-                  alt="cover-image"
+                  src={`${imagesPath}/${dealerData?.user_id}/${logo}`}
+                  alt={logo}
                   className="img-fluid"
                 />
-              ) : (
-                <img src={prevImg} alt="Logo" className="img-fluid" />
-              )}
+              ) : prevLogo ? (
+                <img src={prevLogo} alt="cover-image" className="img-fluid" />
+              ):null}
 
               <Button
                 type="button"
                 color="secondary"
                 className="d-flex m-auto"
-                onClick={centeredToggle}
+                onClick={logoToggle}
               >
                 Close
               </Button>
@@ -672,6 +641,7 @@ const AddDealerForm = () => {
                   type="email"
                   className="form-control"
                   placeholder="Dealer Email"
+                  readOnly={id ? true : false}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -687,6 +657,7 @@ const AddDealerForm = () => {
                   type="number"
                   className="form-control"
                   placeholder="e.g.  0300123456"
+                  readOnly={id ? true : false}
                   value={phone}
                   onChange={(e: any) => setPhone(e.target.value)}
                 />
@@ -763,6 +734,15 @@ const AddDealerForm = () => {
                     onChange={coverChange}
                     placeholder="Cover Image"
                   />
+                {coverImage && (
+                    <p
+                      className="py-1 px-3 bg-primary rounded"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setCentered(true)}
+                    >
+                      <i className="icofont icofont-eye-alt"></i>
+                    </p>
+                  )}
                 </div>
               </FormGroup>
             </Col>
@@ -779,6 +759,15 @@ const AddDealerForm = () => {
                     onChange={logoChange}
                     placeholder="Cover Image"
                   />
+                  {logo && (
+                    <p
+                      className="py-1 px-3 bg-primary rounded"
+                      style={{ cursor: "pointer" }}
+                      onClick={() => setLgoModal(true)}
+                    >
+                      <i className="icofont icofont-eye-alt"></i>
+                    </p>
+                  )}
                 </div>
               </FormGroup>
             </Col>

@@ -42,7 +42,7 @@ const DealersList = () => {
   const handleEdit = (id: number) => {
     setPostId(id);
     // return setDetailModal(!detailModal);
-    router.push(`/${i18LangStatus}/new_car/carpost?id=${id}`);
+    router.push(`/${i18LangStatus}/dealer/add_dealer?id=${id}`);
   };
 
   const closeDetailModal = () => {
@@ -146,7 +146,7 @@ const DealersList = () => {
             <li className="edit">
               <button
                 className="p-0 border-0 bg-transparent"
-                // onClick={() => handleEdit(row?.showroom_id)}
+                onClick={() => handleEdit(row?.showroom_id)}
               >
                 <i className="icon-pencil" />
               </button>
