@@ -187,6 +187,10 @@ export interface Posts {
   makeName: string;
   modelName: string;
   yearName: number;
+  phone: string;
+  user_name: string;
+  user_email: string;
+  user_address: string;
 }
 
 export interface Inspection {
@@ -216,11 +220,11 @@ export interface NewCarList {
 export interface ShowroomList {
   showroom_id: number;
   showroom_name: string;
-  showroom_no:string;
-  showroom_address:string;
-  showroom_logo:string;
-  showroom_cover:string;
-  user_id:number
+  showroom_no: string;
+  showroom_address: string;
+  showroom_logo: string;
+  showroom_cover: string;
+  user_id: number;
 }
 export interface Payment {
   order_id: number;

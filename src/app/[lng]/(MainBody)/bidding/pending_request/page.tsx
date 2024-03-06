@@ -139,6 +139,18 @@ const PendingRequests = () => {
       name: "City Name",
       selector: (row) => row.cityName,
     },
+    {
+      name: "User Name",
+      selector: (row) => row.user_name,
+    },
+    {
+      name: "User Phone",
+      selector: (row) => row.phone,
+    },
+    {
+      name: "User Phone",
+      selector: (row) => row.user_address,
+    },
 
     {
       name: "Action",

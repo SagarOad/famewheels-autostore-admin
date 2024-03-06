@@ -125,7 +125,18 @@ const NotEligibleRequests = () => {
       selector: (row) => row.cityName,
       sortable: true,
     },
-
+    {
+      name: "User Name",
+      selector: (row) => row.user_name,
+    },
+    {
+      name: "User Phone",
+      selector: (row) => row.phone,
+    },
+    {
+      name: "User Phone",
+      selector: (row) => row.user_address,
+    },
     {
       name: "Action",
       // cell: (row) => <ActionDataSourcePosts id={row.postId} />,
