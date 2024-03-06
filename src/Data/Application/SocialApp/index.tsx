@@ -5,18 +5,18 @@ export const SocialNavData = [
     id: 1,
     tittle: "Timeline",
   },
-  {
-    id: 2,
-    tittle: "About",
-  },
+  // {
+  //   id: 2,
+  //   tittle: "About",
+  // },
   {
     id: 5,
     userProfile: true,
   },
-  {
-    id: 3,
-    tittle: "Friends",
-  },
+  // {
+  //   id: 3,
+  //   tittle: "Friends",
+  // },
   {
     id: 4,
     tittle: "Photos",

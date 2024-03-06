@@ -21,7 +21,7 @@ const NavBarMain :React.FC<SocialAppCallBackType> = ({ callback,dealerData }) =>
             <NavItem>
               <div className="user-designation" />
               <div className="title">
-                <a href={`/${i18LangStatus}/app/social_app`}>{dealerData?.name}</a>
+                <h4 className="text-capitalize">{dealerData?.name}</h4>
               </div>
               <div className="desc mt-2">{dealerData?.showroom_name}</div>
             </NavItem>

@@ -1,5 +1,5 @@
 import { Row, TabContent, TabPane } from "reactstrap";
-import AboutTab from "./AboutTab";
+// import AboutTab from "./AboutTab";
 import TimelineTab from "./TimeLineTab";
 import AllCards from "./AllCards";
 import PhotosTab from "./PhotosTab";
@@ -11,14 +11,14 @@ const SocialAppTabContent :React.FC<SocialAppTabContentProp> = ({ activeTab,deal
       <TabPane tabId={1}>
         <TimelineTab dealer={dealer}/>
       </TabPane>
-      <TabPane tabId={2}>
+      {/* <TabPane tabId={2}>
         <AboutTab />
       </TabPane>
       <TabPane tabId={3}>
         <Row>
           <AllCards />
         </Row>
-      </TabPane>
+      </TabPane> */}
       <TabPane tabId={4}>
         <Row>
           <PhotosTab />
