@@ -64,6 +64,10 @@ const InspectionList = () => {
     centeredToggle(postId);
   };
 
+  const handleReport = () =>{
+    window.open(`https://inspection.famewheels.com/inspection-report?93759f4414de88`)
+  }
+
   const fetchData = async () => {
     try {
       const token = localStorage.getItem("authToken");
@@ -157,16 +161,14 @@ const InspectionList = () => {
                 <i className="icofont icofont-close"></i>
               </button>
             </li> */}
-            {/* <li className="view">
+            <li className="view">
               <button
                 className="p-0 border-0 bg-transparent"
-                onClick={() => {
-                  centeredToggle(row?.inspection_id);
-                }}
+                onClick={handleReport}
               >
                 <i className="icon-eye link-primary" />
               </button>
-            </li> */}
+            </li>
           </ul>
         );
       },
