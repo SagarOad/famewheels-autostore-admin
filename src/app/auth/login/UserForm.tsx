@@ -43,13 +43,11 @@ export const UserForm = () => {
       localStorage.setItem("authToken", response?.data?.token);
       Cookies.set("mofi_token", JSON.stringify(true));
       Cookies.set("role_name", JSON.stringify("Admin"));
-      router.push(`/en/dashboard/default_dashboard`);
 
       if (response?.data?.token) {
         toast.success("Successfully Loggedin");
       }
-
-      router.push("/");
+      window.location.reload();
     } catch (error: any) {
       alert("Please Enter Valid Email Or Password");
       console.error("Login failed", error);
