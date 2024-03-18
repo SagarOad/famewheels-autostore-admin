@@ -26,7 +26,8 @@ export const Profile = () => {
         <div className="flex-grow-1">
           <span>{user?.name}</span>
           <p className="mb-0 font-outfit">
-            UI Designer<i className="fa fa-angle-down"></i>
+            {user?.role_name}
+            <i className="fa fa-angle-down"></i>
           </p>
         </div>
       </div>
