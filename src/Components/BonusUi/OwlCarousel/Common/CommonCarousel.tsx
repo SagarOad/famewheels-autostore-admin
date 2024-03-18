@@ -9,6 +9,8 @@ import {
   CarouselItem,
 } from "reactstrap";
 
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
+
 const CommonCarousel: React.FC<CommonCarouselProp> = ({
   dark,
   control,
@@ -51,7 +53,7 @@ const CommonCarousel: React.FC<CommonCarouselProp> = ({
       >
         <img
           style={{ height: "350px" }}
-          src={`https://onlinepayment.famewheels.com/public/posts/${token}/${image?.filename}`}
+          src={`${BASE_URL}/public/posts/${token}/${image?.filename}`}
           alt="drawing-room"
           className="d-block w-100 img-responsive img-fluid object-fit-contain p-0"
         />

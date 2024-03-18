@@ -44,7 +44,7 @@ const NewCarDetials = ({ id }: { id: number }) => {
         <Col lg="6">
           <img
             style={{ height: "200px" }}
-            src={`https://onlinepayment.famewheels.com/public/posts/${post?.newcarpost_token}/${post?.newcarpost_cover}`}
+            src={`${BASE_URL}/public/posts/${post?.newcarpost_token}/${post?.newcarpost_cover}`}
             alt="drawing-room"
             className="d-block w-100 img-responsive img-fluid object-fit-contain p-0"
           />
