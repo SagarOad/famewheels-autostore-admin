@@ -180,8 +180,6 @@ const AddDealerForm = () => {
 
   const [coverImage, setCoverImage] = useState("");
 
-
-  
   const [prevImg, setPrevImg] = useState<any>("");
   const [prevLogo, setPrevLogo] = useState<any>("");
   const [imageApi, setImageApi] = useState(true);
@@ -214,7 +212,7 @@ const AddDealerForm = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setImagesPath(response?.data?.imagepath)
+      setImagesPath(response?.data?.imagepath);
       return response?.data?.details;
     } catch (error) {
       console.log(error);
@@ -277,7 +275,7 @@ const AddDealerForm = () => {
     setCity(dealerData?.city_id);
     setShowRoomName(dealerData?.showroom_name);
     setShowRoomPhone(parseInt(dealerData?.showroom_no));
-    setCoverImage(dealerData?.showroom_cover)
+    setCoverImage(dealerData?.showroom_cover);
     setAddress(dealerData?.showroom_address);
     setLogo(dealerData?.showroom_logo);
   }, [dealerData]);
@@ -410,10 +408,9 @@ const AddDealerForm = () => {
       formData.append("phone", phone);
     }
 
-
-if (id) {
-  formData.append("showroom_id", id);
-}
+    if (id) {
+      formData.append("showroom_id", id);
+    }
 
     formData.append("user_name", name);
     formData.append("showroom_name", showRoomName);
@@ -478,9 +475,6 @@ if (id) {
   const logoToggle = () => {
     return setLgoModal(!logoModal);
   };
-
-
-console.log(imagesPath)
 
   return (
     <>
@@ -574,7 +568,7 @@ console.log(imagesPath)
                 />
               ) : prevImg ? (
                 <img src={prevImg} alt="cover-image" className="img-fluid" />
-              ):null}
+              ) : null}
 
               <Button
                 type="button"
@@ -603,7 +597,7 @@ console.log(imagesPath)
                 />
               ) : prevLogo ? (
                 <img src={prevLogo} alt="cover-image" className="img-fluid" />
-              ):null}
+              ) : null}
 
               <Button
                 type="button"
@@ -734,7 +728,7 @@ console.log(imagesPath)
                     onChange={coverChange}
                     placeholder="Cover Image"
                   />
-                {coverImage && (
+                  {coverImage && (
                     <p
                       className="py-1 px-3 bg-primary rounded"
                       style={{ cursor: "pointer" }}

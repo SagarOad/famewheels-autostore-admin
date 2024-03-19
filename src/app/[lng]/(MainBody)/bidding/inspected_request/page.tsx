@@ -176,7 +176,6 @@ const InspectedRequests = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
@@ -195,7 +194,6 @@ const InspectedRequests = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
@@ -214,7 +212,6 @@ const InspectedRequests = () => {
       });
       toast.success(response?.data?.message || "Rejected Succeffully");
       setGetUpdate(true);
-      console.log("approve response =======", response?.data);
     } catch (error) {
       console.log(error);
     }
