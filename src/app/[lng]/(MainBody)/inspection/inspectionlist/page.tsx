@@ -46,8 +46,7 @@ const InspectionList = () => {
   const [postId, setPostId] = useState<any>(null);
   const [centred, setCentered] = useState(false);
 
-
-  const [paymentMethod ,setPaymentMethod] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
   const [securityDeposit, setSecurityDeposit] = useState();
   const [inspectionId, setInspectionId] = useState<any>();
   const [paymentToken, setPaymentToken] = useState();
@@ -56,7 +55,7 @@ const InspectionList = () => {
   const toggle2 = () => settooltip2(!tooltip2);
 
   const centeredToggle = (id: number) => {
-    setInspectionId(id)
+    setInspectionId(id);
     return setCentered(!centred);
   };
 
@@ -64,9 +63,11 @@ const InspectionList = () => {
     centeredToggle(postId);
   };
 
-  const handleReport = () =>{
-    window.open(`https://inspection.famewheels.com/inspection-report?93759f4414de88`)
-  }
+  const handleReport = () => {
+    // window.open(
+    //   `https://inspection.famewheels.com/inspection-report?93759f4414de88`
+    // );
+  };
 
   const fetchData = async () => {
     try {
@@ -142,8 +143,11 @@ const InspectionList = () => {
           >
             {row?.inspectionstatus_id === 1 && (
               <li className="edit">
-                <button className="p-0 border-0 bg-transparent" id="Tooltip-2" onClick={()=>centeredToggle(row?.inspection_id)
-                }>
+                <button
+                  className="p-0 border-0 bg-transparent"
+                  id="Tooltip-2"
+                  onClick={() => centeredToggle(row?.inspection_id)}
+                >
                   <i className="icofont icofont-law-document fs-4"></i>
                 </button>
                 <Tooltip
@@ -221,37 +225,31 @@ const InspectionList = () => {
     );
   }, [filterText, status]);
 
+  const paymentMethodArr = ["JazzCash", "Payfast"];
 
-const paymentMethodArr = [
-"JazzCash",
-"Payfast"
-]
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await axios.get(
+        `${BASE_URL}/statuswiseinspectionlistupdate`,
+        {
+          params: {
+            payment_method: paymentMethod,
+            security_deposit: securityDeposit,
+            payment_token: paymentToken,
+            inspection_id: inspectionId,
+            payment_status: 1,
+          },
+        }
+      );
 
-
-
-const handleSubmit = async (e:FormEvent)=>{
-  e.preventDefault()
-  try {
-    const response = await axios.get(`${BASE_URL}/statuswiseinspectionlistupdate`,{
-      params:{
-        payment_method:paymentMethod,
-        security_deposit:securityDeposit,
-        payment_token:paymentToken,
-        inspection_id:inspectionId,
-        payment_status:1
-      }
-    })
-
-toast.success(response?.data?.message)
-setCentered(false)
-setUpdate(true)
-    console.log(response?.data)
-  } catch (error) {
-    console.log(error)
-  }
-}
-
-
+      toast.success(response?.data?.message);
+      setCentered(false);
+      setUpdate(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Col sm="12">
@@ -286,104 +284,89 @@ setUpdate(true)
 
       <CommonModal centered isOpen={centred} toggle={closeToggle} size="xl">
         <div className="modal-toggle-wrapper">
+          <h4 className="my-3 faq-title">Payment Info</h4>
 
-<h4 className="my-3 faq-title">Payment Info</h4>
-
-<form onSubmit={handleSubmit}>
-
-
-        <Row>
-           <Col lg="6" md="6">
-              <FormGroup>
-                <Label>Payment Method</Label>
-                <Input
-                  required
-                  name="bodyType"
-                  type="select"
-                  placeholder={"Payment Method"}
-                  className="form-control form-select"
-                  value={paymentMethod}
-                  onChange={(e: any) => setPaymentMethod(e.target.value)}
-                >
-                  <option value="" disabled>
-                    Select Dealer City
-                  </option>
-                  {paymentMethodArr?.map((method: any,index) => (
-                    <option key={index} value={method}>
-                      {method}
+          <form onSubmit={handleSubmit}>
+            <Row>
+              <Col lg="6" md="6">
+                <FormGroup>
+                  <Label>Payment Method</Label>
+                  <Input
+                    required
+                    name="bodyType"
+                    type="select"
+                    placeholder={"Payment Method"}
+                    className="form-control form-select"
+                    value={paymentMethod}
+                    onChange={(e: any) => setPaymentMethod(e.target.value)}
+                  >
+                    <option value="" disabled>
+                      Select Dealer City
                     </option>
-                  ))}
-                </Input>
-              </FormGroup>
-            </Col>
+                    {paymentMethodArr?.map((method: any, index) => (
+                      <option key={index} value={method}>
+                        {method}
+                      </option>
+                    ))}
+                  </Input>
+                </FormGroup>
+              </Col>
 
-            <Col lg="6" md="6">
-              <FormGroup>
-                <Label check>Security Deposit</Label>
-                <Input
-                  required
-                  name="color"
-                  type="number"
-                  className="form-control"
-                  placeholder="Enter Security Deposit"
-                  value={securityDeposit}
-                  onChange={(e: any) => setSecurityDeposit(e.target.value)}
-                />
-              </FormGroup>
-            </Col>
+              <Col lg="6" md="6">
+                <FormGroup>
+                  <Label check>Security Deposit</Label>
+                  <Input
+                    required
+                    name="color"
+                    type="number"
+                    className="form-control"
+                    placeholder="Enter Security Deposit"
+                    value={securityDeposit}
+                    onChange={(e: any) => setSecurityDeposit(e.target.value)}
+                  />
+                </FormGroup>
+              </Col>
 
-            <Col lg="6" md="6">
-              <FormGroup>
-                <Label check>Transaction Id</Label>
-                <Input
-                  required
-                  name="color"
-                  type="text"
-                  className="form-control"
-                  placeholder="Enter Transaction Id"
-                  value={paymentToken}
-                  onChange={(e: any) => setPaymentToken(e.target.value)}
-                />
-              </FormGroup>
-            </Col>
+              <Col lg="6" md="6">
+                <FormGroup>
+                  <Label check>Transaction Id</Label>
+                  <Input
+                    required
+                    name="color"
+                    type="text"
+                    className="form-control"
+                    placeholder="Enter Transaction Id"
+                    value={paymentToken}
+                    onChange={(e: any) => setPaymentToken(e.target.value)}
+                  />
+                </FormGroup>
+              </Col>
 
+              <Col lg="6" md="6">
+                <FormGroup>
+                  <Label check>Inspection Token</Label>
+                  <Input
+                    required
+                    name="color"
+                    type="number"
+                    className="form-control"
+                    placeholder="Enter Inspection Token"
+                    value={inspectionId}
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
 
-            <Col lg="6" md="6">
-              <FormGroup>
-                <Label check>Inspection Token</Label>
-                <Input
-                  required
-                  name="color"
-                  type="number"
-                  className="form-control"
-                  placeholder="Enter Inspection Token"
-                  value={inspectionId}
-                />
-              </FormGroup>
-            </Col>
+            <div className="d-flex justify-content-end align-items-center gap-3">
+              <Button color="primary" type="submit">
+                Submit
+              </Button>
 
-
-           
-
-        
-          </Row>
-
-          <div className="d-flex justify-content-end align-items-center gap-3">
-<Button color="primary" type="submit">Submit</Button>
-
-<Button
-            color="secondary"
-            type="button"
-            onClick={closeToggle}
-          >
-            {Close}
-          </Button>
-</div>
-
-
-</form>
-
-          
+              <Button color="secondary" type="button" onClick={closeToggle}>
+                {Close}
+              </Button>
+            </div>
+          </form>
         </div>
       </CommonModal>
     </Col>
