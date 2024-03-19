@@ -23,10 +23,10 @@ export const HeaderRight = () => {
         <SearchBox />
         <HeaderSearch />
         <MaximizeScreen />
-        <Notification />
+        {/* <Notification /> */}
         {/* <BookMark /> */}
         <DarkMode />
-        <MessageBox />
+        {/* <MessageBox /> */}
         {/* <CartData /> */}
         {/* <Languages/> */}
         <Profile />
