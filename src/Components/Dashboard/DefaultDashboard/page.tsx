@@ -45,9 +45,10 @@ const DefaultDashboardContainer = () => {
           <ShiftsOverview />
         </Row>
       </Container>
-      <Container fluid className="default-dashboard">
-        <Row className="widget-grid">
-          <SalesStatistic />
+      <Container fluid className="dashboard-4">
+        <Row>
+          <TotalStudents />
+          <StudyStatistics />
         </Row>
       </Container>
       <Container fluid className="default-dashboard">
@@ -55,11 +56,9 @@ const DefaultDashboardContainer = () => {
           <TotalSells />
         </Row>
       </Container>
-
-      <Container fluid className="dashboard-4">
-        <Row>
-          <TotalStudents />
-          <StudyStatistics />
+      <Container fluid className="default-dashboard">
+        <Row className="widget-grid">
+          <SalesStatistic />
         </Row>
       </Container>
 
