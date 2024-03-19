@@ -19,8 +19,8 @@ const UserInfo = () => {
               Welcome to the FameWheels family! We are delighted that you have
               visited our dashboard.
             </p>
-            <Link className="btn" href={`/dashboard/default_dashboard`}>
-              {GoPremium}
+            <Link className="btn" href={`https://www.famewheels.com/`}>
+              Go to website
             </Link>
           </div>
         </CardBody>
