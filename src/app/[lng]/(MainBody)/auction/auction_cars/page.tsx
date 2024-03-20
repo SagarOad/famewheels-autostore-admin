@@ -27,20 +27,21 @@ import { BasicTooltips, MagicPleaseHoverMe } from "@/Constant";
 import { BasicTooltipData } from "@/Data/Uikits/tooltip";
 import { useAppSelector } from "@/Redux/Hooks";
 import Link from "next/link";
+import SALERECEIPT from "../../sale_invoice/page";
+import SaleInvoice from "@/Components/Invoice/sale_invoice";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const AuctionCarsList = () => {
-
   const { i18LangStatus } = useAppSelector((state) => state.langSlice);
-
 
   const [filterText, setFilterText] = useState("");
   const [page, setPage] = useState(1);
   const [rowsPerPage, setRowsPerPage] = useState(30);
   const [total, setTotal] = useState(0);
-  const [postId, setPostId] = useState<any>(null);
+  const [post, setPost] = useState<any>(null);
   const [centred, setCentered] = useState(false);
+  const [detailModal, setDetailModal] = useState(false);
 
   const [tooltip1, settooltip1] = useState(false);
   const toggle = () => settooltip1(!tooltip1);
@@ -48,23 +49,11 @@ const AuctionCarsList = () => {
   const [tooltip2, settooltip2] = useState(false);
   const toggle2 = () => settooltip2(!tooltip2);
 
-
   const [tooltip3, settooltip3] = useState(false);
   const toggle3 = () => settooltip3(!tooltip3);
 
-  
   const [tooltip4, settooltip4] = useState(false);
   const toggle4 = () => settooltip3(!tooltip4);
-
-
-  const centeredToggle = (id: number) => {
-    setPostId(id);
-    return setCentered(!centred);
-  };
-
-  const closeToggle = () => {
-    centeredToggle(postId);
-  };
 
   const fetchData = async () => {
     try {
@@ -169,57 +158,81 @@ const AuctionCarsList = () => {
             className="action simple-list d-flex flex-row gap-2"
             key={row?.postId}
           >
-            <Link href={`/${i18LangStatus}/sale_invoice`} className="edit">
-              <button className="p-0 border-0 bg-transparent" id={`Tooltip-1`}>
+            <button
+              className="p-0 border-0 bg-transparent edit"
+              id={`Tooltip-1`}
+              onClick={() => {
+                detailsToggle(row);
+              }}
+            >
               <i className="icofont icofont-sale-discount fs-4"></i>
-              </button>
-                <Tooltip target={`Tooltip-1`} placement="top" isOpen={tooltip1} toggle={toggle}>
-            Sale Receipt
-          </Tooltip>
-            </Link>
-            <Link href={`/${i18LangStatus}/car_sale_agreement`} className="delete">
+            </button>
+            <Tooltip
+              target={`Tooltip-1`}
+              placement="top"
+              isOpen={tooltip1}
+              toggle={toggle}
+            >
+              Sale Receipt
+            </Tooltip>
+            <Link
+              href={`/${i18LangStatus}/car_sale_agreement`}
+              className="delete"
+            >
               <button className="p-0 border-0 bg-transparent" id="Tooltip-2">
-              <i className="icofont icofont-law-document fs-4"></i>
+                <i className="icofont icofont-law-document fs-4"></i>
               </button>
-              <Tooltip target={"Tooltip-2"} placement="top" isOpen={tooltip2} toggle={toggle2}>
-            Sale Agreement
-          </Tooltip>
+              <Tooltip
+                target={"Tooltip-2"}
+                placement="top"
+                isOpen={tooltip2}
+                toggle={toggle2}
+              >
+                Sale Agreement
+              </Tooltip>
             </Link>
             <Link href={`/${i18LangStatus}/delivery_receipt`} className="view">
-              <button
-              id="Tooltip-3"
-                className="p-0 border-0 bg-transparent"
-              >
+              <button id="Tooltip-3" className="p-0 border-0 bg-transparent">
                 <i className="icofont icofont-delivery-time link-primary fs-4 "></i>
               </button>
-              <Tooltip target={"Tooltip-3"} placement="top" isOpen={tooltip3} toggle={toggle3}>
-            Delivery Receipt
-          </Tooltip>
+              <Tooltip
+                target={"Tooltip-3"}
+                placement="top"
+                isOpen={tooltip3}
+                toggle={toggle3}
+              >
+                Delivery Receipt
+              </Tooltip>
             </Link>
 
-
-
-
             <li>
-              <button
-              id="Tooltip-4"
-                className="p-0 border-0 bg-transparent"
-              >
+              <button id="Tooltip-4" className="p-0 border-0 bg-transparent">
                 <i className="icon-eye  fs-5 "></i>
               </button>
-              <Tooltip target={"Tooltip-4"} placement="top" isOpen={tooltip4} toggle={toggle4}>
-            Details
-          </Tooltip>
+              <Tooltip
+                target={"Tooltip-4"}
+                placement="top"
+                isOpen={tooltip4}
+                toggle={toggle4}
+              >
+                Details
+              </Tooltip>
             </li>
-
-
-
           </ul>
         );
       },
       sortable: true,
     },
   ];
+
+  const detailsToggle = (row: any) => {
+    setPost(row);
+    return setDetailModal(!detailModal);
+  };
+
+  const closeDetailModal = () => {
+    detailsToggle(post); // Call forwardToggle with the necessary argument (postId)
+  };
 
   return (
     <Col sm="12">
@@ -248,6 +261,23 @@ const AuctionCarsList = () => {
         )}
       </Card>
 
+      <CommonModal
+        centered
+        isOpen={detailModal}
+        toggle={closeDetailModal}
+        size="xl"
+      >
+        <div className="modal-toggle-wrapper">
+          <SaleInvoice data={post} />
+          <Button
+            color="secondary"
+            className="d-flex m-auto"
+            onClick={closeDetailModal}
+          >
+            {Close}
+          </Button>
+        </div>
+      </CommonModal>
     </Col>
   );
 };
