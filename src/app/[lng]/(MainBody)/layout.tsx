@@ -13,7 +13,11 @@ import { useEffect } from "react";
 import { setToggleSidebar } from "@/Redux/Reducers/LayoutSlice";
 import { setLayout } from "@/Redux/Reducers/ThemeCustomizerSlice";
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { layout } = useAppSelector((state) => state.themeCustomizer);
   const dispatch = useAppDispatch();
 
@@ -53,7 +57,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
         </div>
       </div>
-      <ThemeCustomizer />
+      {/* <ThemeCustomizer /> */}
       <ToastContainer />
       <TapTop />
     </Provider>
