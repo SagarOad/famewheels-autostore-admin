@@ -189,7 +189,6 @@ const PendingRequests = () => {
                 onClick={() => handleNormal(row?.postId)}
               >
                 <i className="icofont icofont-magic txt-primary"></i>
-                {/* normal */}
               </button>
             </li>
 
