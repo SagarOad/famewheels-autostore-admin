@@ -130,19 +130,25 @@ export const MenuList: MenuItem[] | undefined = [
         active: false,
         children: [
           {
-            path: "/cartransfer/car_transferlist",
+            path: "/car-management/car_insurance",
+            title: "Car Insurance",
+            type: "link",
+            role: [Admin],
+          },
+          {
+            path: "/car-management/car_transferlist",
             title: "Car Transfer",
             type: "link",
             role: [Admin],
           },
           {
-            path: "/cartransfer/car_import",
+            path: "/car-management/car_import",
             title: "Car Import",
             type: "link",
             role: [Admin],
           },
           {
-            path: "/cartransfer/car_registration",
+            path: "/car-management/car_registration",
             title: "Car Registration",
             type: "link",
             role: [Admin],
