@@ -5,11 +5,11 @@ import ReactApexChart from "react-apexcharts";
 import DashboardCommonHeader from "../common/DashboardCommonHeader";
 import { StudyStatisticChart } from "@/Data/General/Dashboard/Education";
 
-const StudyStatistics = () => {
+const FeaturedAdsStatistics = () => {
   return (
     <Col xl="6" md="6" className="proorder-md-2">
       <Card>
-        <DashboardCommonHeader title={"Free Ad Statistics"} />
+        <DashboardCommonHeader title={"Featured Ad Statistics"} />
         <CardBody>
           <div className="studay-statistics">
             <ul className="d-flex align-item-center gap-2 simple-list flex-row">
@@ -28,4 +28,4 @@ const StudyStatistics = () => {
   );
 };
 
-export default StudyStatistics;
+export default FeaturedAdsStatistics;

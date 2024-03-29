@@ -24,10 +24,52 @@ import TotalProject from "../Project/TotalProject";
 import ProjectsOverview from "../Project/ProjectsOverview";
 import ClientActivity from "../Project/ClientActivity";
 import WebsiteDesign from "../Project/WebsiteDesign";
+import { useQuery } from "react-query";
+import axios from "axios";
+import Loading from "@/app/loading";
+import TotalFeaturedAds from "../Education/TotalFeaturedAds";
+import FeaturedAdsStatistics from "../Education/FeaturedAdsStatistics";
+
+const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const DefaultDashboardContainer = () => {
+  const token = localStorage.getItem("authToken");
+
+const adminDahsboardCounts = async ()=>{
+
+  try {
+    const response = await axios.get(`${BASE_URL}/admindashboardcounts`,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
+
+    return response.data
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+  const {
+    data: dashboardCounts,
+    error,
+    isLoading,
+  } = useQuery(
+    `dashboard_counts`,
+    adminDahsboardCounts
+  );
+
+
+  console.log("dashboardCounts ====== " , dashboardCounts)
+
   return (
     <>
+
+{
+  isLoading ? 
+  <Loading/>
+  : <>
+  
       <Container fluid className="default-dashboard">
         <Card className="profile-greeting p-2">
           <Row className="widget-grid">
@@ -41,19 +83,28 @@ const DefaultDashboardContainer = () => {
       <Container fluid className="default-dashboard">
         <Row className="widget-grid">
           <UserInfo />
-          <OpeningOfLeaflets />
-          <ShiftsOverview />
+          <OpeningOfLeaflets allUsers={dashboardCounts?.allusers}/>
+          <ShiftsOverview allPosts={dashboardCounts?.allpost} appRovedPosts={dashboardCounts?.approved_posts} pendingPosts={dashboardCounts?.Pending_Posts} declinedPosts={dashboardCounts?.Pending_Posts} soldPosts={dashboardCounts?.Pending_Posts} />
         </Row>
       </Container>
+
+
       <Container fluid className="dashboard-4">
         <Row>
-          <TotalStudents />
+          <TotalStudents freeAdsAll={dashboardCounts?.freeadds_all} freeAdspending={dashboardCounts?.freeadds_pending} freeAdsActive={dashboardCounts?.freeadds_active} freeAdsReject={dashboardCounts?.freeadds_rejected} freeAdsSold={dashboardCounts?.freeadds_sold}/>
           <StudyStatistics />
         </Row>
+
+        <Row>
+          <FeaturedAdsStatistics />
+          <TotalFeaturedAds featuredAdsAll={dashboardCounts?.featured_all} featuredAdspending={dashboardCounts?.featured_pending} featuredAdsActive={dashboardCounts?.featured_active} featuredAdsReject={dashboardCounts?.featured_rejected} featuredAdsSold={dashboardCounts.featured_sold}/>
+        </Row>
       </Container>
+
+
       <Container fluid className="default-dashboard">
         <Row>
-          <TotalSells />
+          <TotalSells auctionAds={dashboardCounts?.auction_adds} throughFamewheels={dashboardCounts?.through_famewheels}/>
         </Row>
       </Container>
       <Container fluid className="default-dashboard">
@@ -72,6 +123,9 @@ const DefaultDashboardContainer = () => {
           <ClientActivity />
         </Row>
       </Container>
+    
+      </>
+}
     </>
   );
 };

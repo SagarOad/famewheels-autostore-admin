@@ -907,6 +907,18 @@ export const TotalStudentData = [
         image:"student.png",
         class:"student"
     },
+
+    {
+      student:"42,954",
+      title:"Total Students",
+      color:"success",
+      icon:"down",
+      percentage:"- 17.06%",
+      detail:"than last 6 Month",
+      image:"student.png",
+      class:"student"
+  },
+  
     {
         student:"659",
         title:"Total Teachers",

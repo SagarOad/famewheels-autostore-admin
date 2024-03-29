@@ -11,7 +11,7 @@ export const ShiftsOverviewHeader = () => {
   return (
     <CardHeader className="card-no-border pb-0">
       <div className="header-top">
-        <h4>{ShiftsOverviews}</h4>
+        <h4>Website Posts</h4>
         <div className="d-flex align-items-center gap-3">
           <Dropdown className="location-menu" isOpen={dropdownOpens} toggle={toggleMenu}>
             <DropdownToggle caret color="transparent" className="rounded-3 border-0 px-3" id="userdropdown9">Location</DropdownToggle>

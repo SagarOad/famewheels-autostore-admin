@@ -3,14 +3,14 @@ import { TotalStudentData } from "@/Data/General/Widgets/General";
 import { Card, CardBody, Col, Row } from "reactstrap";
 
 interface FreeAdsType {
-  freeAdsAll:number,
-  freeAdspending:number,
-  freeAdsActive:number,
-  freeAdsReject:number,
-  freeAdsSold:number
+  featuredAdsAll:number,
+  featuredAdspending:number,
+  featuredAdsActive:number,
+  featuredAdsReject:number,
+  featuredAdsSold:number
 }
 
-const TotalStudents = ({freeAdsAll,freeAdspending,freeAdsActive,freeAdsReject,freeAdsSold}:FreeAdsType) => {
+const TotalFeaturedAds = ({featuredAdsAll, featuredAdspending, featuredAdsActive, featuredAdsReject, featuredAdsSold}:FreeAdsType) => {
   return (
     <Col xl="6" md="12" className="proorder-md-1">
       <Row>
@@ -19,8 +19,8 @@ const TotalStudents = ({freeAdsAll,freeAdspending,freeAdsActive,freeAdsReject,fr
               <CardBody className="student">
                 <div className="d-flex gap-2 align-items-end">
                   <div className="flex-grow-1">
-                    <h2>Free Ads</h2>
-                    <p className="mb-0 text-truncate"> {freeAdsAll}</p>
+                    <h2>Featured</h2>
+                    <p className="mb-0 text-truncate"> {featuredAdsAll}</p>
                     <div className="d-flex student-arrow text-truncate">
                       <p className={`mb-0 up-arrow bg-light-success`}>
                         <i className={`icon-arrow-up font-success`} />
@@ -42,8 +42,8 @@ const TotalStudents = ({freeAdsAll,freeAdspending,freeAdsActive,freeAdsReject,fr
               <CardBody className="student-2">
                 <div className="d-flex gap-2 align-items-end">
                   <div className="flex-grow-1">
-                    <h2>Free Ads Pending</h2>
-                    <p className="mb-0 text-truncate"> {freeAdspending}</p>
+                    <h2>Featured Pending</h2>
+                    <p className="mb-0 text-truncate"> {featuredAdspending}</p>
                     <div className="d-flex student-arrow text-truncate">
                       <p className={`mb-0 up-arrow bg-light-success`}>
                         <i className={`icon-arrow-up font-success`} />
@@ -65,8 +65,8 @@ const TotalStudents = ({freeAdsAll,freeAdspending,freeAdsActive,freeAdsReject,fr
               <CardBody className="student-3">
                 <div className="d-flex gap-2 align-items-end">
                   <div className="flex-grow-1">
-                    <h2>Free Ads Active</h2>
-                    <p className="mb-0 text-truncate"> {freeAdsActive}</p>
+                    <h2>Featured Active</h2>
+                    <p className="mb-0 text-truncate"> {featuredAdsActive}</p>
                     <div className="d-flex student-arrow text-truncate">
                       <p className={`mb-0 up-arrow bg-light-success`}>
                         <i className={`icon-arrow-up font-success`} />
@@ -88,8 +88,8 @@ const TotalStudents = ({freeAdsAll,freeAdspending,freeAdsActive,freeAdsReject,fr
               <CardBody className="student-4">
                 <div className="d-flex gap-2 align-items-end">
                   <div className="flex-grow-1">
-                    <h2>Free Ads Rejected</h2>
-                    <p className="mb-0 text-truncate"> {freeAdsReject}</p>
+                    <h2>Featured Rejected</h2>
+                    <p className="mb-0 text-truncate"> {featuredAdsReject}</p>
                     <div className="d-flex student-arrow text-truncate">
                       <p className={`mb-0 up-arrow bg-light-danger`}>
                         <i className={`icon-arrow-up font-danger`} />
@@ -111,8 +111,8 @@ const TotalStudents = ({freeAdsAll,freeAdspending,freeAdsActive,freeAdsReject,fr
               <CardBody className="student">
                 <div className="d-flex gap-2 align-items-end">
                   <div className="flex-grow-1">
-                    <h2>Free Ads Sold</h2>
-                    <p className="mb-0 text-truncate"> {freeAdsSold}</p>
+                    <h2>Featured Sold</h2>
+                    <p className="mb-0 text-truncate"> {featuredAdsSold}</p>
                     <div className="d-flex student-arrow text-truncate">
                       <p className={`mb-0 up-arrow bg-light-danger`}>
                         <i className={`icon-arrow-up font-danger`} />
@@ -135,4 +135,4 @@ const TotalStudents = ({freeAdsAll,freeAdspending,freeAdsActive,freeAdsReject,fr
   );
 };
 
-export default TotalStudents;
+export default TotalFeaturedAds;

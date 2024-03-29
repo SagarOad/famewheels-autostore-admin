@@ -103,7 +103,7 @@ export const GrowthChart: ApexOptions = {
 };
 
 export const ShiftsOptionChart: ApexOptions = {
-  labels: ["Shoes", "Grocery", "other", "other"],
+  labels: ["All Posts",  "Approved Posts","pending Posts", "Declined Posts","Sold Posts"],
   series: [30, 25, 35, 55],
   chart: {
     type: "donut",
@@ -158,7 +158,7 @@ export const ShiftsOptionChart: ApexOptions = {
       },
     },
   },
-  colors: ["#48A3D7", "#D77748", "#C95E9E", "#7A70BA"],
+  colors: ["#7A70BA",  "#48A3D7","#D77748", "#E44141","#C95E9E"],
 };
 
 export const ShiftsOverviewData = [
