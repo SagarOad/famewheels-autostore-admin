@@ -6,8 +6,8 @@ import DashboardCommonHeader from "../common/DashboardCommonHeader";
 import { AdmissionRatioChart } from "@/Data/General/Widgets/General";
 
 interface moreTYpes {
-  auctionAds:number,
-  throughFamewheels:number
+  auctionAds?:number,
+  throughFamewheels?:number
 }
 
 const TotalSells = ({auctionAds,throughFamewheels}:moreTYpes) => {
