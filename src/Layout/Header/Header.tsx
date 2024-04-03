@@ -7,13 +7,16 @@ import { useAppDispatch, useAppSelector } from "@/Redux/Hooks";
 import { headerResponsive } from "@/Redux/Reducers/LayoutSlice";
 import axios from "axios";
 import { setUser } from "@/Redux/Reducers/UserSlice";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 export const Header = () => {
+  const router = useRouter();
   const { toggleSidebar } = useAppSelector((state) => state.layout);
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
 
-  const formSubmitHandle = async () => {
+  const fetchUser = async () => {
     const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
     try {
@@ -25,6 +28,12 @@ export const Header = () => {
         },
       });
 
+      if (response?.data?.status == "Token is Invalid") {
+        router.push("/auth/login");
+        Cookies.remove("mofi_token");
+        Cookies.remove("role_name");
+        localStorage.removeItem("authToken");
+      }
       dispatch(setUser(response?.data));
     } catch (error: any) {
       console.error("Failed to get User", error);
@@ -33,7 +42,7 @@ export const Header = () => {
 
   useEffect(() => {
     if (user?.name === "" && user?.email === "" && user?.role === "") {
-      formSubmitHandle();
+      fetchUser();
     }
 
     dispatch(headerResponsive());
