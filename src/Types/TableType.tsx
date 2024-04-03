@@ -205,6 +205,28 @@ export interface Inspection {
   phone: number;
   inspection_slot: number;
 }
+export interface InspectionPackages {
+  user_id: number;
+  user_name: string;
+  package_id: number;
+  package_title: string;
+  package_image: string;
+  package_quantity: number;
+  remaining_quantity: number;
+  package_price: number;
+  buy_date: string;
+  expiry_date: string;
+
+  inspection_id: number;
+  inspectionstatus_id: number;
+  model_name: string;
+  city_name: string;
+  address: string;
+  name: string;
+  payment_status: string;
+  phone: number;
+  inspection_slot: number;
+}
 
 export interface NewCarList {
   newcarpost_id: number;
