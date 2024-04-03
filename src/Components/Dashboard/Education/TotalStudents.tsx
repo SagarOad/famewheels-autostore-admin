@@ -3,11 +3,11 @@ import { TotalStudentData } from "@/Data/General/Widgets/General";
 import { Card, CardBody, Col, Row } from "reactstrap";
 
 interface FreeAdsType {
-  freeAdsAll:number,
-  freeAdspending:number,
-  freeAdsActive:number,
-  freeAdsReject:number,
-  freeAdsSold:number
+  freeAdsAll?:number,
+  freeAdspending?:number,
+  freeAdsActive?:number,
+  freeAdsReject?:number,
+  freeAdsSold?:number
 }
 
 const TotalStudents = ({freeAdsAll,freeAdspending,freeAdsActive,freeAdsReject,freeAdsSold}:FreeAdsType) => {
