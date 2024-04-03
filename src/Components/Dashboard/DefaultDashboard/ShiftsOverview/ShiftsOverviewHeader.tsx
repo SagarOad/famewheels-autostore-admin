@@ -1,5 +1,11 @@
-"use client"
-import { CardHeader, Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from "reactstrap";
+"use client";
+import {
+  CardHeader,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from "reactstrap";
 import { Href, ShiftsOverviews } from "@/Constant";
 import { CommonDropdown } from "../../common/CommonDropdown";
 import { useState } from "react";
@@ -12,7 +18,7 @@ export const ShiftsOverviewHeader = () => {
     <CardHeader className="card-no-border pb-0">
       <div className="header-top">
         <h4>Website Posts</h4>
-        <div className="d-flex align-items-center gap-3">
+        {/* <div className="d-flex align-items-center gap-3">
           <Dropdown className="location-menu" isOpen={dropdownOpens} toggle={toggleMenu}>
             <DropdownToggle caret color="transparent" className="rounded-3 border-0 px-3" id="userdropdown9">Location</DropdownToggle>
             <DropdownMenu end>
@@ -22,7 +28,7 @@ export const ShiftsOverviewHeader = () => {
             </DropdownMenu>
           </Dropdown>
           <CommonDropdown />
-        </div>
+        </div> */}
       </div>
     </CardHeader>
   );
