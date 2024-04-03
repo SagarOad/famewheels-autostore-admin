@@ -82,7 +82,7 @@ export const MenuList: MenuItem[] | undefined = [
     menucontent: "Dashboards,Widgets",
     Items: [
       {
-        title: "Inspection List",
+        title: "Car Inspections",
         id: 3,
         icon: "widget",
         type: "sub",
@@ -95,11 +95,12 @@ export const MenuList: MenuItem[] | undefined = [
             type: "link",
             role: [Admin, User],
           },
-          // {
-          //   path: "/inspection/pending_inspection",
-          //   title: "Pending Inspection",
-          //   type: "link",
-          // },
+          {
+            path: "/inspection/user_inspection_packages",
+            title: "User Inspection Packages",
+            type: "link",
+            role: [Admin, User],
+          },
           // {
           //   path: "/inspection/rejected_inspection",
           //   title: "Rejected Inspection",
