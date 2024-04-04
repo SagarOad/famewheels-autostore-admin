@@ -75,14 +75,54 @@ export const MenuList: MenuItem[] | undefined = [
     ],
     role: [Admin],
   },
-
   {
-    title: "Inspection",
+    title: "Products",
     lanClass: "lan-3",
     menucontent: "Dashboards,Widgets",
     Items: [
       {
-        title: "Car Inspections",
+        title: "Products",
+        id: 3,
+        icon: "widget",
+        type: "sub",
+        lanClass: "lan-6",
+        active: false,
+        children: [
+          {
+            path: "/products/productslist",
+            title: "Products List",
+            type: "link",
+            role: [Admin, User],
+          },
+          {
+            path: "/products/addproducts",
+            title: "Add Products",
+            type: "link",
+            role: [Admin, User],
+          },
+          // {
+          //   path: "/inspection/rejected_inspection",
+          //   title: "Rejected Inspection",
+          //   type: "link",
+          // },
+          // {
+          //   path: "/inspection/approved_inspection",
+          //   title: "Approved Inspection",
+          //   type: "link",
+          // },
+        ],
+      },
+    ],
+    role: [Admin, User],
+  },
+
+  {
+    title: "Products",
+    lanClass: "lan-3",
+    menucontent: "Dashboards,Widgets",
+    Items: [
+      {
+        title: "Products",
         id: 3,
         icon: "widget",
         type: "sub",

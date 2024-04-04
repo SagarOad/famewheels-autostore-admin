@@ -193,6 +193,18 @@ export interface Posts {
   user_address: string;
 }
 
+export interface Products {
+  inspection_id: number;
+  inspectionstatus_id: number;
+  make_name: string;
+  model_name: string;
+  city_name: string;
+  address: string;
+  name: string;
+  payment_status: string;
+  phone: number;
+  inspection_slot: number;
+}
 export interface Inspection {
   inspection_id: number;
   inspectionstatus_id: number;
