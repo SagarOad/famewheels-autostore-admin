@@ -108,17 +108,22 @@ const DefaultDashboardContainer = () => {
                 freeAdsReject={dashboardCounts?.freeadds_rejected}
                 freeAdsSold={dashboardCounts?.freeadds_sold}
               />
-              <StudyStatistics />
-            </Row>
-
-            <Row>
-              <FeaturedAdsStatistics />
               <TotalFeaturedAds
                 featuredAdsAll={dashboardCounts?.featured_all}
                 featuredAdspending={dashboardCounts?.featured_pending}
                 featuredAdsActive={dashboardCounts?.featured_active}
                 featuredAdsReject={dashboardCounts?.featured_rejected}
                 featuredAdsSold={dashboardCounts?.featured_sold}
+              />
+            </Row>
+          </Container>
+          <Container fluid className="dashboard-4">
+            <Row>
+              {/* <FeaturedAdsStatistics /> */}
+              <StudyStatistics
+                freeAds={dashboardCounts?.activeadds}
+                featuredAds={dashboardCounts?.featureadds}
+                months={dashboardCounts?.monthsArray}
               />
             </Row>
           </Container>
