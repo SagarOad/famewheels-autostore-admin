@@ -100,62 +100,52 @@ export const MenuList: MenuItem[] | undefined = [
             type: "link",
             role: [Admin, User],
           },
-          // {
-          //   path: "/inspection/rejected_inspection",
-          //   title: "Rejected Inspection",
-          //   type: "link",
-          // },
-          // {
-          //   path: "/inspection/approved_inspection",
-          //   title: "Approved Inspection",
-          //   type: "link",
-          // },
         ],
       },
     ],
     role: [Admin, User],
   },
 
-  {
-    title: "Products",
-    lanClass: "lan-3",
-    menucontent: "Dashboards,Widgets",
-    Items: [
-      {
-        title: "Products",
-        id: 3,
-        icon: "widget",
-        type: "sub",
-        lanClass: "lan-6",
-        active: false,
-        children: [
-          {
-            path: "/inspection/inspectionlist",
-            title: "Inspection List",
-            type: "link",
-            role: [Admin, User],
-          },
-          {
-            path: "/inspection/user_inspection_packages",
-            title: "User Inspection Packages",
-            type: "link",
-            role: [Admin, User],
-          },
-          // {
-          //   path: "/inspection/rejected_inspection",
-          //   title: "Rejected Inspection",
-          //   type: "link",
-          // },
-          // {
-          //   path: "/inspection/approved_inspection",
-          //   title: "Approved Inspection",
-          //   type: "link",
-          // },
-        ],
-      },
-    ],
-    role: [Admin, User],
-  },
+  // {
+  //   title: "Products",
+  //   lanClass: "lan-3",
+  //   menucontent: "Dashboards,Widgets",
+  //   Items: [
+  //     {
+  //       title: "Products",
+  //       id: 3,
+  //       icon: "widget",
+  //       type: "sub",
+  //       lanClass: "lan-6",
+  //       active: false,
+  //       children: [
+  //         {
+  //           path: "/inspection/inspectionlist",
+  //           title: "Inspection List",
+  //           type: "link",
+  //           role: [Admin, User],
+  //         },
+  //         {
+  //           path: "/inspection/user_inspection_packages",
+  //           title: "User Inspection Packages",
+  //           type: "link",
+  //           role: [Admin, User],
+  //         },
+  //         // {
+  //         //   path: "/inspection/rejected_inspection",
+  //         //   title: "Rejected Inspection",
+  //         //   type: "link",
+  //         // },
+  //         // {
+  //         //   path: "/inspection/approved_inspection",
+  //         //   title: "Approved Inspection",
+  //         //   type: "link",
+  //         // },
+  //       ],
+  //     },
+  //   ],
+  //   role: [Admin, User],
+  // },
 
   {
     title: "Car",
@@ -163,7 +153,7 @@ export const MenuList: MenuItem[] | undefined = [
     menucontent: "Dashboards,Widgets",
     Items: [
       {
-        title: "Car Management",
+        title: "Category",
         id: 4,
         icon: "widget",
         type: "sub",
@@ -171,26 +161,70 @@ export const MenuList: MenuItem[] | undefined = [
         active: false,
         children: [
           {
-            path: "/car-management/car_insurance",
-            title: "Car Insurance",
+            path: "/categories/categorylist",
+            title: "Category List",
             type: "link",
             role: [Admin],
           },
           {
-            path: "/car-management/car_transferlist",
-            title: "Car Transfer",
+            path: "/categories/addcategory",
+            title: "Add Category",
+            type: "link",
+            role: [Admin],
+          },
+        ],
+      },
+    ],
+    role: [Admin, Hr],
+  },
+
+
+  {
+    title: "Make",
+    lanClass: "lan-1",
+    menucontent: "Dashboards,Widgets",
+    Items: [
+      {
+        title: "Make",
+        id: 5,
+        icon: "widget",
+        type: "sub",
+        lanClass: "lan-6",
+        active: false,
+        children: [
+          { path: "/posts/all_posts", title: "All Posts", type: "link" },
+          {
+            path: "/make/makelist",
+            title: "Make List",
             type: "link",
             role: [Admin],
           },
           {
-            path: "/car-management/car_import",
-            title: "Car Import",
+            path: "/make/addmake",
+            title: "Add Make",
+            type: "link",
+            role: [Admin],
+          },
+        ],
+      },
+      {
+        title: "Brand",
+        id: 5,
+        icon: "widget",
+        type: "sub",
+        lanClass: "lan-6",
+        active: false,
+        children: [
+          { path: "/posts/all_posts", title: "All Posts", type: "link" },
+          {
+            path: "/brands/brandslist",
+            title: "Brands List",
             type: "link",
             role: [Admin],
           },
           {
-            path: "/car-management/car_registration",
-            title: "Car Registration",
+            path: "/brands/addbrand",
+            title: "Add Brand",
             type: "link",
             role: [Admin],
           },
@@ -201,70 +235,34 @@ export const MenuList: MenuItem[] | undefined = [
   },
 
   {
-    title: "Posts",
-    lanClass: "lan-1",
+    title: "Order",
+    lanClass: "lan-3",
     menucontent: "Dashboards,Widgets",
     Items: [
       {
-        title: "Normal Ads",
-        id: 5,
+        title: "Order",
+        id: 6,
         icon: "widget",
         type: "sub",
         lanClass: "lan-6",
         active: false,
         children: [
-          { path: "/posts/all_posts", title: "All Posts", type: "link" },
           {
-            path: "/posts/pending_posts",
-            title: "Pending Posts",
+            path: "/order/orderlist",
+            title: "Order List",
             type: "link",
-            role: [Admin],
+            role: [Admin, User],
           },
           {
-            path: "/posts/rejected_posts",
-            title: "Rejected Posts",
+            path: "/products/addproducts",
+            title: "Add Products",
             type: "link",
-            role: [Admin],
-          },
-          {
-            path: "/posts/approved_posts",
-            title: "Approved Posts",
-            type: "link",
-            role: [Admin],
-          },
-        ],
-      },
-      {
-        title: "Managed by FameWheels",
-        id: 5,
-        icon: "widget",
-        type: "sub",
-        lanClass: "lan-6",
-        active: false,
-        children: [
-          { path: "/posts/all_posts", title: "All Posts", type: "link" },
-          {
-            path: "/managed_by_fameWheels/active_posts",
-            title: "Active Ads",
-            type: "link",
-            role: [Admin],
-          },
-          {
-            path: "/managed_by_fameWheels/sold_posts",
-            title: "Sold Ads",
-            type: "link",
-            role: [Admin],
-          },
-          {
-            path: "/managed_by_fameWheels/all_posts",
-            title: "All Ads",
-            type: "link",
-            role: [Admin],
+            role: [Admin, User],
           },
         ],
       },
     ],
-    role: [Admin, Hr],
+    role: [Admin, User],
   },
 
   {
@@ -274,7 +272,7 @@ export const MenuList: MenuItem[] | undefined = [
     Items: [
       {
         title: "Refund Requests",
-        id: 6,
+        id: 7,
         icon: "widget",
         type: "sub",
         lanClass: "lan-6",
@@ -311,7 +309,7 @@ export const MenuList: MenuItem[] | undefined = [
     Items: [
       {
         title: "Payment Requests",
-        id: 7,
+        id: 8,
         icon: "widget",
         type: "sub",
         lanClass: "lan-6",
@@ -348,7 +346,7 @@ export const MenuList: MenuItem[] | undefined = [
     Items: [
       {
         title: "Bidding Requests",
-        id: 7,
+        id: 9,
         icon: "widget",
         type: "sub",
         lanClass: "lan-6",
@@ -415,7 +413,7 @@ export const MenuList: MenuItem[] | undefined = [
     Items: [
       {
         title: "New Vehicles",
-        id: 7,
+        id: 10,
         icon: "widget",
         type: "sub",
         lanClass: "lan-8",
@@ -446,7 +444,7 @@ export const MenuList: MenuItem[] | undefined = [
     Items: [
       {
         title: "Auction Cars",
-        id: 7,
+        id: 11,
         icon: "widget",
         type: "sub",
         lanClass: "lan-8",
@@ -471,7 +469,7 @@ export const MenuList: MenuItem[] | undefined = [
     Items: [
       {
         title: "Dealer Info",
-        id: 7,
+        id: 12,
         icon: "widget",
         type: "sub",
         lanClass: "lan-8",

@@ -205,6 +205,31 @@ export interface Products {
   phone: number;
   inspection_slot: number;
 }
+export interface Categories {
+  category_id: number;
+  category_name: string;
+  quantity: string;
+  sale: string;
+  start_date: string;
+}
+export interface Make {
+  make_id: number;
+  make_name: string;
+  quantity: string;
+  sale: string;
+  start_date: string;
+}
+
+export interface Order {
+  order_id: number;
+  orderstatus_id: number;
+  product_name: string;
+  price: number;
+  order_quantity: string;
+  order_status: string;
+  order_date: string;
+  order_price: string;
+}
 export interface Inspection {
   inspection_id: number;
   inspectionstatus_id: number;

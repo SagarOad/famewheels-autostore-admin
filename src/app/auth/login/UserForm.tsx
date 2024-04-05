@@ -78,7 +78,7 @@ export const UserForm = () => {
       <div className="login-main">
         <Form className="theme-form">
           <h4>{SignInToAccount}</h4>
-          <p>Enter your email & password to login</p>
+          {/* <p>Enter your email & password to login</p> */}
           <FormGroup>
             <Label className="col-form-label">{EmailAddressLogIn}</Label>
             <Input

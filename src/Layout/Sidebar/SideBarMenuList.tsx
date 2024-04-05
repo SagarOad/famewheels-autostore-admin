@@ -29,7 +29,7 @@ const SidebarMenuList = () => {
       {filteredList &&
         filteredList?.map((mainMenu: MenuItem, index: number) => (
           <Fragment key={index}>
-            <li
+            {/* <li
               className={`sidebar-main-title ${
                 shouldHideMenu(mainMenu) ? "d-none" : ""
               }`}
@@ -39,7 +39,7 @@ const SidebarMenuList = () => {
                   {t(mainMenu.title)}
                 </h6>
               </div>
-            </li>
+            </li> */}
             <Menulist
               menu={mainMenu.Items}
               activeMenu={activeMenu}

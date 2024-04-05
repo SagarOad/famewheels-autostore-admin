@@ -2,6 +2,33 @@
 @import "./responsive.scss";
 @import "./vendors/todo.scss";
 
+
+.login-main {
+    border: 2px solid #cfcfcf;
+    padding: 51px 37px !important;
+    box-shadow: 0 12px 18px rgba(0, 0, 0, 0.2) !important;
+}
+
+.login-main h4 {
+    font-size: 28px !important;
+    text-align: center !important;
+    margin-bottom: 32px !important;
+}
+
+.login-main p {
+    font-size: 18px !important;
+    text-align: center !important;
+}
+
+.login-main label.col-form-label.form-label {
+    font-size: 16px !important;
+}
+
+.login-main button.w-100.btn.btn-primary.d-block.w-100 {
+    font-size: 20px;
+    padding: 12px !important;
+}
+
 //bootstrap
 @import 'bootstrap/dist/css/bootstrap.min.css';
 

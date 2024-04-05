@@ -153,7 +153,7 @@ interface ImageData {
   // Add other properties as needed
 }
 
-const addproducts = () => {
+const addcategory = () => {
   const router = useRouter();
   const { i18LangStatus } = useAppSelector((state) => state.langSlice);
 
@@ -1209,74 +1209,6 @@ const addproducts = () => {
         <form onSubmit={handleSubmit}>
           <h1 className="faq-title">Basic Information</h1>
 
-          <Row>
-            <Col>
-              <FormGroup>
-                <Label check>New Car Images</Label>
-                <Dropzone
-                  onChange={updateFiles}
-                  required
-                  accept="image/*"
-                  value={files}
-                  maxFiles={20}
-                  header={false}
-                  footer={false}
-                  minHeight="80px"
-                  label="Drag'n drop files here or click to Browse"
-                >
-                  {files?.length === 0 && (
-                    <div className="dz-message needsclick">
-                      <i className="icon-cloud-up fs-1 txt-primary"></i>
-                      <h6 className="f-w-700 mb-1">
-                        Drop images here or click to upload.
-                      </h6>
-                      <h6 className="note needsclick">
-                        (This is a dropzone. Selected )
-                      </h6>
-                    </div>
-                  )}
-
-                  {files?.map((file: ImageData, ind) => {
-                    return (
-                      <FileMosaic
-                        key={file.id}
-                        {...file}
-                        onDelete={() => removeFile(file, ind)}
-                        preview
-                      />
-                    );
-                  })}
-                </Dropzone>
-
-                {uploadedImages?.length !== 0 && (
-                  <h4 className="faq-title">Previous Images</h4>
-                )}
-
-                <div className="d-flex flex-wrap w-100 justify-content-center gap-2 border-1 mt-4 align-items-center ">
-                  {uploadedImages?.map((file: ImageData, ind) => {
-                    return (
-                      // <FileMosaic key={file.id} {...file} onDelete={removeFile} preview/>
-                      <div className=" position-relative d-flex w-25" key={ind}>
-                        <img
-                          src={`${imagesPath}/${updateToken || postToken}/${
-                            file?.filename
-                          }`}
-                          className="img-fluid object-fit-contain rounded-4 "
-                          alt={file.filename}
-                        />
-                        <i
-                          className="icofont icofont-close-circled rounded-pill bg-primary fs-6 position-absolute top-0 z-3 m-1"
-                          style={{ right: "0%", cursor: "pointer" }}
-                          onClick={() => removeFile(file.filename, ind)}
-                        ></i>
-                      </div>
-                    );
-                  })}
-                </div>
-              </FormGroup>
-            </Col>
-          </Row>
-
           <CommonModal
             centered
             isOpen={centred}
@@ -1306,210 +1238,19 @@ const addproducts = () => {
           </CommonModal>
 
           <Row>
-            <Col lg="3" md="6">
+            <Col lg="12" md="6">
               <FormGroup>
-                <Label check>{CoverImage}</Label>
-                <div className="d-flex gap-1 align-items-center ">
-                  <Input
-                    required={coverImage ? false : true}
-                    name="coverImage"
-                    type="file"
-                    className="form-control"
-                    onChange={coverChange}
-                    placeholder="Cover Image"
-                  />
-                  {coverImage && (
-                    <p
-                      className="py-1 px-3 bg-primary rounded"
-                      style={{ cursor: "pointer" }}
-                      onClick={() => setCentered(true)}
-                    >
-                      <i className="icofont icofont-eye-alt"></i>
-                    </p>
-                  )}
-                </div>
-                {/* <ErrorMessage
-                name="coverImage"
-                component="span"
-                className="text-danger"
-              /> */}
-              </FormGroup>
-            </Col>
-
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label>{Make}</Label>
-                <Input
-                  required
-                  name="make"
-                  type="select"
-                  placeholder={Make}
-                  className="form-control form-select"
-                  onChange={(e: any) => setMakeId(e.target.value)}
-                  value={makeId}
-                >
-                  <option value="" disabled>
-                    Select Make
-                  </option>
-                  {makeData?.map((make: any) => (
-                    <option key={make?.makeId} value={make?.makeId}>
-                      {make.makeName}
-                    </option>
-                  ))}
-                </Input>
-              </FormGroup>
-            </Col>
-
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label>Brand</Label>
+                <Label>Category Name</Label>
                 <Input
                   required
                   name="model"
-                  type="select"
-                  disabled={makeOne?.length > 0 ? false : true}
-                  placeholder={Model}
+                  type="text"
+                  placeholder="Type category name"
                   className="form-control form-select"
                   onChange={(e: any) => setModelName(e.target.value)}
                   value={modelName}
                 >
-                  <option value="" disabled>
-                    Select Model
-                  </option>
-                  {makeOne?.map((model: any) => (
-                    <option key={model?.modelId} value={model?.modelId}>
-                      {model.modelName}
-                    </option>
-                  ))}
                 </Input>
-              </FormGroup>
-            </Col>
-
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label>Category</Label>
-                <Input
-                  required
-                  name="year"
-                  type="select"
-                  disabled={makeYear?.length > 0 ? false : true}
-                  placeholder={Year}
-                  className="form-control form-select"
-                  onChange={(e: any) => setYearName(e.target.value)}
-                  value={yearName}
-                >
-                  <option value="" disabled>
-                    Select Year
-                  </option>
-                  {makeYear?.map((year: any) => (
-                    <option key={year?.yearId} value={year?.yearId}>
-                      {year.year}
-                    </option>
-                  ))}
-                </Input>
-              </FormGroup>
-            </Col>
-
-            {yearName && (
-              <Col lg="3" md="6">
-                <FormGroup>
-                  <Label check>{Varient}</Label>
-                  {variants?.length > 0 && (
-                    <Input
-                      required
-                      name="varient"
-                      type="select"
-                      disabled={variants?.length > 0 ? false : true}
-                      placeholder={`Select ${modelName} Varient`}
-                      className="form-control form-select"
-                      onChange={(e: any) => setVarient(e.target.value)}
-                      value={varient}
-                    >
-                      <option value="" disabled>
-                        Select {modelName} Variant
-                      </option>
-                      {variants &&
-                        variants.map((item: any) => (
-                          <option key={item.featuresId} value={item.featuresId}>
-                            {item.featureName}
-                          </option>
-                        ))}
-                    </Input>
-                  )}
-
-                  {modelName && yearName !== " " && variants?.length === 0 && (
-                    <Input
-                      required
-                      name="varient"
-                      type="text"
-                      className="form-control"
-                      placeholder="Varient"
-                      onChange={(e: any) => setVarient(e.target.value)}
-                      value={varient}
-                    />
-                  )}
-                </FormGroup>
-              </Col>
-            )}
-
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label>City</Label>
-                <Input
-                  required
-                  name="bodyType"
-                  type="select"
-                  placeholder={BodyType}
-                  className="form-control form-select"
-                  onChange={(e: any) => setBodytype(e.target.value)}
-                  value={bodyType}
-                >
-                  <option value="" disabled>
-                    Select BodyType
-                  </option>
-                  {bodyTypes?.map((body: any) => (
-                    <option key={body?.bodytype_id} value={body?.bodytype_id}>
-                      {body.bodytype_name}
-                    </option>
-                  ))}
-                </Input>
-              </FormGroup>
-            </Col>
-
-            <Col lg="3" md="6">
-              <FormGroup>
-                <Label check>Price</Label>
-                <Input
-                  required
-                  name="color"
-                  type="text"
-                  className="form-control"
-                  placeholder="Color"
-                  onChange={(e: any) => setColor(e.target.value)}
-                  value={color}
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col>
-              <FormGroup>
-                <Label check>{Description}</Label>
-                {/* <Input
-                  required
-                  name="description"
-                  type="textarea"
-                  className="form-control"
-                  rows={3}
-                  placeholder={"Detailed Overview"}
-                  onChange={(e: any) => setDescription(e.target.value)}
-                  value={description}
-                /> */}
-                <Editor
-                  placeholder={description}
-                  onEditorDataChange={handleEditorDataChange}
-                />
               </FormGroup>
             </Col>
           </Row>
@@ -1521,4 +1262,4 @@ const addproducts = () => {
   );
 };
 
-export default addproducts;
+export default addcategory;
