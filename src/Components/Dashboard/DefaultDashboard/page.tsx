@@ -117,16 +117,16 @@ const DefaultDashboardContainer = () => {
               />
             </Row>
           </Container>
-          <Container fluid className="dashboard-4">
+          {/* <Container fluid className="dashboard-4">
             <Row>
-              {/* <FeaturedAdsStatistics /> */}
+              <FeaturedAdsStatistics />
               <StudyStatistics
                 freeAds={dashboardCounts?.activeadds}
                 featuredAds={dashboardCounts?.featureadds}
                 months={dashboardCounts?.monthsArray}
               />
             </Row>
-          </Container>
+          </Container> */}
 
           <Container fluid className="default-dashboard">
             <Row>
