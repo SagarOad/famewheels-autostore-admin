@@ -1,149 +1,15 @@
 "use client";
 import { Col, FormGroup, Label, Row, Input, Button } from "reactstrap";
-import { Dropzone, ExtFile, FileMosaic } from "@dropzone-ui/react";
-import {
-  AdjustableHeadlights,
-  AirConditioner,
-  AlloyWheels,
-  AndroidAuto,
-  AntiLockBrakingSystemABS,
-  AntiTheftAlarmSystem,
-  AppleCarPlay,
-  ArmRest,
-  AutoBrakeHold,
-  AutoParkingSystem,
-  AutoRetractableSideMirrors,
-  AutomaticHeadLamps,
-  AutonomousEmergencyBrakingAEB,
-  BlindSpotDetectionBSD,
-  BodyType,
-  BootSpaceL,
-  BossSeatSwitch,
-  CDPlayer,
-  CentralLocking,
-  ClimateControl,
-  Color,
-  CoolBox,
-  CoverImage,
-  CruiseControl,
-  drls,
-  DVDPlayer,
-  Description,
-  Displacement,
-  DisplaySizeinch,
-  DoorOpeningWarning,
-  DownHillAssistControl,
-  DriverSeatBeltWarning,
-  DriverSeatElectricAdjustment,
-  DriverSeatLumbarSupport,
-  DriverSeatMemoryFunction,
-  DrivingModes,
-  DualExhaust,
-  EXFactoryPrice,
-  ElectronicBrakeForceDistributionEBD,
-  EngineType,
-  FogLights,
-  FrontBrakes,
-  FrontCamera,
-  FrontParkingSensors,
-  FrontPowerOutlet,
-  FrontSpeakers,
-  FrontSuspension,
-  FuelSystem,
-  FuelTankCapacityL,
-  Gearboxspeed,
-  GroundClearenceMM,
-  Handbrake,
-  HeadlightOnReminder,
-  HeatedSeats,
-  Heater,
-  HillStartAssistControl,
-  HorsePower,
-  Immobilizer,
-  InformationCluster,
-  KerbWeightKG,
-  KeyType,
-  KeylessEntry,
-  LaneKeepAssistSystemLKAS,
-  LaunchDate,
-  Make,
-  MaxSpeedKMH,
-  MileageCityKML,
-  MileageHighwayKML,
-  Model,
-  MultiInfo,
-  Navigation,
-  NoOfAirbags,
-  NoOfCylinders,
-  NoOfDoors,
-  NoOfSeatbelts,
-  NoOfSpeakers,
-  OverallLengthMM,
-  OverallWidthMM,
-  PaddleShifter,
-  Panaromic,
-  PassengerSeatBeltWarning,
-  PassengerSeatElectricAdjustment,
-  PowerAssisted,
-  PowerDoorLocks,
-  PowerMirrors,
-  PowerWindows,
-  PushStart,
-  RainSensingWipers,
-  RearACVents,
-  RearBrakes,
-  RearCamera,
-  RearFoldingSeat,
-  RearHeadrest,
-  RearParkingSensors,
-  RearPowerOutlet,
-  RearSeatEntertainment,
-  RearSpeakers,
-  RearSpoiler,
-  RearSuspension,
-  RearWiper,
-  RemoteEngineStart,
-  RoofRails,
-  SeatMaterialType,
-  SeatingCapacity,
-  SideMirrorswithIndicators,
-  SideSteps,
-  SpareTyre,
-  SpareTyreSizeInch,
-  SpeedSensingAutoDoorLock,
-  SteeringAdjustment,
-  SteeringSwitches,
-  SteeringType,
-  SunRoof,
-  Tachometer,
-  TractionControl,
-  TransmissionType,
-  TurboCharger,
-  TyrePressureMonitoringSystemTPMS,
-  TyreSize,
-  USBandAuxillaryCable,
-  ValvesPerCylinder,
-  Varient,
-  VehicleStabilityControl,
-  VoiceControl,
-  WheelBaseMM,
-  WheelSizeInch,
-  WheelType,
-  WirelessCharger,
-  Year,
-} from "@/Constant";
+
 import { useQuery } from "react-query";
 import axios from "axios";
 import { FormEvent, useEffect, useState } from "react";
-import DatePicker from "react-datepicker";
 import { ButtonSection } from "../../dealer/add_dealer/ButtonSection";
-import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import Loading from "@/app/loading";
-import CommonModal from "@/Components/UiKits/Modal/Common/CommonModal";
 import { useAppSelector } from "@/Redux/Hooks";
 import { useRouter } from "next/navigation";
-import Editor from "@/Components/Miscellaneous/Editors/Editor";
+import { CartData } from "@/Layout/Header/CartData";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
@@ -151,24 +17,32 @@ const addbrand = () => {
   const router = useRouter();
   const { i18LangStatus } = useAppSelector((state) => state.langSlice);
 
+  const [updateToken, setUpdateToken] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
-  const [updateToken, setUpdateToken] = useState("");
+  const [brandId, setBrandId] = useState("");
+  const [brandName, setBrandName] = useState("");
 
-  const [postToken, setPostToken] = useState("");
-
-  // features
-  const [modelName, setModelName] = useState("");
-
-  // features
-
-  const generateToken = () => {
-    const newToken = uuidv4().replace(/-/g, "").slice(0, 12);
-    setPostToken(newToken);
-  };
+  const [makeId, setMakeId] = useState("");
+  const [makeName, setMakeName] = useState("");
 
   const fetchBrands = async () => {
     const res = await axios.get(`${BASE_URL}/brand-list`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data[1];
+  };
+
+  const {
+    data: BrandList,
+    error: brandError,
+    isLoading: brandLoading,
+  } = useQuery("myBrands", fetchBrands);
+
+  const fetchMakes = async () => {
+    const res = await axios.get(`${BASE_URL}/byMake`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -177,29 +51,40 @@ const addbrand = () => {
   };
 
   const {
-    data: BrandList,
+    data: MakesList,
     error: makeError,
     isLoading: makeLoading,
-  } = useQuery("myBrands", fetchBrands);
+  } = useQuery("myMakes", fetchMakes);
+
+  useEffect(() => {}, [CartData]);
 
   const token = localStorage.getItem("authToken");
 
-  const fetchMake = async () => {
-    const res = await axios.get(`${BASE_URL}/byMake`, {
-      params: {},
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return res.data;
-  };
+  const [successMessage, setSuccessMessage] = useState(""); // State to manage success message
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    const formData = new FormData();
-  };
+    setSubmitting(true);
 
-  const [centred, setCentered] = useState(false);
+    try {
+      const formData = new FormData();
+      formData.append("brand_name", brandName);
+      formData.append("make_id", makeId);
+
+      await axios.post(`${BASE_URL}/add-brand`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      setSuccessMessage("Brand added successfully!");
+    } catch (error) {
+      console.error("Error adding brand:", error);
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -218,11 +103,11 @@ const addbrand = () => {
                   type="select"
                   placeholder="Select Brand"
                   className="form-control form-select"
-                  onChange={(e: any) => setModelName(e.target.value)}
-                  value={modelName}
+                  onChange={(e: any) => setBrandName(e.target.value)}
+                  value={brandName}
                 >
                   <option value="" disabled>
-                    Select Mode
+                    Select Brand
                   </option>
                   {BrandList?.map((brand: any) => (
                     <option key={brand?.brand_id} value={brand?.brand_id}>
@@ -232,9 +117,35 @@ const addbrand = () => {
                 </Input>
               </FormGroup>
             </Col>
+            <Col lg="6" md="6">
+              <FormGroup>
+                <Label>Make Name</Label>
+                <Input
+                  required
+                  name="make"
+                  type="select"
+                  placeholder="Select Make"
+                  className="form-control form-select"
+                  onChange={(e: any) => setMakeId(e.target.value)}
+                  value={makeId}
+                >
+                  <option value="" disabled>
+                    Select Make
+                  </option>
+                  {MakesList?.map((make: any) => (
+                    <option key={make?.makeId} value={make.makeId}>
+                      {make.makeName}
+                    </option>
+                  ))}
+                </Input>
+              </FormGroup>
+            </Col>
           </Row>
 
           <ButtonSection />
+          {successMessage && (
+            <div className="success-message">{successMessage}</div>
+          )}
         </form>
       )}
     </>
