@@ -2,7 +2,7 @@ import RatioImage from "@/CommonComponent/RatioImage";
 import SVG from "@/CommonComponent/SVG";
 import { Href, ImagePath } from "@/Constant";
 import { useAppSelector } from "@/Redux/Hooks";
-import { OrderHistoryImageType, OrderHistoryTableColumns, ProductListTableDataColumnType, ProductListTableProduct } from "@/Types/EcommerceType";
+import { BrandListTableDataColumnType, OrderHistoryImageType, OrderHistoryTableColumns, ProductListTableDataColumnType, ProductListTableProduct } from "@/Types/EcommerceType";
 import Link from "next/link";
 import { TableColumn } from "react-data-table-component";
 import { Clock, CreditCard, Gift, MoreVertical, Truck } from "react-feather";
@@ -630,6 +630,50 @@ export const ProductListTableData = [
     rating: 2,
   },
 ];
+export const BrandListTableData = [
+  {
+    "brand_id": 2,
+    "brand_name": "check sdeewew",
+    "make_id": "1",
+    "status_id": 1,
+    "created_at": "2024-04-24 08:06:01"
+},
+{
+    "brand_id": 3,
+    "brand_name": "MK",
+    "make_id": "2",
+    "status_id": 1,
+    "created_at": "2024-04-24 07:18:11"
+},
+{
+    "brand_id": 4,
+    "brand_name": "MK",
+    "make_id": "2",
+    "status_id": 1,
+    "created_at": "2024-04-24 07:18:11"
+},
+{
+    "brand_id": 5,
+    "brand_name": "MK",
+    "make_id": "2",
+    "status_id": 1,
+    "created_at": "2024-04-24 07:18:11"
+},
+{
+    "brand_id": 6,
+    "brand_name": "MK",
+    "make_id": "2",
+    "status_id": 1,
+    "created_at": "2024-04-24 07:18:11"
+},
+{
+    "brand_id": 7,
+    "brand_name": "MK",
+    "make_id": "2",
+    "status_id": 1,
+    "created_at": "2024-04-24 07:18:11"
+}
+];
 
 const ProductListTableAction = () => {
   const { i18LangStatus } = useAppSelector((state) => state.langSlice);
@@ -648,7 +692,7 @@ const ProductListTableProductName: React.FC<ProductListTableProduct> = ({ images
   return (
     <div className="product-names my-2">
       <div className="light-product-box bg-img-cover">
-        <RatioImage className="img-fluid" src={`${ImagePath}/${images}`} alt="laptop" />
+        <RatioImage alt="Image" className="img-fluid" src={`${ImagePath}/${images}`}  />
       </div>
       <p>{name}</p>
     </div>
@@ -705,6 +749,68 @@ export const ProductListTableDataColumn: TableColumn<ProductListTableDataColumnT
   {
     name: "Action",
     cell: () => <ProductListTableAction />,
+  },
+];
+export const BrandListTableDataColumn: TableColumn<BrandListTableDataColumnType>[] = [
+  {
+    name: "Brand Name",
+    cell: (row) => <ProductListTableProductName name={row.brand_name} />,
+    sortable: true,
+    grow: 2,
+  },
+  {
+    name: "Makes",
+    cell: (row) => <ProductListTableProductName name={row.brand_name} />,
+    sortable: true,
+    grow: 3,
+  },
+  {
+    name: "Created At",
+    selector: (row) => `${row.created_at}`,
+    sortable: true,
+  },
+  {
+    name: "Action",
+    cell: (row) => {
+      return (
+        <ul
+          className="action simple-list d-flex flex-row gap-2"
+          key={row?.brand_id}
+        >
+          <li className="edit">
+            <button
+              className="p-0 border-0 bg-transparent"
+              id="Tooltip-2"
+              // onClick={() => centeredToggle(row?.brand_id)}
+            >
+              <i className="icofont icofont-law-document fs-4"></i>
+            </button>
+            {/* <Tooltip
+              target={"Tooltip-2"}
+              placement="top"
+              isOpen={tooltip2}
+              toggle={toggle2}
+            >
+              Paid
+            </Tooltip> */}
+          </li>
+
+          <li className="delete">
+            <button className="p-0 border-0 bg-transparent">
+              <i className="icofont icofont-close"></i>
+            </button>
+          </li>
+          <li className="view">
+            <button
+              className="p-0 border-0 bg-transparent"
+              // onClick={handleReport}
+            >
+              <i className="icon-eye link-primary" />
+            </button>
+          </li>
+        </ul>
+      );
+    },
   },
 ];
 

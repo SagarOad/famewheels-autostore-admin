@@ -40,6 +40,14 @@ export interface ProductListTableDataColumnType {
   status: string;
   rating: number;
 }
+export interface BrandListTableDataColumnType {
+  brand_name: string;
+  created_at: string;
+  make_it?: string;
+  status_id?: number;
+  brand_id?: number;
+}
+
 
 export interface ProductListTableProduct {
   images?: string;

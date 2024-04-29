@@ -10,6 +10,8 @@ import Loading from "@/app/loading";
 import { useAppSelector } from "@/Redux/Hooks";
 import { useRouter } from "next/navigation";
 import { CartData } from "@/Layout/Header/CartData";
+import Select from "react-select";
+import { toast } from "react-toastify";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
@@ -19,12 +21,14 @@ const addbrand = () => {
 
   const [updateToken, setUpdateToken] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [selectedMakeIds, setSelectedMakeIds] = useState<string[]>([]);
 
   const [brandId, setBrandId] = useState("");
   const [brandName, setBrandName] = useState("");
 
   const [makeId, setMakeId] = useState("");
   const [makeName, setMakeName] = useState("");
+  const [makesData, setMakesData] = useState<any[]>([]);
 
   const fetchBrands = async () => {
     const res = await axios.get(`${BASE_URL}/brand-list`, {
@@ -42,19 +46,29 @@ const addbrand = () => {
   } = useQuery("myBrands", fetchBrands);
 
   const fetchMakes = async () => {
-    const res = await axios.get(`${BASE_URL}/byMake`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    return res.data;
+    try {
+      const res = await axios.get(`${BASE_URL}/byMake`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      return res.data;
+    } catch (error) {
+      console.error("Error fetching makes:", error);
+      throw error;
+    }
   };
 
   const {
-    data: MakesList,
+    data: makesList,
     error: makeError,
     isLoading: makeLoading,
   } = useQuery("myMakes", fetchMakes);
+
+  const makesOptions = makesData.map((make) => ({
+    label: make.makeName,
+    value: make.makeId,
+  }));
 
   useEffect(() => {}, [CartData]);
 
@@ -62,6 +76,7 @@ const addbrand = () => {
 
   const [successMessage, setSuccessMessage] = useState(""); // State to manage success message
 
+  // Inside the handleSubmit function
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
@@ -69,7 +84,14 @@ const addbrand = () => {
     try {
       const formData = new FormData();
       formData.append("brand_name", brandName);
-      formData.append("make_id", makeId);
+
+      // Construct an array of selected make IDs
+      const selectedMakeIdsArray = selectedMakeIds.map((makeId) =>
+        makeId.toString()
+      );
+
+      // Append the array of selected make IDs once with the key 'make_ids[]'
+      formData.append("make_id", JSON.stringify(selectedMakeIdsArray));
 
       await axios.post(`${BASE_URL}/add-brand`, formData, {
         headers: {
@@ -78,13 +100,36 @@ const addbrand = () => {
         },
       });
 
-      setSuccessMessage("Brand added successfully!");
+      toast.success("Brand added successfully!");
+      // Optionally redirect to another page
+      // router.push(`/success-page`);
     } catch (error) {
       console.error("Error adding brand:", error);
+      toast.error("Failed to add brand");
     } finally {
       setSubmitting(false);
     }
   };
+  const handleDeleteBrand = async (brandId: any) => {
+    try {
+      // Make a DELETE request to the delete brand endpoint
+      await axios.delete(`${BASE_URL}/brand-list/${brandId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+  
+      // Optionally, you can update your UI to reflect the deletion
+      // For example, remove the deleted brand from the list
+  
+      toast.success("Brand deleted successfully!");
+    } catch (error) {
+      console.error("Error deleting brand:", error);
+      toast.error("Failed to delete brand");
+    }
+  };
+  
+  
 
   return (
     <>
@@ -109,6 +154,9 @@ const addbrand = () => {
                   <option value="" disabled>
                     Select Brand
                   </option>
+                  {/* <option>Option 1</option>
+                  <option>Option 1</option>
+                  <option>Option 1</option> */}
                   {BrandList?.map((brand: any) => (
                     <option key={brand?.brand_id} value={brand?.brand_id}>
                       {brand.brand_name}
@@ -120,32 +168,28 @@ const addbrand = () => {
             <Col lg="6" md="6">
               <FormGroup>
                 <Label>Make Name</Label>
-                <Input
-                  required
-                  name="make"
-                  type="select"
-                  placeholder="Select Make"
-                  className="form-control form-select"
-                  onChange={(e: any) => setMakeId(e.target.value)}
-                  value={makeId}
-                >
-                  <option value="" disabled>
-                    Select Make
-                  </option>
-                  {MakesList?.map((make: any) => (
-                    <option key={make?.makeId} value={make.makeId}>
-                      {make.makeName}
-                    </option>
-                  ))}
-                </Input>
+                <Select
+                  isMulti
+                  options={makesList?.map((make: any) => ({
+                    label: make.makeName,
+                    value: make.makeId,
+                  }))}
+                  onChange={(selectedOptions: any) => {
+                    const selectedMakeIds = selectedOptions.map(
+                      (option: any) => option.value
+                    );
+                    setSelectedMakeIds(selectedMakeIds);
+                  }}
+                />
               </FormGroup>
             </Col>
           </Row>
 
           <ButtonSection />
-          {successMessage && (
+          {/* {successMessage && (
             <div className="success-message">{successMessage}</div>
-          )}
+          )} */}
+          {/* <ToastContainer /> */}
         </form>
       )}
     </>

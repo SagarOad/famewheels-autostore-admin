@@ -33,10 +33,12 @@ import {
 import { Categories, Posts } from "@/Types/TableType";
 import SinglePost from "@/Components/SinglePost/SinglePost";
 import { toast } from "react-toastify";
+import { BrandListTableData, BrandListTableDataColumn } from "@/Data/Application/Ecommerce";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const brandslist = () => {
+
   const [filterText, setFilterText] = useState("");
   const [status, setStatus] = useState<number | any>(1);
   const [update, setUpdate] = useState<boolean>(false);
@@ -52,6 +54,23 @@ const brandslist = () => {
   const [paymentToken, setPaymentToken] = useState();
 
   const [tooltip2, settooltip2] = useState(false);
+
+
+
+  const columns = [
+    {
+      name: "Brand ID",
+      selector: "brand_id",
+      sortable: true,
+    },
+    {
+      name: "Brand Name",
+      selector: "brand_name",
+      sortable: true,
+    },
+    // Add more columns as needed
+  ];
+
   const toggle2 = () => settooltip2(!tooltip2);
 
   const centeredToggle = (id: number) => {
@@ -69,99 +88,29 @@ const brandslist = () => {
     // );
   };
 
-  const fetchData = async () => {
-    try {
-      const token = localStorage.getItem("authToken");
-      const response = await axios.get(`${BASE_URL}/statuswiseinspectionlist`, {
-        params: {
-          inspectionstatus_id: status,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // setPage(response?.data?.data?.current_page);
-      setTotal(response?.data?.data?.last_page);
-      return response?.data?.data;
-    } catch (error) {
-      console.log(error);
-    }
+  const fetchBrandList = async () => {
+    const res = await axios.get(`${BASE_URL}/brand-list`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data[1];
   };
 
   const {
-    data: inspectionData,
-    error,
+    data: BrandList,
+    error: brandError,
     isLoading,
-  } = useQuery(`pending_inspection_${page}${status}${update}`, fetchData);
+  } = useQuery("myBrands", fetchBrandList);
 
-  const filteredItems = inspectionData?.filter(
-    (item: any) =>
-      item?.model_name &&
-      item?.model_name.toLowerCase().includes(filterText.toLowerCase())
-  );
+console.log(BrandList);
 
-  const PostsColumn: TableColumn<Categories>[] = [
-    {
-      name: "Category",
-      selector: (row) => row.category_name,
-    },
-    {
-      name: "Quantity",
-      selector: (row) => row.quantity,
-    },
-    {
-      name: "Sale",
-      selector: (row) => row.sale,
-    },
+const filteredItems = BrandList?.filter((item: any) => item.brand_name.toLowerCase().includes(filterText.toLowerCase()));
 
-    {
-      name: "Start Date",
-      selector: (row) => row.start_date,
-    },
-    {
-      name: "Action",
-      cell: (row) => {
-        return (
-          <ul
-            className="action simple-list d-flex flex-row gap-2"
-            key={row?.category_id}
-          >
-            <li className="edit">
-              <button
-                className="p-0 border-0 bg-transparent"
-                id="Tooltip-2"
-                onClick={() => centeredToggle(row?.category_id)}
-              >
-                <i className="icofont icofont-law-document fs-4"></i>
-              </button>
-              <Tooltip
-                target={"Tooltip-2"}
-                placement="top"
-                isOpen={tooltip2}
-                toggle={toggle2}
-              >
-                Paid
-              </Tooltip>
-            </li>
 
-            {/* <li className="delete">
-              <button className="p-0 border-0 bg-transparent">
-                <i className="icofont icofont-close"></i>
-              </button>
-            </li> */}
-            <li className="view">
-              <button
-                className="p-0 border-0 bg-transparent"
-                onClick={handleReport}
-              >
-                <i className="icon-eye link-primary" />
-              </button>
-            </li>
-          </ul>
-        );
-      },
-    },
-  ];
+  const token = localStorage.getItem("authToken");
+
+  // console.log(PostsColumn, "Post Columns");
 
   const statusArray = [
     { value: 1, name: "Pending" },
@@ -250,7 +199,7 @@ const brandslist = () => {
               <DataTable
                 className="theme-scrollbar"
                 data={filteredItems}
-                columns={PostsColumn}
+                columns={BrandListTableDataColumn}
                 striped
                 highlightOnHover
                 subHeader
