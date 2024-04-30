@@ -2,7 +2,7 @@ import RatioImage from "@/CommonComponent/RatioImage";
 import SVG from "@/CommonComponent/SVG";
 import { Href, ImagePath } from "@/Constant";
 import { useAppSelector } from "@/Redux/Hooks";
-import { BrandListTableDataColumnType, OrderHistoryImageType, OrderHistoryTableColumns, ProductListTableDataColumnType, ProductListTableProduct } from "@/Types/EcommerceType";
+import { BrandListTableDataColumnType, MakeListTableDataColumnType, OrderHistoryImageType, OrderHistoryTableColumns, ProductListTableDataColumnType, ProductListTableProduct } from "@/Types/EcommerceType";
 import Link from "next/link";
 import { TableColumn } from "react-data-table-component";
 import { Clock, CreditCard, Gift, MoreVertical, Truck } from "react-feather";
@@ -768,6 +768,15 @@ export const BrandListTableDataColumn: TableColumn<BrandListTableDataColumnType>
     name: "Created At",
     selector: (row) => `${row.created_at}`,
     sortable: true,
+  },
+];
+
+export const MakeListTableDataColumn: TableColumn<MakeListTableDataColumnType>[] = [
+  {
+    name: "Make Name",
+    cell: (row) => <ProductListTableProductName name={row.makeName} />,
+    sortable: true,
+    grow: 2,
   },
 ];
 

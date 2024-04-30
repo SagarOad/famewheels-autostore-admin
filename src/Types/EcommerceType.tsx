@@ -47,6 +47,12 @@ export interface BrandListTableDataColumnType {
   status_id?: number;
   brand_id?: number;
 }
+export interface MakeListTableDataColumnType {
+  makeName?: string;
+  makeId?: number;
+  makeImage?: string;
+  famousMake?: number;
+}
 
 
 export interface ProductListTableProduct {

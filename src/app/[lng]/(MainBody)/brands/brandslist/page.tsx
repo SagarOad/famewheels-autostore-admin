@@ -11,10 +11,12 @@ import {
   Tooltip,
 } from "reactstrap";
 import DataTable, { TableColumn } from "react-data-table-component";
+import { useEffect } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { HtmlTableTittle, PaymentStatus, SearchTableButton } from "@/Constant";
 import { FormEvent, useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import PaginationDynamic from "@/utils/Paginations";
 import Loading from "@/app/loading";
 import { toast } from "react-toastify";
@@ -26,6 +28,8 @@ import {
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const brandslist = () => {
+  const router = useRouter();
+
   const [filterText, setFilterText] = useState("");
   const [status, setStatus] = useState<number | any>(1);
   const [page, setPage] = useState(1);
@@ -49,6 +53,14 @@ const brandslist = () => {
 
   console.table(BrandList);
 
+  useEffect(() => {
+    fetchBrandList();
+  }, []);
+
+  useEffect(() => {
+    fetchBrandList();
+  }, []);
+
   const handleDeleteBrand = async (brandId: any) => {
     setDeleted(true);
 
@@ -63,6 +75,7 @@ const brandslist = () => {
         },
       });
       toast.success("Brand Deleted!");
+      router.push(`/en/brands/brandslist`);
     } catch (error) {
       console.error("Error deleting brand:", error);
       toast.error("Failed to delete brand");
@@ -74,6 +87,7 @@ const brandslist = () => {
   const filteredItems = BrandList?.filter((item: any) =>
     item.brand_name.toLowerCase().includes(filterText.toLowerCase())
   );
+
 
   const token = localStorage.getItem("authToken");
 

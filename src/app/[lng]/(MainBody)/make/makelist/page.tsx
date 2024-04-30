@@ -32,7 +32,10 @@ import {
 } from "@/Constant";
 import { Categories, Make, Posts } from "@/Types/TableType";
 import SinglePost from "@/Components/SinglePost/SinglePost";
-import { toast } from "react-toastify";
+import {
+  MakeListTableDataColumn,
+  BrandListTableDataColumn,
+} from "@/Data/Application/Ecommerce";import { toast } from "react-toastify";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
@@ -70,53 +73,32 @@ const makelist = () => {
   };
 
   const fetchData = async () => {
-    try {
-      const token = localStorage.getItem("authToken");
-      const response = await axios.get(`${BASE_URL}/statuswiseinspectionlist`, {
-        params: {
-          inspectionstatus_id: status,
-        },
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      // setPage(response?.data?.data?.current_page);
-      setTotal(response?.data?.data?.last_page);
-      return response?.data?.data;
-    } catch (error) {
-      console.log(error);
-    }
+    const res = await axios.get(`${BASE_URL}/byMake`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res.data;
   };
 
-  const {
-    data: inspectionData,
-    error,
-    isLoading,
-  } = useQuery(`pending_inspection_${page}${status}${update}`, fetchData);
+  const { data: makeData, error, isLoading } = useQuery("myMakes", fetchData);
 
-  const filteredItems = inspectionData?.filter(
-    (item: any) =>
-      item?.model_name &&
-      item?.model_name.toLowerCase().includes(filterText.toLowerCase())
+
+  const filteredItems = makeData?.filter((item: any) =>
+    item?.makeName.toLowerCase().includes(filterText.toLowerCase())
+  
   );
+
+  const makeNames = makeData?.map((make: any) => make.makeName);
+
+  console.log(makeNames,"testinggggggggggggg");
+  
+
 
   const PostsColumn: TableColumn<Make>[] = [
     {
-      name: "Category",
+      name: "Make Name",
       selector: (row) => row.make_name,
-    },
-    {
-      name: "Quantity",
-      selector: (row) => row.quantity,
-    },
-    {
-      name: "Sale",
-      selector: (row) => row.sale,
-    },
-
-    {
-      name: "Start Date",
-      selector: (row) => row.start_date,
     },
     {
       name: "Action",
@@ -162,6 +144,8 @@ const makelist = () => {
       },
     },
   ];
+
+  const token = localStorage.getItem("authToken");
 
   const statusArray = [
     { value: 1, name: "Pending" },
@@ -249,8 +233,8 @@ const makelist = () => {
             <div className="table-responsive">
               <DataTable
                 className="theme-scrollbar"
-                data={filteredItems}
-                columns={PostsColumn}
+                data={makeNames}
+                columns={MakeListTableDataColumn}
                 striped
                 highlightOnHover
                 subHeader
