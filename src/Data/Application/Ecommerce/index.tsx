@@ -769,49 +769,6 @@ export const BrandListTableDataColumn: TableColumn<BrandListTableDataColumnType>
     selector: (row) => `${row.created_at}`,
     sortable: true,
   },
-  {
-    name: "Action",
-    cell: (row) => {
-      return (
-        <ul
-          className="action simple-list d-flex flex-row gap-2"
-          key={row?.brand_id}
-        >
-          <li className="edit">
-            <button
-              className="p-0 border-0 bg-transparent"
-              id="Tooltip-2"
-              // onClick={() => centeredToggle(row?.brand_id)}
-            >
-              <i className="icofont icofont-law-document fs-4"></i>
-            </button>
-            {/* <Tooltip
-              target={"Tooltip-2"}
-              placement="top"
-              isOpen={tooltip2}
-              toggle={toggle2}
-            >
-              Paid
-            </Tooltip> */}
-          </li>
-
-          <li className="delete">
-            <button className="p-0 border-0 bg-transparent">
-              <i className="icofont icofont-close"></i>
-            </button>
-          </li>
-          <li className="view">
-            <button
-              className="p-0 border-0 bg-transparent"
-              // onClick={handleReport}
-            >
-              <i className="icon-eye link-primary" />
-            </button>
-          </li>
-        </ul>
-      );
-    },
-  },
 ];
 
 export const ProductSocialLinks = [

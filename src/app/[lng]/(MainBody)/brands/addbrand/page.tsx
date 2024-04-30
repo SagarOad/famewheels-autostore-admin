@@ -110,27 +110,7 @@ const addbrand = () => {
       setSubmitting(false);
     }
   };
-  const handleDeleteBrand = async (brandId: any) => {
-    try {
-      // Make a DELETE request to the delete brand endpoint
-      await axios.delete(`${BASE_URL}/brand-list/${brandId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
   
-      // Optionally, you can update your UI to reflect the deletion
-      // For example, remove the deleted brand from the list
-  
-      toast.success("Brand deleted successfully!");
-    } catch (error) {
-      console.error("Error deleting brand:", error);
-      toast.error("Failed to delete brand");
-    }
-  };
-  
-  
-
   return (
     <>
       {submitting ? (
@@ -145,15 +125,12 @@ const addbrand = () => {
                 <Input
                   required
                   name="brand"
-                  type="select"
+                  type="text"
                   placeholder="Select Brand"
                   className="form-control form-select"
                   onChange={(e: any) => setBrandName(e.target.value)}
                   value={brandName}
                 >
-                  <option value="" disabled>
-                    Select Brand
-                  </option>
                   {/* <option>Option 1</option>
                   <option>Option 1</option>
                   <option>Option 1</option> */}
