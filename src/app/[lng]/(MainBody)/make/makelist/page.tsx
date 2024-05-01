@@ -89,10 +89,7 @@ const makelist = () => {
   
   );
 
-  const makeNames = makeData?.map((make: any) => make.makeName);
-
-  console.log(makeNames,"testinggggggggggggg");
-  
+  const makeNames = makeData?.map((make: any) => make.makeName);  
 
 
   const PostsColumn: TableColumn<Make>[] = [

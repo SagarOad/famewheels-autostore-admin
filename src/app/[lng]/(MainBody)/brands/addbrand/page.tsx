@@ -21,7 +21,8 @@ const addbrand = () => {
 
   const [updateToken, setUpdateToken] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [selectedMakeIds, setSelectedMakeIds] = useState<string[]>([]);
+  const [selectedMakeIds, setSelectedMakeIds] = useState([]);
+console.log(selectedMakeIds);
 
   const [brandId, setBrandId] = useState("");
   const [brandName, setBrandName] = useState("");
@@ -86,12 +87,10 @@ const addbrand = () => {
       formData.append("brand_name", brandName);
 
       // Construct an array of selected make IDs
-      const selectedMakeIdsArray = selectedMakeIds.map((makeId) =>
-        makeId.toString()
+     selectedMakeIds.map((makeId) =>
+        formData.append("make_id[]", makeId)
       );
 
-      // Append the array of selected make IDs once with the key 'make_ids[]'
-      formData.append("make_id", JSON.stringify(selectedMakeIdsArray));
 
       await axios.post(`${BASE_URL}/add-brand`, formData, {
         headers: {

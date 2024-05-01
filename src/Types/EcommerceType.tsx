@@ -43,6 +43,7 @@ export interface ProductListTableDataColumnType {
 export interface BrandListTableDataColumnType {
   brand_name: string;
   created_at: string;
+  make_names: [];
   make_it?: string;
   status_id?: number;
   brand_id?: number;

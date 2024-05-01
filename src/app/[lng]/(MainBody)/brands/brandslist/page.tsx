@@ -57,10 +57,6 @@ const brandslist = () => {
     fetchBrandList();
   }, []);
 
-  useEffect(() => {
-    fetchBrandList();
-  }, []);
-
   const handleDeleteBrand = async (brandId: any) => {
     setDeleted(true);
 
