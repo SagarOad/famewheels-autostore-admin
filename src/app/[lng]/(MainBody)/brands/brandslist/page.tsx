@@ -35,6 +35,7 @@ const brandslist = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [deleted, setDeleted] = useState(false);
+  const [edit, setEdit] = useState(false);
 
   const fetchBrandList = async () => {
     const res = await axios.get(`${BASE_URL}/brand-list`, {
@@ -42,23 +43,22 @@ const brandslist = () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return res.data[1];
-  };
+    return res?.data[1]?.data;
+    };
 
   const {
     data: BrandList,
     error: brandError,
     isLoading,
-  } = useQuery("myBrands", fetchBrandList);
+  } = useQuery(`myBrandsList_${deleted}`, fetchBrandList);
 
   console.table(BrandList);
 
-  useEffect(() => {
-    fetchBrandList();
-  }, []);
+  // useEffect(() => {
+  //   fetchBrandList();
+  // }, []);
 
   const handleDeleteBrand = async (brandId: any) => {
-    setDeleted(true);
 
     try {
       const formData: any = new FormData();
@@ -71,14 +71,27 @@ const brandslist = () => {
         },
       });
       toast.success("Brand Deleted!");
-      router.push(`/en/brands/brandslist`);
+      // router.push(`/en/brands/brandslist`);
+    setDeleted(!deleted);
     } catch (error) {
       console.error("Error deleting brand:", error);
       toast.error("Failed to delete brand");
     } finally {
-      setDeleted(false);
+      // setDeleted(false);
     }
   };
+
+
+
+  const handleEditBrand = async (brandId: any) => {
+    setEdit(true)
+
+    router.push(`/en/brands/addbrand?id=${brandId}`)
+
+  };
+
+
+
 
   const filteredItems = BrandList?.filter((item: any) =>
     item.brand_name.toLowerCase().includes(filterText.toLowerCase())
@@ -154,12 +167,23 @@ const brandslist = () => {
                     {
                       name: "Action",
                       cell: (row) => (
+                        <div className="d-flex align-items-center justify-content-center gap-2">
                         <Button
                           color="danger"
                           onClick={() => handleDeleteBrand(row.brand_id)}
-                        >
+                          >
                           Delete
                         </Button>
+
+                        <Button
+                          color="primary"
+                          onClick={() => handleEditBrand(row.brand_id)}
+                        >
+                          Edit
+                        </Button>
+
+
+                          </div>
                       ),
                     },
                   ]}
@@ -174,6 +198,14 @@ const brandslist = () => {
                 currentPage={page}
                 setCurrentPage={setPage}
               />
+
+
+
+
+
+
+
+
             </CardBody>
           )}
         </Card>

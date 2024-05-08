@@ -760,7 +760,13 @@ export const BrandListTableDataColumn: TableColumn<BrandListTableDataColumnType>
   },
   {
     name: "Makes",
-    cell: (row) => <ProductListTableProductName name={row.brand_name} />,
+    cell: (row) => <div style={{overflowX:"scroll",width:"250px"}} className="d-flex justify-content-center flex-wrap align-items-center gap-1">
+     {row?.make_names?.map((make)=>{
+      return(
+        <div key={make} style={{flex:1,width:"100px"}}>{make}</div>
+      )
+    })} 
+    </div>,
     sortable: true,
     grow: 3,
   },

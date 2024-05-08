@@ -30,6 +30,23 @@ console.log(selectedMakeIds);
   const [makeId, setMakeId] = useState("");
   const [makeName, setMakeName] = useState("");
   const [makesData, setMakesData] = useState<any[]>([]);
+  const [id,setId] = useState<string | any>()
+
+
+  const extractTokenFromUrl = (url: string, paramName: string) => {
+    const urlSearchParams = new URLSearchParams(url);
+    return urlSearchParams.get(paramName);
+  };
+
+  useEffect(() => {
+    const url = window.location.search;
+    const ID = extractTokenFromUrl(url, "id");
+    setId(ID);
+    // Call the function when the component mounts
+    if (!id) {
+    }
+  }, []);
+
 
   const fetchBrands = async () => {
     const res = await axios.get(`${BASE_URL}/brand-list`, {
@@ -37,7 +54,7 @@ console.log(selectedMakeIds);
         Authorization: `Bearer ${token}`,
       },
     });
-    return res.data[1];
+    return res?.data[1]?.data;
   };
 
   const {
@@ -102,6 +119,7 @@ console.log(selectedMakeIds);
       toast.success("Brand added successfully!");
       // Optionally redirect to another page
       // router.push(`/success-page`);
+      router.push(`/en/brands/brandslist`);
     } catch (error) {
       console.error("Error adding brand:", error);
       toast.error("Failed to add brand");
@@ -110,12 +128,51 @@ console.log(selectedMakeIds);
     }
   };
   
+
+const handleEdit = async (e: FormEvent)=>{
+e.preventDefault()
+
+setSubmitting(true);
+
+try {
+  const formData = new FormData();
+  formData.append("brand_id", id);
+  formData.append("brand_name", brandName);
+
+  // Construct an array of selected make IDs
+ selectedMakeIds.map((makeId) =>
+    formData.append("make_id[]", makeId)
+  );
+
+
+  await axios.post(`${BASE_URL}/edit-brand`, formData, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
+    },
+  });
+
+  toast.success("Brand Edited successfully!");
+  // Optionally redirect to another page
+  // router.push(`/success-page`);
+  router.push(`/en/brands/brandslist`);
+
+} catch (error) {
+  console.error("Error Editing brand:", error);
+  toast.error("Failed to Edit brand");
+} finally {
+  setSubmitting(false);
+}
+
+}
+
+
   return (
     <>
       {submitting ? (
         <Loading />
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={ id ? handleEdit : handleSubmit}>
           <h1 className="faq-title">Basic Information</h1>
           <Row>
             <Col lg="12" md="6">
@@ -161,7 +218,7 @@ console.log(selectedMakeIds);
             </Col>
           </Row>
 
-          <ButtonSection />
+ { !id ? <ButtonSection /> : <div className="text-end"> <Button color="success">Edit</Button></div>}
           {/* {successMessage && (
             <div className="success-message">{successMessage}</div>
           )} */}
