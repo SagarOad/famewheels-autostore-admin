@@ -88,15 +88,21 @@ export const MenuList: MenuItem[] | undefined = [
         lanClass: "lan-6",
         active: false,
         children: [
+          // {
+          //   path: "/products/productslist",
+          //   title: "Products List",
+          //   type: "link",
+          //   role: [Admin, User],
+          // },
           {
-            path: "/products/productslist",
-            title: "Products List",
+            path: "/products/addproducts",
+            title: "Add Products",
             type: "link",
             role: [Admin, User],
           },
           {
-            path: "/products/addproducts",
-            title: "Add Products",
+            path: "/products/all-products",
+            title: "Products List",
             type: "link",
             role: [Admin, User],
           },

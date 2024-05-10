@@ -87,6 +87,31 @@ export interface ProductItemInterface {
   rating: number;
 }
 
+export interface ProductInterface {
+  product_id: number;
+  product_token: string;
+  product_title: string;
+  product_slug: string;
+  product_description: string;
+  discountPrice: string;
+  product_cover: string;
+  product_actual_price: number;
+  product_discounted_price: string;
+  product_stock_quantity: any;
+  // colors: string[];
+  // size: string[];
+  // tags: string[];
+  // variants: VariantsInterface[];
+  // ribbonClassName?: string;
+  vendor_id: number;
+  brand_id: number;
+  product_category_id: number;
+  status_id:number;
+}
+
+
+
+
 export interface ProductSliceProp {
   filterToggle: boolean;
   productItem: ProductItemInterface[];
@@ -171,17 +196,17 @@ export interface HoverButtonsProp {
 }
 
 export interface ProductDetailsProp {
-  item: ProductItemInterface;
+  item: ProductInterface;
 }
 
 export interface ProductModalInterfaceType {
   value: boolean;
   setOpenModal: (value: boolean) => void;
-  dataId: undefined | number;
+  dataId: any | number;
 }
 
 export interface ModalProductDetailsProp {
-  singleProduct: ProductItemInterface;
+  singleProduct: ProductInterface;
 }
 
 export interface ModalQuantityProp {

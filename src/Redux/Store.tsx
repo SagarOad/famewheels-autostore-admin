@@ -5,6 +5,7 @@ import ThemeCustomizerSlice from "./Reducers/ThemeCustomizerSlice";
 import LanguageSlice from "./Reducers/LanguageSlice";
 import ProductSlice from "./Reducers/ProductSlice";
 import UserSlice from "./Reducers/UserSlice";
+import FilterSlice from "./Reducers/FilterSlice";
 
 const Store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ const Store = configureStore({
     langSlice: LanguageSlice,
     product: ProductSlice,
     user: UserSlice,
+    filterData: FilterSlice,
   },
 });
 

@@ -170,14 +170,11 @@ const addproducts = () => {
     useState("false");
 
   const [coverImage, setCoverImage] = useState("-");
-  const [modelName, setModelName] = useState("");
-  const [yearName, setYearName] = useState("");
   const [title, setTitle] = useState("");
 
   const [price, setPrice] = useState<number | any>();
   const [discountedPrice, setDiscountedPrice] = useState<number | any>();
   const [description, setDescription] = useState("");
-  const [makeName, setMakeName] = useState("");
   const [prevImg, setPrevImg] = useState<any>("");
 
   // features
@@ -191,21 +188,12 @@ const addproducts = () => {
   const [newFiles, setNewFiles] = useState([]);
   const [files, setFiles] = useState<any[]>([]);
   const [moreImages, setMoreImages] = useState<any[]>([]);
-  const [id, setId] = useState<string | null>(null);
+  const [id, setId] = useState<string | any>(null);
+  const [brand, setBrand] = useState<string | any>(null);
+  const [category, setCategory] = useState<string | any>(null);
 
   // for parsing data
 
-  const [dimensionsObj, setDimensionsObj] = useState<object | any>({});
-  const [engineMotor, setEngineMotor] = useState<object | any>({});
-  const [transmissionObj, setTransmissionObj] = useState<object | any>({});
-  const [steering, setSteering] = useState<object | any>({});
-  const [suspension, setsuspension] = useState<object | any>({});
-  const [wheelTyre, setWheelTyre] = useState<object | any>({});
-  const [fuelEconomy, setFuelEconomy] = useState<object | any>({});
-  const [safety, setSafety] = useState<object | any>({});
-  const [exterior, setExterior] = useState<object | any>({});
-  const [instrument, setInstrument] = useState<object | any>({});
-  const [info, setInfo] = useState<object | any>({});
   const [comfort, setComfort] = useState<object | any>({});
 
   const generateToken = () => {
@@ -214,40 +202,30 @@ const addproducts = () => {
   };
 
   const getPostDetil = async () => {
+    
     try {
-      const response = await axios.get(`${BASE_URL}/newcarpostdetails`, {
-        params: {
-          newcarpost_id: id,
-        },
-      });
-      setMakeName(response?.data?.data?.make);
-      setDescription(response?.data?.data?.newcarpost_overview);
+      const formData = new FormData();
 
-      setUpdateToken(response?.data?.data?.newcarpost_token);
-      setDimensionsObj(JSON.parse(response?.data?.data?.newcarpost_dimensions));
-      setEngineMotor(JSON.parse(response?.data?.data?.newcarpost_enginemotor));
-      setTransmissionObj(
-        JSON.parse(response?.data?.data?.newcarpost_transmission)
-      );
-      setSteering(JSON.parse(response?.data?.data?.newcarpost_steering));
-      setsuspension(
-        JSON.parse(response?.data?.data?.newcarpost_suspensionbrakes)
-      );
-      setWheelTyre(JSON.parse(response?.data?.data?.newcarpost_wheeltyres));
-      setFuelEconomy(JSON.parse(response?.data?.data?.newcarpost_fueleconomy));
-      setSafety(JSON.parse(response?.data?.data?.newcarpost_safety));
-      setExterior(JSON.parse(response?.data?.data?.newcarpost_exterior));
-      setInstrument(
-        JSON.parse(response?.data?.data?.newcarpost_instrumentation)
-      );
-      setInfo(JSON.parse(response?.data?.data?.newcarpost_Infotainment));
-      setComfort(
-        JSON.parse(response?.data?.data?.newcarpost_comfortconvenience)
-      );
+    formData.append("product_id", id);
 
-      setModelName(response?.data?.data?.model_id);
-      setYearName(response?.data?.data?.year_id);
-      return response?.data?.data;
+    const response = await axios.post(`${BASE_URL}/product-detail`, formData, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+      setDescription(response?.data?.products?.product_description);
+      setTitle(response?.data?.products?.product_title)
+      setPrice(response?.data?.products?.product_actual_price)
+      setDiscountedPrice(response?.data?.products?.product_discounted_price)
+      setBrand(response?.data?.products?.brand_id)
+      setCategory(response?.data?.products?.product_category_id)
+      setCoverImage(response?.data?.products?.product_cover)
+      setPrevImg(`${response?.data?.imagepath}/${response?.data?.products?.product_token}/${response?.data?.products?.product_cover}`)
+
+      setUpdateToken(response?.data?.products?.product_token);
+    
+      return response?.data;
     } catch (error) {
       console.log(error);
     }
@@ -257,7 +235,7 @@ const addproducts = () => {
     data: carData,
     error: carError,
     isLoading: carLoading,
-  } = useQuery(`getCarData${id}`, getPostDetil, {
+  } = useQuery(`getProductData${id}`, getPostDetil, {
     enabled: !!id, // Set enabled to false initially
   });
 
@@ -302,8 +280,38 @@ const addproducts = () => {
     }
   }, []);
 
+  const fetchBrandList = async () => {
+    const res = await axios.get(`${BASE_URL}/brand-list`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res?.data[1]?.data;
+    };
 
+  const {
+    data: BrandList,
+    error: brandError,
+    isLoading,
+  } = useQuery(`brandsListinaddproduct`, fetchBrandList);
 
+  console.log(prevImg)
+
+  const fetchCategoryList = async () => {
+    const res = await axios.get(`${BASE_URL}/product-categories`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return res?.data[1];
+    };
+
+  const {
+    data: CategoryList,
+    error: categoryError,
+    isLoading:categoryLoading,
+  } = useQuery(`categoryListinaddproduct`, fetchCategoryList);
+  
   useEffect(() => {
     setAutomaticHeadLamps(comfort?.automaticHeadLamps);
     setTyrePressureMonitoringSystem(comfort?.tyrePressureMonitoringSystem);
@@ -378,14 +386,50 @@ const addproducts = () => {
 
   const token = localStorage.getItem("authToken");
 
-
   console.log("newFiles === >>. ",newFiles)
 
-  const coverChange = (e: any) => {
+  const coverChange = async (e: any) => {
+
+
+
+
+
     const file = e.target.files[0];
-    setCoverImage(file);
+
+    try {
+      const formData: any = new FormData();
+      // formData.append("imagesList", null);
+      formData.append(`product_token`, updateToken ? updateToken : postToken);
+
+        formData.append(`file[]`, file);
+    
+
+   
+
+      const response = await axios.post(`${BASE_URL}/save-product-images`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
+
+      console.log(response?.data?.product_images[0])
+
+      setCoverImage(response?.data?.product_images[0]);
+
+
+      setPrevImg(`${response?.data?.imagepath}/${response?.data?.product_images[0]}`)
+  
+    } catch (error) {
+  console.log(error)
+}
+
+
 
     const reader = new FileReader();
+
+
+
 
     reader.onload = () => {
       const imageSrc = reader.result;
@@ -398,7 +442,7 @@ const addproducts = () => {
     e.preventDefault();
     const formData = new FormData();
 
-    if (files.length !== 0 || uploadedImages.length !== 0) {
+    if (files?.length !== 0 || uploadedImages?.length !== 0) {
       
 
       formData.append(`product_title`, title);
@@ -407,11 +451,14 @@ const addproducts = () => {
       formData.append(`product_cover`, coverImage);
       formData.append(`product_actual_price`, price);
       formData.append(`product_discounted_price`, discountedPrice);
+      formData.append(`brand_id`, brand);
+      formData.append(`product_category_id`, category);
       if (id) {
-        formData.append(`newcarpost_id`, `${id}`);
+        formData.append(`product_id`, `${id}`);
+        formData.append(`product_token`, `${updateToken}`);
       }
 
-      if (uploadedImages.length !== 0) {
+      if (uploadedImages?.length !== 0) {
         moreImages.forEach((image: any) => {
           formData.append(`product_images[]`, image.filename);
         });
@@ -427,7 +474,7 @@ const addproducts = () => {
       try {
         const response = await axios.post(
           `${BASE_URL}/${
-            updateToken ? "savenewcarpostupdate" : "add-product"
+            updateToken ? "edit-product" : "add-product"
           }`,
           formData,
           {
@@ -439,7 +486,7 @@ const addproducts = () => {
         );
 
         toast.success(response?.data?.message);
-        router.push(`/${i18LangStatus}/new_car/carpostlist`);
+        router.push(`/${i18LangStatus}/products/all-products`);
       } catch (error) {
         console.log(error);
       } finally {
@@ -550,7 +597,7 @@ const addproducts = () => {
                   className="img-fluid"
                 />
               ) : (
-                <img src={prevImg} alt="cover-image" className="img-fluid" />
+                <img src={prevImg} alt={prevImg ? prevImg : "cover-image"} className="img-fluid"/>
               )}
 
               <Button
@@ -596,6 +643,8 @@ const addproducts = () => {
               </FormGroup>
             </Col>
 
+
+           
             <Col lg="3" md="6">
               <FormGroup>
                 <Label check>Title</Label>
@@ -685,71 +734,59 @@ const addproducts = () => {
               </FormGroup>
             </Col> */}
 
-            {/* {yearName && (
-              <Col lg="3" md="6">
-                <FormGroup>
-                  <Label check>{Varient}</Label>
-                  {variants?.length > 0 && (
-                    <Input
-                      required
-                      name="varient"
-                      type="select"
-                      disabled={variants?.length > 0 ? false : true}
-                      placeholder={`Select ${modelName} Varient`}
-                      className="form-control form-select"
-                      onChange={(e: any) => setVarient(e.target.value)}
-                      value={varient}
-                    >
-                      <option value="" disabled>
-                        Select {modelName} Variant
-                      </option>
-                      {variants &&
-                        variants.map((item: any) => (
-                          <option key={item.featuresId} value={item.featuresId}>
-                            {item.featureName}
-                          </option>
-                        ))}
-                    </Input>
-                  )}
-
-                  {modelName && yearName !== " " && variants?.length === 0 && (
-                    <Input
-                      required
-                      name="varient"
-                      type="text"
-                      className="form-control"
-                      placeholder="Varient"
-                      onChange={(e: any) => setVarient(e.target.value)}
-                      value={varient}
-                    />
-                  )}
-                </FormGroup>
-              </Col>
-            )}
-
+           
             <Col lg="3" md="6">
               <FormGroup>
-                <Label>City</Label>
+                <Label>Brand</Label>
                 <Input
                   required
-                  name="bodyType"
+                  name="brand"
                   type="select"
-                  placeholder={BodyType}
+                  placeholder={"Brand"}
                   className="form-control form-select"
-                  onChange={(e: any) => setBodytype(e.target.value)}
-                  value={bodyType}
+                  onChange={(e: any) => setBrand(e.target.value)}
+                  value={brand}
                 >
-                  <option value="" disabled>
-                    Select BodyType
+                  <option value="" disabled selected>
+                    Select Brand
                   </option>
-                  {bodyTypes?.map((body: any) => (
-                    <option key={body?.bodytype_id} value={body?.bodytype_id}>
-                      {body.bodytype_name}
+                  {BrandList?.map((brand: any) => (
+                    <option key={brand?.brand_id} value={brand?.brand_id}>
+                      {brand.brand_name}
                     </option>
                   ))}
                 </Input>
               </FormGroup>
-            </Col> */}
+            </Col>
+
+
+            <Col lg="3" md="6">
+              <FormGroup>
+                <Label>Category</Label>
+                <Input
+                  required
+                  name="category"
+                  type="select"
+                  placeholder={"Category"}
+                  className="form-control form-select"
+                  onChange={(e: any) => setCategory(e.target.value)}
+                  value={category}
+                >
+                  <option value="" disabled selected>
+                    Select Category
+                  </option>
+                  {CategoryList?.map((category: any) => (
+                    <option key={category?.category_id} value={category?.category_id}>
+                      {category.category_name}
+                    </option>
+                  ))}
+                </Input>
+              </FormGroup>
+            </Col>
+
+
+
+
 
             <Col lg="3" md="6">
               <FormGroup>
@@ -787,16 +824,6 @@ const addproducts = () => {
             <Col>
               <FormGroup>
                 <Label check>{Description}</Label>
-                {/* <Input
-                  required
-                  name="description"
-                  type="textarea"
-                  className="form-control"
-                  rows={3}
-                  placeholder={"Detailed Overview"}
-                  onChange={(e: any) => setDescription(e.target.value)}
-                  value={description}
-                /> */}
                 <Editor
                   placeholder={description}
                   onEditorDataChange={handleEditorDataChange}
