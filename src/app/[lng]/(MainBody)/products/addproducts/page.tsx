@@ -149,11 +149,17 @@ const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 interface ImageData {
   id: string; // Adjust the type based on your actual data structure
-  filename: string; // Adjust the type based on your actual data structure
+  image_name: string; // Adjust the type based on your actual data structure
   // Add other properties as needed
 }
 
 const addproducts = () => {
+
+  const extractTokenFromUrl = (url: string, paramName: string) => {
+    const urlSearchParams = new URLSearchParams(url);
+    return urlSearchParams.get(paramName);
+  };
+
   const router = useRouter();
   const { i18LangStatus } = useAppSelector((state) => state.langSlice);
 
@@ -162,14 +168,9 @@ const addproducts = () => {
   const [updateToken, setUpdateToken] = useState("");
 
   const [postToken, setPostToken] = useState("");
+  const [imagePath, setImagePath] = useState("");
 
-  const [automaticHeadLamps, setAutomaticHeadLamps] = useState("false");
-  const [tyrePressureMonitoringSystem, setTyrePressureMonitoringSystem] =
-    useState("false");
-  const [passengerSeatElectricAdjustment, setPassengerSeatElectricAdjustment] =
-    useState("false");
-
-  const [coverImage, setCoverImage] = useState("-");
+  const [coverImage, setCoverImage] = useState("");
   const [title, setTitle] = useState("");
 
   const [price, setPrice] = useState<number | any>();
@@ -193,8 +194,6 @@ const addproducts = () => {
   const [category, setCategory] = useState<string | any>(null);
 
   // for parsing data
-
-  const [comfort, setComfort] = useState<object | any>({});
 
   const generateToken = () => {
     const newToken = uuidv4().replace(/-/g, "").slice(0, 12);
@@ -221,7 +220,7 @@ const addproducts = () => {
       setBrand(response?.data?.products?.brand_id)
       setCategory(response?.data?.products?.product_category_id)
       setCoverImage(response?.data?.products?.product_cover)
-      setPrevImg(`${response?.data?.imagepath}/${response?.data?.products?.product_token}/${response?.data?.products?.product_cover}`)
+      setImagePath(`${response?.data?.imagepath}/${response?.data?.products?.product_token}/`)
 
       setUpdateToken(response?.data?.products?.product_token);
     
@@ -232,43 +231,14 @@ const addproducts = () => {
   };
 
   const {
-    data: carData,
+    data: productData,
     error: carError,
     isLoading: carLoading,
   } = useQuery(`getProductData${id}`, getPostDetil, {
     enabled: !!id, // Set enabled to false initially
   });
 
-  // const getPostImages = async () => {
-  //   try {
-  //     const response = await axios.get(`${BASE_URL}/postimages`, {
-  //       params: {
-  //         post_id: updateToken || postToken,
-  //       },
-  //     });
 
-  //     setUploadedImages(response?.data?.images);
-  //     setMoreImages(response?.data?.images);
-  //     setImagesPath(response?.data?.imagepath);
-
-  //     return response?.data;
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const {
-  //   data: newImages,
-  //   error: imgError,
-  //   isLoading: imgLoading,
-  // } = useQuery(`getCarImgs_${getUpdate}`, getPostImages, {
-  //   enabled: !!updateToken,
-  // });
-
-  const extractTokenFromUrl = (url: string, paramName: string) => {
-    const urlSearchParams = new URLSearchParams(url);
-    return urlSearchParams.get(paramName);
-  };
 
   useEffect(() => {
     const url = window.location.search;
@@ -312,14 +282,6 @@ const addproducts = () => {
     isLoading:categoryLoading,
   } = useQuery(`categoryListinaddproduct`, fetchCategoryList);
   
-  useEffect(() => {
-    setAutomaticHeadLamps(comfort?.automaticHeadLamps);
-    setTyrePressureMonitoringSystem(comfort?.tyrePressureMonitoringSystem);
-    setPassengerSeatElectricAdjustment(
-      comfort?.passengerSeatElectricAdjustment
-    );
-  }, [carData]);
-
   const updateFiles = async (incomingFiles: any) => {
     setFiles(incomingFiles);
     setMoreImages(incomingFiles);
@@ -354,7 +316,7 @@ const addproducts = () => {
   };
 
   const removeFile = async (name: any, index: number) => {
-    setFiles(files.filter((x: ExtFile) => x.id !== id));
+    // setFiles(files.filter((x: ExtFile) => x.id !== id));
 
     files.splice(index, 1);
 
@@ -365,6 +327,9 @@ const addproducts = () => {
 
     newFiles.splice(index, 1);
     setNewFiles([...newFiles]);
+
+    uploadedImages.splice(index, 1);
+    setUploadedImages([...uploadedImages]);
 
     // try {
     //   const response = await axios.get(`${BASE_URL}/deleteImages`, {
@@ -384,15 +349,52 @@ const addproducts = () => {
     // }
   };
 
+
+  const getProductImages = async () => {
+    const formData = new FormData();
+
+    formData.append("product_token", updateToken);
+
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/product-images `,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      setUploadedImages(response?.data?.product_images);
+      setMoreImages(response?.data?.product_images);
+      setNewFiles(response?.data?.product_images);
+
+
+      return response?.data;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const {
+    data: images,
+    error: imagesError,
+    isLoading: imagesLoading,
+  } = useQuery(`single_products_images_${updateToken}`, getProductImages, {
+    enabled: !!updateToken,
+  });
+
+
+
+
+
+
   const token = localStorage.getItem("authToken");
 
   console.log("newFiles === >>. ",newFiles)
 
   const coverChange = async (e: any) => {
-
-
-
-
 
     const file = e.target.files[0];
 
@@ -424,12 +426,7 @@ const addproducts = () => {
   console.log(error)
 }
 
-
-
     const reader = new FileReader();
-
-
-
 
     reader.onload = () => {
       const imageSrc = reader.result;
@@ -507,6 +504,8 @@ const addproducts = () => {
     setDescription(data);
   };
 
+  console.log(`${imagePath}/${coverImage}`)
+
   return (
     <>
       {submitting ? (
@@ -545,7 +544,7 @@ const addproducts = () => {
                   {files?.map((file: ImageData, ind) => {
                     return (
                       <FileMosaic
-                        key={file.id}
+                        key={ind}
                         {...file}
                         onDelete={() => removeFile(file, ind)}
                         preview
@@ -564,16 +563,16 @@ const addproducts = () => {
                       // <FileMosaic key={file.id} {...file} onDelete={removeFile} preview/>
                       <div className=" position-relative d-flex w-25" key={ind}>
                         <img
-                          src={`${imagesPath}/${updateToken || postToken}/${
-                            file?.filename
+                          src={`${imagePath || postToken}/${
+                            file?.image_name
                           }`}
                           className="img-fluid object-fit-contain rounded-4 "
-                          alt={file.filename}
+                          alt={file.image_name}
                         />
                         <i
                           className="icofont icofont-close-circled rounded-pill bg-primary fs-6 position-absolute top-0 z-3 m-1"
                           style={{ right: "0%", cursor: "pointer" }}
-                          onClick={() => removeFile(file.filename, ind)}
+                          onClick={() => removeFile(file.image_name, ind)}
                         ></i>
                       </div>
                     );
@@ -592,7 +591,7 @@ const addproducts = () => {
             <div className="modal-toggle-wrapper">
               {updateToken ? (
                 <img
-                  src={`${BASE_URL}/public/posts/${updateToken}/${carData?.newcarpost_cover}`}
+                  src={`${imagePath}/${coverImage}`}
                   alt="cover-image"
                   className="img-fluid"
                 />

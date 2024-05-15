@@ -12,11 +12,12 @@ import RatioImage from "@/CommonComponent/RatioImage";
 import axios from "axios";
 import { useQuery } from "react-query";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const BASE_URL = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
 const ProductGrid = () => {
-const router = useRouter()
+  const router = useRouter();
 
   // const { productItem } = useAppSelector((state) => state.product);
   const token = localStorage.getItem("authToken");
@@ -48,34 +49,36 @@ const router = useRouter()
     setDataId(i.product_id);
   };
 
-  const handleDelete = async (item:any)=>{
-const formData = new FormData()
+  const handleDelete = async (item: any) => {
+    const formData = new FormData();
 
-formData.append("product_id",item?.product_id)
+    formData.append("product_id", item?.product_id);
 
-try {
-  const response = await axios.post(`${BASE_URL}/delete-product`,formData,{
-    headers:{
-      Authorization:`Bearer ${token}`
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/delete-product`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      toast.success("Product Deleted Successfully");
+
+      console.log(response?.data);
+      if (response?.data) {
+        setIsDelete(true);
+      }
+    } catch (error) {
+      console.log(error);
     }
-  })
+  };
 
-console.log(response?.data)
-if (response?.data) { 
-  setIsDelete(true)
-}
-} catch (error) {
-  console.log(error)
-}
-
-  }
-
-
-  const handleEdit = (item:any)=>{
-
-    router.push(`/en/products/addproducts?id=${item?.product_id}`)
-  }
-
+  const handleEdit = (item: any) => {
+    router.push(`/en/products/addproducts?id=${item?.product_id}`);
+  };
 
   return (
     <div className={`product-wrapper-grid ${listView ? "list-view" : ""}`}>
@@ -106,17 +109,29 @@ if (response?.data) {
                       <div className="product-hover">
                         <ul>
                           <li>
-                            <Button color="transparent" className="border-0" onClick={()=>handleEdit(item)}>
+                            <Button
+                              color="transparent"
+                              className="border-0"
+                              onClick={() => handleEdit(item)}
+                            >
                               <i className="icofont icofont-ui-edit"></i>
                             </Button>
                           </li>
                           <li>
-                            <Button color="transparent" className="border-0" onClick={()=>handleDelete(item)}>
+                            <Button
+                              color="transparent"
+                              className="border-0"
+                              onClick={() => handleDelete(item)}
+                            >
                               <i className="icon-trash"></i>{" "}
                             </Button>
                           </li>
                           <li>
-                            <Button color="transparent" className="border-0" onClick={()=>onClickHandle(item)}>
+                            <Button
+                              color="transparent"
+                              className="border-0"
+                              onClick={() => onClickHandle(item)}
+                            >
                               <i className="icon-eye"></i>
                             </Button>
                           </li>

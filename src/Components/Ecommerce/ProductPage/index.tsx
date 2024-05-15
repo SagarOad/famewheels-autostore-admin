@@ -79,15 +79,15 @@ const ProductPageContainer = () => {
     error: imgError,
     isLoading: imgLoading,
   } = useQuery(`single_products_images_${token}`, getPostImages, {
-    enabled: !!token,
+    enabled: !!id,
   });
 
   return (
     <Container fluid>
       {isLoading ? (
         <Loading />
-        // <></>
       ) : (
+        // <></>
         <div>
           <Row>
             <ImageSlider
