@@ -21,7 +21,7 @@ const addbrand = () => {
 
   const [updateToken, setUpdateToken] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [selectedMakeIds, setSelectedMakeIds] = useState([]);
+  const [selectedMakeIds, setSelectedMakeIds] = useState<number[] |any[]>([]);
 console.log(selectedMakeIds);
 
   const [brandId, setBrandId] = useState("");
@@ -30,7 +30,7 @@ console.log(selectedMakeIds);
   const [makeId, setMakeId] = useState("");
   const [makeName, setMakeName] = useState("");
   const [makesData, setMakesData] = useState<any[]>([]);
-  const [id,setId] = useState<string | any>()
+  const [id,setId] = useState<number | any>()
 
 
   const extractTokenFromUrl = (url: string, paramName: string) => {
@@ -40,12 +40,46 @@ console.log(selectedMakeIds);
 
   useEffect(() => {
     const url = window.location.search;
-    const ID = extractTokenFromUrl(url, "id");
+    const ID:any = extractTokenFromUrl(url, "id");
     setId(ID);
     // Call the function when the component mounts
     if (!id) {
+      return;
     }
   }, []);
+
+console.log(id)
+
+const brandDetail = async ()=>{
+  const formData = new FormData()
+  formData.append('brand_id',id)
+  try {
+    const response = await axios.post(`${BASE_URL}/show-brand`,formData,{
+      headers:{
+        Authorization:`Bearer ${token}`
+      }
+    })
+
+setBrandName(response?.data?.brand_name)
+
+    const makes: any[] = JSON.parse(response?.data?.make_id);
+    makes?.forEach((make: any) => {
+      setSelectedMakeIds(prevIds => [...prevIds, parseInt(make)]);
+    });
+    
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+const {
+  data: BrandData,
+  error: brandDataError,
+  isLoading: brandDataLoading,
+} = useQuery(`Brand_Detail_${id}`, brandDetail,{
+  enabled: !!id,
+});
 
 
   const fetchBrands = async () => {
@@ -88,7 +122,6 @@ console.log(selectedMakeIds);
     value: make.makeId,
   }));
 
-  useEffect(() => {}, [CartData]);
 
   const token = localStorage.getItem("authToken");
 
@@ -166,6 +199,7 @@ try {
 
 }
 
+console.log(selectedMakeIds)
 
   return (
     <>
@@ -183,7 +217,7 @@ try {
                   name="brand"
                   type="text"
                   placeholder="Select Brand"
-                  className="form-control form-select"
+                  className="form-control"
                   onChange={(e: any) => setBrandName(e.target.value)}
                   value={brandName}
                 >
@@ -202,18 +236,24 @@ try {
               <FormGroup>
                 <Label>Make Name</Label>
                 <Select
-                  isMulti
-                  options={makesList?.map((make: any) => ({
-                    label: make.makeName,
-                    value: make.makeId,
-                  }))}
-                  onChange={(selectedOptions: any) => {
-                    const selectedMakeIds = selectedOptions.map(
-                      (option: any) => option.value
-                    );
-                    setSelectedMakeIds(selectedMakeIds);
-                  }}
-                />
+  isMulti
+  options={makesList?.map((make: any) => ({
+    label: make.makeName,
+    value: make.makeId,
+  }))}
+  onChange={(selectedOptions: any) => {
+    const selectedMakeIds = selectedOptions.map(
+      (option: any) => option.value
+    );
+    setSelectedMakeIds(selectedMakeIds);
+  }}
+  value={makesList?.filter((make: any) =>
+    selectedMakeIds?.includes(make.makeId)
+  ).map((make: any) => ({
+    label: make.makeName,
+    value: make.makeId,
+  }))}
+/>
               </FormGroup>
             </Col>
           </Row>

@@ -208,9 +208,6 @@ export interface Products {
 export interface Categories {
   category_id: number;
   category_name: string;
-  quantity: string;
-  sale: string;
-  start_date: string;
 }
 export interface Make {
   make_id: number;
